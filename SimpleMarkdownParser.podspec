@@ -30,10 +30,10 @@ Easy to use, convert markdown to attributed strings and place it on a UILabel. H
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'SimpleMarkdownParser/Classes/**/*'
+  s.source_files = 'MarkdownIOS/SimpleMarkdownParser/Classes/**/*'
   
   # s.resource_bundles = {
-  #   'SimpleMarkdownParser' => ['SimpleMarkdownParser/Assets/*.png']
+  #   'SimpleMarkdownParser' => ['MarkdownIOS/SimpleMarkdownParser/Assets/*.png']
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
