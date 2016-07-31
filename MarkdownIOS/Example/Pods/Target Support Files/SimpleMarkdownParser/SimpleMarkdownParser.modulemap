@@ -1,0 +1,6 @@
+framework module SimpleMarkdownParser {
+  umbrella header "SimpleMarkdownParser-umbrella.h"
+
+  export *
+  module * { export * }
+}
