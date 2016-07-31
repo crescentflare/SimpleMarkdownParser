@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Example Markdown Parser</string>
+    <string-array name="markdown_test">
+        <item># First chapter</item>
+        <item>This text can be either __bold__ or *italics*.</item>
+        <item>A combination is ***also possible***.</item>
+        <item>### Small heading</item>
+        <item>With a \\*single\\* line of ~~strike through~~ text.</item>
+        <item>""</item>
+        <item>A new paragraph starts here.</item>
+        <item>""</item>
+        <item>1. First item</item>
+        <item>2. Second item</item>
+        <item>"  * First nested bullet item"</item>
+        <item>"  * Second nested bullet item with a longer set of text to make it wrap around to a new line"</item>
+        <item>""</item>
+        <item>Testing a link to [github](https://github.com/crescentflare/SimpleMarkdownParser).</item>
+    </string-array>
+</resources>

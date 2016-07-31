@@ -1,0 +1,86 @@
+apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'SimpleMarkdownParserLib'
+
+    publishedGroupId = 'com.crescentflare.simplemarkdownparser'
+    libraryName = 'SimpleMarkdownParser'
+    artifact = 'SimpleMarkdownParserLib'
+
+    libraryDescription = 'A multi-functional and easy way to integrate markdown formatting within Android apps'
+
+    siteUrl = 'https://github.com/crescentflare/SimpleMarkdownParser'
+    gitUrl = 'https://github.com/crescentflare/SimpleMarkdownParser.git'
+
+    libraryVersion = '0.4.0'
+
+    developerId = 'crescentflare'
+    developerName = 'Crescent Flare Apps'
+    developerEmail = 'info@crescentflare.com'
+
+    licenseName = 'The MIT License (MIT)'
+    licenseUrl = 'https://opensource.org/licenses/MIT'
+    allLicenses = ["MIT"]
+}
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion '23.0.2'
+
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 22
+        versionCode 1
+        versionName "0.4.0"
+        project.version "0.4.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles.add(file('proguard-rules.txt'))
+        }
+    }
+}
+
+dependencies {
+    compile project(':SimpleMarkdownParserCoreLib')
+    testCompile 'junit:junit:4.12'
+}
+
+android.libraryVariants.all { variant ->
+    Action copyClassesAction = new Action() {
+        @Override
+        void execute(Object o) {
+            String version = "0.4.0"
+            String variantLibsDir = getBuildDir().absolutePath + "/intermediates/bundles/" + variant.name + "/libs"
+            String variantJniDir = getBuildDir().absolutePath + "/intermediates/bundles/" + variant.name + "/jni"
+            String explodedJarDir = getBuildDir().absolutePath + "/intermediates/exploded-aar/MarkdownAndroid/SimpleMarkdownParserCoreLib/" + version + "/jars"
+            String explodedJniDir = getBuildDir().absolutePath + "/intermediates/exploded-aar/MarkdownAndroid/SimpleMarkdownParserCoreLib/" + version + "/jni"
+
+            File sourceJar = new File(explodedJarDir + "/classes.jar")
+            File destinationJar = new File(variantLibsDir + "/SimpleMarkdownParserCoreLib.jar")
+            destinationJar.bytes = sourceJar.bytes
+
+            String[] eabiDirs = new File(explodedJniDir).list()
+            for (int i = 0; i < eabiDirs.length; i++) {
+                String[] fileDirs = new File(explodedJniDir + "/" + eabiDirs[i]).list()
+                new File(variantJniDir + "/" + eabiDirs[i]).mkdirs()
+                for (int j = 0; j < fileDirs.length; j++) {
+                    File sourceJni = new File(explodedJniDir + "/" + eabiDirs[i] + "/" + fileDirs[j])
+                    File destinationJni = new File(variantJniDir + "/" + eabiDirs[i] + "/" + fileDirs[j])
+                    destinationJni.bytes = sourceJni.bytes
+                }
+            }
+        }
+    }
+
+    variant.outputs.each { output ->
+        output.packageLibrary.doFirst(copyClassesAction)
+    }
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

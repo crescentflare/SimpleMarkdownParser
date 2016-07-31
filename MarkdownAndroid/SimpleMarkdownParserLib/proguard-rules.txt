@@ -1,0 +1,1 @@
+../SimpleMarkdownParserLibDev/proguard-rules.txt
