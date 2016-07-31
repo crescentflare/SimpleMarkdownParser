@@ -1,0 +1,4 @@
+include 'SimpleMarkdownParserCoreLib'
+include 'SimpleMarkdownParserLibDev'
+include 'SimpleMarkdownParserExample'
+include 'SimpleMarkdownParserLib'
