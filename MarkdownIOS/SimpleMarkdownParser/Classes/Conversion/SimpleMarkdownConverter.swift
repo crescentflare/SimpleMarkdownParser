@@ -21,7 +21,7 @@ public class SimpleMarkdownConverter {
         var skipTags = 0
         for i in 0..<foundTags.count {
             if skipTags > 0 {
-                skipTags--
+                skipTags -= 1
                 continue
             }
             let sectionTag = foundTags[i]
@@ -34,11 +34,11 @@ public class SimpleMarkdownConverter {
                     htmlString += listCount[listCount.count - 1] == 0 ? "</ol>" : "</ul>"
                     listCount.removeAtIndex(listCount.count - 1)
                 }
-                for j in listCount.count..<sectionTag.weight {
+                for _ in listCount.count..<sectionTag.weight {
                     listCount.append(sectionTag.type == .OrderedList ? 0 : 1)
                     htmlString += sectionTag.type == .OrderedList ? "<ol>" : "<ul>"
                 }
-                for j in listCount.count.stride(to: sectionTag.weight, by: -1) {
+                for _ in listCount.count.stride(to: sectionTag.weight, by: -1) {
                     htmlString += listCount[listCount.count - 1] == 0 ? "</ol>" : "</ul>"
                     listCount.removeAtIndex(listCount.count - 1)
                 }
@@ -53,26 +53,27 @@ public class SimpleMarkdownConverter {
             } else if sectionTag.type == .Paragraph {
                 let nextNormal = i + 1 < foundTags.count && foundTags[i + 1].type == .Normal
                 if prevSectionType == .Normal && nextNormal {
-                    for j in 0..<sectionTag.weight + 1 {
+                    for _ in 0..<sectionTag.weight + 1 {
                         htmlString += "<br/>"
                     }
                 }
                 addedParagraph = true
-                for j in listCount.count.stride(to: 0, by: -1) {
+                for _ in listCount.count.stride(to: 0, by: -1) {
                     htmlString += listCount[listCount.count - 1] == 0 ? "</ol>" : "</ul>"
                     listCount.removeAtIndex(listCount.count - 1)
                 }
             }
             prevSectionType = sectionTag.type
         }
-        for j in listCount.count.stride(to: 0, by: -1) {
+        for _ in listCount.count.stride(to: 0, by: -1) {
             htmlString += listCount[listCount.count - 1] == 0 ? "</ol>" : "</ul>"
             listCount.removeAtIndex(listCount.count - 1)
         }
         return htmlString;
     }
     
-    private static func appendHtmlString(parser: SimpleMarkdownParser, inout handledTags: [MarkdownTag], var htmlString: String, markdownText: String, foundTags: [MarkdownTag], start: Int) -> String {
+    private static func appendHtmlString(parser: SimpleMarkdownParser, inout handledTags: [MarkdownTag], htmlString: String, markdownText: String, foundTags: [MarkdownTag], start: Int) -> String {
+        var adjustedHtmlString = htmlString
         let curTag = foundTags[start]
         var intermediateTag: MarkdownTag? = nil
         var processingTag: MarkdownTag? = nil
@@ -89,17 +90,17 @@ public class SimpleMarkdownConverter {
                     processingTag!.weight = curTag.weight
                     processingTag!.startExtra = curTag.startExtra
                     processingTag!.endExtra = curTag.endExtra
-                    processingTag!.startText = htmlString.endIndex
-                    htmlString += parser.extractTextBetween(markdownText, startTag: curTag, endTag: nextTag!, mode: .StartToNext)
-                    processingTag!.endText = htmlString.endIndex
+                    processingTag!.startText = adjustedHtmlString.endIndex
+                    adjustedHtmlString += parser.extractTextBetween(markdownText, startTag: curTag, endTag: nextTag!, mode: .StartToNext)
+                    processingTag!.endText = adjustedHtmlString.endIndex
                 } else {
-                    htmlString += parser.extractTextBetween(markdownText, startTag: intermediateTag!, endTag: nextTag!, mode: .IntermediateToNext)
-                    processingTag!.endText = htmlString.endIndex
+                    adjustedHtmlString += parser.extractTextBetween(markdownText, startTag: intermediateTag!, endTag: nextTag!, mode: .IntermediateToNext)
+                    processingTag!.endText = adjustedHtmlString.endIndex
                 }
                 let prevHandledTagSize = handledTags.count
-                htmlString += getHtmlTag(parser, markdownText: markdownText, tag: nextTag!, closingTag: false)
-                htmlString = appendHtmlString(parser, handledTags: &handledTags, htmlString: htmlString, markdownText: markdownText, foundTags: foundTags, start: checkPosition)
-                htmlString += getHtmlTag(parser, markdownText: markdownText, tag: nextTag!, closingTag: true)
+                adjustedHtmlString += getHtmlTag(parser, markdownText: markdownText, tag: nextTag!, closingTag: false)
+                adjustedHtmlString = appendHtmlString(parser, handledTags: &handledTags, htmlString: adjustedHtmlString, markdownText: markdownText, foundTags: foundTags, start: checkPosition)
+                adjustedHtmlString += getHtmlTag(parser, markdownText: markdownText, tag: nextTag!, closingTag: true)
                 intermediateTag = foundTags[checkPosition]
                 checkPosition += handledTags.count - prevHandledTagSize
                 processing = true
@@ -111,16 +112,16 @@ public class SimpleMarkdownConverter {
                     processingTag!.weight = curTag.weight
                     processingTag!.startExtra = curTag.startExtra
                     processingTag!.endExtra = curTag.endExtra
-                    processingTag!.startText = htmlString.endIndex
-                    htmlString += parser.extractText(markdownText, tag: curTag)
-                    processingTag!.endText = htmlString.endIndex
+                    processingTag!.startText = adjustedHtmlString.endIndex
+                    adjustedHtmlString += parser.extractText(markdownText, tag: curTag)
+                    processingTag!.endText = adjustedHtmlString.endIndex
                 } else {
-                    htmlString += parser.extractTextBetween(markdownText, startTag: intermediateTag!, endTag: curTag, mode: .IntermediateToEnd)
-                    processingTag!.endText = htmlString.endIndex
+                    adjustedHtmlString += parser.extractTextBetween(markdownText, startTag: intermediateTag!, endTag: curTag, mode: .IntermediateToEnd)
+                    processingTag!.endText = adjustedHtmlString.endIndex
                 }
             }
         }
-        return htmlString
+        return adjustedHtmlString
     }
 
     private static func getHtmlTag(parser: SimpleMarkdownParser, markdownText: String, tag: MarkdownTag, closingTag: Bool) -> String {
@@ -181,13 +182,13 @@ public class SimpleMarkdownConverter {
         // Handle tags and do the conversion
         let parser = obtainParser(markdownText)
         let foundTags = parser.findTags(markdownText)
-        var attributedString = NSMutableAttributedString()
+        let attributedString = NSMutableAttributedString()
         var listCount: [Int] = []
         var addedParagraph = true
         var skipTags = 0
         for i in 0..<foundTags.count {
             if skipTags > 0 {
-                skipTags--
+                skipTags -= 1
                 continue
             }
             let sectionTag = foundTags[i]
@@ -195,10 +196,10 @@ public class SimpleMarkdownConverter {
                 attributedString.appendAttributedString(NSAttributedString(string: "\n"))
             }
             if sectionTag.type == .OrderedList || sectionTag.type == .UnorderedList {
-                for j in listCount.count..<sectionTag.weight {
+                for _ in listCount.count..<sectionTag.weight {
                     listCount.append(0)
                 }
-                for j in listCount.count.stride(to: sectionTag.weight, by: -1) {
+                for _ in listCount.count.stride(to: sectionTag.weight, by: -1) {
                     listCount.removeAtIndex(listCount.count - 1)
                 }
                 if sectionTag.type == .OrderedList {
