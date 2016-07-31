@@ -7,22 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01DD72BD304E96F48E9972643937CDDB /* SimpleMarkdownParserSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5831A99F7500268469ACBB9947EE4FB /* SimpleMarkdownParserSwift.swift */; };
+		01DD72BD304E96F48E9972643937CDDB /* SimpleMarkdownParserSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D56EAD60568702B05D1C3E120A83BB /* SimpleMarkdownParserSwift.swift */; };
 		15A717A9E3B1BB8F6D28C4FF07A6113E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
-		23230D25A10145281A68D9A19A5C27A2 /* MarkdownAttributedStringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85308CDFB9F3ED17CC3D5C90D4B69BC /* MarkdownAttributedStringGenerator.swift */; };
+		23230D25A10145281A68D9A19A5C27A2 /* MarkdownAttributedStringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25FEF5686722AEFA0957C072DD09C4A /* MarkdownAttributedStringGenerator.swift */; };
 		385EF8F15A5F42C6A76A52F59FB796A5 /* Pods-SimpleMarkdownParser_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 058B36D0DE2DF9026B95D3CCC4674084 /* Pods-SimpleMarkdownParser_Tests-dummy.m */; };
 		38D01AE6EE51BB023B17CC47F51E2E23 /* Pods-SimpleMarkdownParser_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F6195D2C4640BD6EF93F5A2ED13B8DEE /* Pods-SimpleMarkdownParser_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41BC64D573E67E684F2827AED8E1D57C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
 		48801E9BDBB674F7CEE960F9523DBE9C /* Pods-SimpleMarkdownParser_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A49C97AC19755B00ADDEBCB8E36822BA /* Pods-SimpleMarkdownParser_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4A4FCC05061473BFD0681305BED47C61 /* SimpleMarkdownConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383C98531124FC25E93B5476D19BAA2 /* SimpleMarkdownConverter.swift */; };
-		6F47E3213338E4657216E250500F6943 /* SimpleMarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C0BB42B7C76D621F99CA7DDE0C447F /* SimpleMarkdownParser.swift */; };
+		4A4FCC05061473BFD0681305BED47C61 /* SimpleMarkdownConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B36A1639CD0F77AE1A111C65F08C1B8 /* SimpleMarkdownConverter.swift */; };
+		6F47E3213338E4657216E250500F6943 /* SimpleMarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07961706A2325D6C55B1262A44E85E2A /* SimpleMarkdownParser.swift */; };
 		705D308891A4E43BB841913A1C465D4B /* Pods-SimpleMarkdownParser_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE2713CA123BE84A9A61D017E30F84D /* Pods-SimpleMarkdownParser_Example-dummy.m */; };
-		98CD52EF7DFDAE02F4959FB3A0066C41 /* MarkdownTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F791E76E0AD695752C30FC45AAA0C2A /* MarkdownTag.swift */; };
-		AEFA47BEF021D8E531580E75E2753AD9 /* DefaultMarkdownAttributedStringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54B707B6A6516FC87BDF96FDAEB519 /* DefaultMarkdownAttributedStringGenerator.swift */; };
-		D501B6BEFE9FABB6C9B4F97D646B5300 /* SimpleMarkdownParser-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C5FA1DB6117149E12121F2574F9757D0 /* SimpleMarkdownParser-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D948FA8A78370E3BD380635B03554923 /* SimpleMarkdownParser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 34577BBCB93D80CF556505A1725928F5 /* SimpleMarkdownParser-dummy.m */; };
+		98CD52EF7DFDAE02F4959FB3A0066C41 /* MarkdownTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590DEE93CC94783B04CFB8AA4BD2634F /* MarkdownTag.swift */; };
+		AEFA47BEF021D8E531580E75E2753AD9 /* DefaultMarkdownAttributedStringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88177A295554444E0530D25ADD38F9DA /* DefaultMarkdownAttributedStringGenerator.swift */; };
+		D501B6BEFE9FABB6C9B4F97D646B5300 /* SimpleMarkdownParser-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 996B4DF2DD538E70E5E8DB08B78D8045 /* SimpleMarkdownParser-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D948FA8A78370E3BD380635B03554923 /* SimpleMarkdownParser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BAE197638340D8A281C3E1FD9BFEE9 /* SimpleMarkdownParser-dummy.m */; };
 		EFEEB7EE3C2A41996659A980695C39AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
-		F6961F9438407A482BEFE41F9FAEE203 /* TappableLinkExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCB02FC49566AE84ADA5DDC989E9CC9 /* TappableLinkExtension.swift */; };
+		F6961F9438407A482BEFE41F9FAEE203 /* TappableLinkExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85ECA0BBA5FB9E2F1117EC26D5B5357 /* TappableLinkExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,42 +36,42 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0383C98531124FC25E93B5476D19BAA2 /* SimpleMarkdownConverter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SimpleMarkdownConverter.swift; sourceTree = "<group>"; };
 		0563DDCE181347EE7C081FA230E1A3E6 /* Pods-SimpleMarkdownParser_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SimpleMarkdownParser_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		058B36D0DE2DF9026B95D3CCC4674084 /* Pods-SimpleMarkdownParser_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SimpleMarkdownParser_Tests-dummy.m"; sourceTree = "<group>"; };
 		05B5B7ADBC96C4B77067E64789CA846D /* Pods_SimpleMarkdownParser_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleMarkdownParser_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		07961706A2325D6C55B1262A44E85E2A /* SimpleMarkdownParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SimpleMarkdownParser.swift; sourceTree = "<group>"; };
 		08C74B77DFA1EB70139A33937C44CAB1 /* Pods-SimpleMarkdownParser_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SimpleMarkdownParser_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		0EE1ABDE4415D1A16B5DEB7AB595FF12 /* Pods-SimpleMarkdownParser_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SimpleMarkdownParser_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		1436460DF8C8F24AED411D4935B19363 /* Pods-SimpleMarkdownParser_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SimpleMarkdownParser_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		151224B34EB8626E4E75F1551A198702 /* Pods-SimpleMarkdownParser_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SimpleMarkdownParser_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		1CCB02FC49566AE84ADA5DDC989E9CC9 /* TappableLinkExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TappableLinkExtension.swift; sourceTree = "<group>"; };
+		17BAE197638340D8A281C3E1FD9BFEE9 /* SimpleMarkdownParser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SimpleMarkdownParser-dummy.m"; sourceTree = "<group>"; };
 		2D2BD31350A909CCB219EC2E4A28337C /* Pods-SimpleMarkdownParser_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SimpleMarkdownParser_Example.release.xcconfig"; sourceTree = "<group>"; };
-		33C0BB42B7C76D621F99CA7DDE0C447F /* SimpleMarkdownParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SimpleMarkdownParser.swift; sourceTree = "<group>"; };
-		34577BBCB93D80CF556505A1725928F5 /* SimpleMarkdownParser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SimpleMarkdownParser-dummy.m"; sourceTree = "<group>"; };
+		3496A901BD58A4EC150173822AD9A621 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BE2713CA123BE84A9A61D017E30F84D /* Pods-SimpleMarkdownParser_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SimpleMarkdownParser_Example-dummy.m"; sourceTree = "<group>"; };
 		3FE98BD1B9725FDA336BBC3FF401956E /* Pods-SimpleMarkdownParser_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SimpleMarkdownParser_Tests-resources.sh"; sourceTree = "<group>"; };
 		4BD4BF40BB8E437FA4DB64FBD58F7477 /* Pods-SimpleMarkdownParser_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SimpleMarkdownParser_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		5F54B707B6A6516FC87BDF96FDAEB519 /* DefaultMarkdownAttributedStringGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DefaultMarkdownAttributedStringGenerator.swift; sourceTree = "<group>"; };
-		6360FA11379106156AD8A16E53888369 /* SimpleMarkdownParser.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SimpleMarkdownParser.xcconfig; sourceTree = "<group>"; };
+		590DEE93CC94783B04CFB8AA4BD2634F /* MarkdownTag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownTag.swift; sourceTree = "<group>"; };
 		78FC7CCD5ED0893FD822A694C1013064 /* Pods-SimpleMarkdownParser_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SimpleMarkdownParser_Example.modulemap"; sourceTree = "<group>"; };
+		88177A295554444E0530D25ADD38F9DA /* DefaultMarkdownAttributedStringGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DefaultMarkdownAttributedStringGenerator.swift; sourceTree = "<group>"; };
+		8B36A1639CD0F77AE1A111C65F08C1B8 /* SimpleMarkdownConverter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SimpleMarkdownConverter.swift; sourceTree = "<group>"; };
 		8C780ACE3FEB0E5C483CB224FDCF23F1 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		900571E59F076984E76203EA979E2D5C /* Pods-SimpleMarkdownParser_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SimpleMarkdownParser_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9F791E76E0AD695752C30FC45AAA0C2A /* MarkdownTag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownTag.swift; sourceTree = "<group>"; };
+		996B4DF2DD538E70E5E8DB08B78D8045 /* SimpleMarkdownParser-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SimpleMarkdownParser-umbrella.h"; sourceTree = "<group>"; };
 		A49C97AC19755B00ADDEBCB8E36822BA /* Pods-SimpleMarkdownParser_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SimpleMarkdownParser_Example-umbrella.h"; sourceTree = "<group>"; };
 		A5EDB1BF92CD2A7E98861E3B0FC8F8A1 /* Pods-SimpleMarkdownParser_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SimpleMarkdownParser_Tests.modulemap"; sourceTree = "<group>"; };
-		A85308CDFB9F3ED17CC3D5C90D4B69BC /* MarkdownAttributedStringGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownAttributedStringGenerator.swift; sourceTree = "<group>"; };
 		A8C026D1D4E0C7C0F99F3F587680DD8D /* Pods-SimpleMarkdownParser_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SimpleMarkdownParser_Example-frameworks.sh"; sourceTree = "<group>"; };
-		B5831A99F7500268469ACBB9947EE4FB /* SimpleMarkdownParserSwift.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SimpleMarkdownParserSwift.swift; sourceTree = "<group>"; };
+		BA0B247066195198D6600D46850D58B4 /* SimpleMarkdownParser.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SimpleMarkdownParser.xcconfig; sourceTree = "<group>"; };
 		BB2EEB33DD10DF6257A5B50F626621CF /* Pods-SimpleMarkdownParser_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SimpleMarkdownParser_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		BDB0DE24E17B31BB118A2A521C2D6548 /* SimpleMarkdownParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimpleMarkdownParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C530794317AE1727B54CC24673E2059D /* SimpleMarkdownParser.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SimpleMarkdownParser.modulemap; sourceTree = "<group>"; };
-		C5FA1DB6117149E12121F2574F9757D0 /* SimpleMarkdownParser-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SimpleMarkdownParser-umbrella.h"; sourceTree = "<group>"; };
+		BF95D3BAA6487A5428F28272C1F7D3D1 /* SimpleMarkdownParser.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SimpleMarkdownParser.modulemap; sourceTree = "<group>"; };
+		C25FEF5686722AEFA0957C072DD09C4A /* MarkdownAttributedStringGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownAttributedStringGenerator.swift; sourceTree = "<group>"; };
 		CA79D6A7388F6D5687F437A3108DF261 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D2DE9372FE5590697B7F1543554A6585 /* Pods-SimpleMarkdownParser_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SimpleMarkdownParser_Example-resources.sh"; sourceTree = "<group>"; };
-		E399C2E0037459B5D543E150841215FC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E85914AF5B1D0972EF7288C85C59883C /* SimpleMarkdownParser-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SimpleMarkdownParser-prefix.pch"; sourceTree = "<group>"; };
+		D85ECA0BBA5FB9E2F1117EC26D5B5357 /* TappableLinkExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TappableLinkExtension.swift; sourceTree = "<group>"; };
+		E0D56EAD60568702B05D1C3E120A83BB /* SimpleMarkdownParserSwift.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SimpleMarkdownParserSwift.swift; sourceTree = "<group>"; };
+		F117F20AAE3E25BF7A0D71A3E6CF2B11 /* SimpleMarkdownParser-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SimpleMarkdownParser-prefix.pch"; sourceTree = "<group>"; };
 		F6195D2C4640BD6EF93F5A2ED13B8DEE /* Pods-SimpleMarkdownParser_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SimpleMarkdownParser_Tests-umbrella.h"; sourceTree = "<group>"; };
 		F818E2D84303608A4F1123CA15F28F2D /* Pods_SimpleMarkdownParser_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleMarkdownParser_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -104,14 +104,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		19B029435F2477E528BF6C43005D1153 /* Conversion */ = {
+		13150344BE65DF41ACC1BBB5BB7F7E7B /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				5F54B707B6A6516FC87BDF96FDAEB519 /* DefaultMarkdownAttributedStringGenerator.swift */,
-				A85308CDFB9F3ED17CC3D5C90D4B69BC /* MarkdownAttributedStringGenerator.swift */,
-				0383C98531124FC25E93B5476D19BAA2 /* SimpleMarkdownConverter.swift */,
+				D85ECA0BBA5FB9E2F1117EC26D5B5357 /* TappableLinkExtension.swift */,
 			);
-			path = Conversion;
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		1D0DBDDFFC1AC8FF528219C294CAC3E4 /* Pods-SimpleMarkdownParser_Tests */ = {
@@ -132,6 +130,20 @@
 			path = "Target Support Files/Pods-SimpleMarkdownParser_Tests";
 			sourceTree = "<group>";
 		};
+		1D98BC58F93B5E191B9DE7C661A95415 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				3496A901BD58A4EC150173822AD9A621 /* Info.plist */,
+				BF95D3BAA6487A5428F28272C1F7D3D1 /* SimpleMarkdownParser.modulemap */,
+				BA0B247066195198D6600D46850D58B4 /* SimpleMarkdownParser.xcconfig */,
+				17BAE197638340D8A281C3E1FD9BFEE9 /* SimpleMarkdownParser-dummy.m */,
+				F117F20AAE3E25BF7A0D71A3E6CF2B11 /* SimpleMarkdownParser-prefix.pch */,
+				996B4DF2DD538E70E5E8DB08B78D8045 /* SimpleMarkdownParser-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "MarkdownIOS/Example/Pods/Target Support Files/SimpleMarkdownParser";
+			sourceTree = "<group>";
+		};
 		3DCAB2B7CDE207B3958B6CB957FCC758 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,12 +152,12 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		5A0D7A0E4539F95B3F78F760EA6B96A6 /* Core */ = {
+		4B1C92F026092B77F7BF2ED87F24033B /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				9F791E76E0AD695752C30FC45AAA0C2A /* MarkdownTag.swift */,
-				33C0BB42B7C76D621F99CA7DDE0C447F /* SimpleMarkdownParser.swift */,
-				B5831A99F7500268469ACBB9947EE4FB /* SimpleMarkdownParserSwift.swift */,
+				590DEE93CC94783B04CFB8AA4BD2634F /* MarkdownTag.swift */,
+				07961706A2325D6C55B1262A44E85E2A /* SimpleMarkdownParser.swift */,
+				E0D56EAD60568702B05D1C3E120A83BB /* SimpleMarkdownParserSwift.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -168,37 +180,11 @@
 			path = "Target Support Files/Pods-SimpleMarkdownParser_Example";
 			sourceTree = "<group>";
 		};
-		767343311F93345A2E002D1E548C8079 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				1CCB02FC49566AE84ADA5DDC989E9CC9 /* TappableLinkExtension.swift */,
-			);
-			path = Helper;
-			sourceTree = "<group>";
-		};
-		767AC2E90C9CA6BD2EF318999D0464C9 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				19B029435F2477E528BF6C43005D1153 /* Conversion */,
-				5A0D7A0E4539F95B3F78F760EA6B96A6 /* Core */,
-				767343311F93345A2E002D1E548C8079 /* Helper */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		7CD71C3E8E54FE657BEF0C0025FC1B14 /* SimpleMarkdownParser */ = {
-			isa = PBXGroup;
-			children = (
-				767AC2E90C9CA6BD2EF318999D0464C9 /* Classes */,
-			);
-			path = SimpleMarkdownParser;
-			sourceTree = "<group>";
-		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				E729714F54B17A199DF636840E1A72CE /* Development Pods */,
+				F36E117CCBFF1328C5AE0C8FE392EEFA /* Development Pods */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
 				91AE8B8ED489865824CDA34B6C756660 /* Products */,
 				BD51C393D1FAC9A92504522CA3E1F815 /* Targets Support Files */,
@@ -213,6 +199,14 @@
 				BDB0DE24E17B31BB118A2A521C2D6548 /* SimpleMarkdownParser.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A05DDA65C523C5508952AACA853938E7 /* SimpleMarkdownParser */ = {
+			isa = PBXGroup;
+			children = (
+				D028D66AE9B5EDBE57EA6B31ACA14DBE /* Classes */,
+			);
+			path = SimpleMarkdownParser;
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -232,36 +226,50 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		BFA6B06D2FB7C943EAC9A5AE07397F8D /* Support Files */ = {
+		D028D66AE9B5EDBE57EA6B31ACA14DBE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E399C2E0037459B5D543E150841215FC /* Info.plist */,
-				C530794317AE1727B54CC24673E2059D /* SimpleMarkdownParser.modulemap */,
-				6360FA11379106156AD8A16E53888369 /* SimpleMarkdownParser.xcconfig */,
-				34577BBCB93D80CF556505A1725928F5 /* SimpleMarkdownParser-dummy.m */,
-				E85914AF5B1D0972EF7288C85C59883C /* SimpleMarkdownParser-prefix.pch */,
-				C5FA1DB6117149E12121F2574F9757D0 /* SimpleMarkdownParser-umbrella.h */,
+				E46216EAAA1FC1F4932D08974062EE3F /* Conversion */,
+				4B1C92F026092B77F7BF2ED87F24033B /* Core */,
+				13150344BE65DF41ACC1BBB5BB7F7E7B /* Helper */,
 			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/SimpleMarkdownParser";
+			path = Classes;
 			sourceTree = "<group>";
 		};
-		CFAE34A6B86E3B74F1060397A8C86500 /* SimpleMarkdownParser */ = {
+		E46216EAAA1FC1F4932D08974062EE3F /* Conversion */ = {
 			isa = PBXGroup;
 			children = (
-				7CD71C3E8E54FE657BEF0C0025FC1B14 /* SimpleMarkdownParser */,
-				BFA6B06D2FB7C943EAC9A5AE07397F8D /* Support Files */,
+				88177A295554444E0530D25ADD38F9DA /* DefaultMarkdownAttributedStringGenerator.swift */,
+				C25FEF5686722AEFA0957C072DD09C4A /* MarkdownAttributedStringGenerator.swift */,
+				8B36A1639CD0F77AE1A111C65F08C1B8 /* SimpleMarkdownConverter.swift */,
 			);
-			name = SimpleMarkdownParser;
-			path = ../..;
+			path = Conversion;
 			sourceTree = "<group>";
 		};
-		E729714F54B17A199DF636840E1A72CE /* Development Pods */ = {
+		F36E117CCBFF1328C5AE0C8FE392EEFA /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				CFAE34A6B86E3B74F1060397A8C86500 /* SimpleMarkdownParser */,
+				FFAD2DD4133DD84B4B8FA221CE39195A /* SimpleMarkdownParser */,
 			);
 			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		F978E98C3202424ADCD9BDA3AA572A08 /* MarkdownIOS */ = {
+			isa = PBXGroup;
+			children = (
+				A05DDA65C523C5508952AACA853938E7 /* SimpleMarkdownParser */,
+			);
+			path = MarkdownIOS;
+			sourceTree = "<group>";
+		};
+		FFAD2DD4133DD84B4B8FA221CE39195A /* SimpleMarkdownParser */ = {
+			isa = PBXGroup;
+			children = (
+				F978E98C3202424ADCD9BDA3AA572A08 /* MarkdownIOS */,
+				1D98BC58F93B5E191B9DE7C661A95415 /* Support Files */,
+			);
+			name = SimpleMarkdownParser;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -458,7 +466,7 @@
 		};
 		5CA886644C28F29699667F07E3FA590F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6360FA11379106156AD8A16E53888369 /* SimpleMarkdownParser.xcconfig */;
+			baseConfigurationReference = BA0B247066195198D6600D46850D58B4 /* SimpleMarkdownParser.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -555,7 +563,7 @@
 		};
 		CBFB0806EECDDED1584D9A280FD81551 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6360FA11379106156AD8A16E53888369 /* SimpleMarkdownParser.xcconfig */;
+			baseConfigurationReference = BA0B247066195198D6600D46850D58B4 /* SimpleMarkdownParser.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;

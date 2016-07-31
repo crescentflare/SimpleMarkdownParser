@@ -1,7 +1,7 @@
 use_frameworks!
 
 target 'SimpleMarkdownParser_Example' do
-  pod 'SimpleMarkdownParser', :path => '../'
+  pod 'SimpleMarkdownParser', :path => '../../'
 
   target 'SimpleMarkdownParser_Tests' do
     inherit! :search_paths

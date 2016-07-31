@@ -18,5 +18,5 @@
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "SimpleMarkdownParser/Classes/**/*"
+  "source_files": "MarkdownIOS/SimpleMarkdownParser/Classes/**/*"
 }
