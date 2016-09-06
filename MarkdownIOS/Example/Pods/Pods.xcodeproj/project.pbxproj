@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		01DD72BD304E96F48E9972643937CDDB /* SimpleMarkdownParserSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D56EAD60568702B05D1C3E120A83BB /* SimpleMarkdownParserSwift.swift */; };
-		15A717A9E3B1BB8F6D28C4FF07A6113E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
 		23230D25A10145281A68D9A19A5C27A2 /* MarkdownAttributedStringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25FEF5686722AEFA0957C072DD09C4A /* MarkdownAttributedStringGenerator.swift */; };
-		385EF8F15A5F42C6A76A52F59FB796A5 /* Pods-SimpleMarkdownParser_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 058B36D0DE2DF9026B95D3CCC4674084 /* Pods-SimpleMarkdownParser_Tests-dummy.m */; };
-		38D01AE6EE51BB023B17CC47F51E2E23 /* Pods-SimpleMarkdownParser_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F6195D2C4640BD6EF93F5A2ED13B8DEE /* Pods-SimpleMarkdownParser_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		23AD42D3F6577993C0CCDC16111F3492 /* Pods-SimpleMarkdownParser_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F6195D2C4640BD6EF93F5A2ED13B8DEE /* Pods-SimpleMarkdownParser_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41BC64D573E67E684F2827AED8E1D57C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
 		48801E9BDBB674F7CEE960F9523DBE9C /* Pods-SimpleMarkdownParser_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A49C97AC19755B00ADDEBCB8E36822BA /* Pods-SimpleMarkdownParser_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4A4FCC05061473BFD0681305BED47C61 /* SimpleMarkdownConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B36A1639CD0F77AE1A111C65F08C1B8 /* SimpleMarkdownConverter.swift */; };
+		6B0DCA12FC21A9CE66E4A561E8ADDF29 /* Pods-SimpleMarkdownParser_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 058B36D0DE2DF9026B95D3CCC4674084 /* Pods-SimpleMarkdownParser_Tests-dummy.m */; };
+		6E242CFD27BA4A2C6EA559A9F3E6D508 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
 		6F47E3213338E4657216E250500F6943 /* SimpleMarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07961706A2325D6C55B1262A44E85E2A /* SimpleMarkdownParser.swift */; };
 		705D308891A4E43BB841913A1C465D4B /* Pods-SimpleMarkdownParser_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE2713CA123BE84A9A61D017E30F84D /* Pods-SimpleMarkdownParser_Example-dummy.m */; };
 		98CD52EF7DFDAE02F4959FB3A0066C41 /* MarkdownTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590DEE93CC94783B04CFB8AA4BD2634F /* MarkdownTag.swift */; };
@@ -26,6 +26,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		AD824B5B97A1C45FFF7BC800E66E468A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DDEB3081C61775B1D0AA14FCF94C2CAE;
+			remoteInfo = SimpleMarkdownParser;
+		};
 		B728E8D72C0E12C6A18B111C2AEC6B91 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
@@ -77,11 +84,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CCF29887A299DBF6E73BB5C8780FC541 /* Frameworks */ = {
+		CD653966CC67028123D29F1FB8E0FC75 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15A717A9E3B1BB8F6D28C4FF07A6113E /* Foundation.framework in Frameworks */,
+				6E242CFD27BA4A2C6EA559A9F3E6D508 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,19 +282,19 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		2DF43AF4FBED85B7997A5C08F5C1A1AC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23AD42D3F6577993C0CCDC16111F3492 /* Pods-SimpleMarkdownParser_Tests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5D0DD86F78DCCEE733369C8F6E624B13 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				48801E9BDBB674F7CEE960F9523DBE9C /* Pods-SimpleMarkdownParser_Example-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7FF48F6882053BE00F373FA83F6618AF /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				38D01AE6EE51BB023B17CC47F51E2E23 /* Pods-SimpleMarkdownParser_Tests-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,23 +309,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0B838007026D41BDD9635DBE2D08D28C /* Pods-SimpleMarkdownParser_Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 41D167701094298DD23B2E2C01B6554E /* Build configuration list for PBXNativeTarget "Pods-SimpleMarkdownParser_Tests" */;
-			buildPhases = (
-				AA86D37ABDFAE22718866F04C2D185F3 /* Sources */,
-				CCF29887A299DBF6E73BB5C8780FC541 /* Frameworks */,
-				7FF48F6882053BE00F373FA83F6618AF /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Pods-SimpleMarkdownParser_Tests";
-			productName = "Pods-SimpleMarkdownParser_Tests";
-			productReference = 05B5B7ADBC96C4B77067E64789CA846D /* Pods_SimpleMarkdownParser_Tests.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		1A4A914CFD27F36CABEB4EF0B251145B /* Pods-SimpleMarkdownParser_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B45EBCC66DA203B02EA0291BEA67A041 /* Build configuration list for PBXNativeTarget "Pods-SimpleMarkdownParser_Example" */;
@@ -354,6 +344,24 @@
 			productReference = BDB0DE24E17B31BB118A2A521C2D6548 /* SimpleMarkdownParser.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		F93582428BDA31DEB09DCB3A09501730 /* Pods-SimpleMarkdownParser_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E5BC6EA8B9ABA5AE75E0CC4265390D02 /* Build configuration list for PBXNativeTarget "Pods-SimpleMarkdownParser_Tests" */;
+			buildPhases = (
+				2E40337DC8CDB3988565AE188D096D95 /* Sources */,
+				CD653966CC67028123D29F1FB8E0FC75 /* Frameworks */,
+				2DF43AF4FBED85B7997A5C08F5C1A1AC /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8E21CF875F9913194BBA9760EBB1564F /* PBXTargetDependency */,
+			);
+			name = "Pods-SimpleMarkdownParser_Tests";
+			productName = "Pods-SimpleMarkdownParser_Tests";
+			productReference = 05B5B7ADBC96C4B77067E64789CA846D /* Pods_SimpleMarkdownParser_Tests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -376,13 +384,21 @@
 			projectRoot = "";
 			targets = (
 				1A4A914CFD27F36CABEB4EF0B251145B /* Pods-SimpleMarkdownParser_Example */,
-				0B838007026D41BDD9635DBE2D08D28C /* Pods-SimpleMarkdownParser_Tests */,
+				F93582428BDA31DEB09DCB3A09501730 /* Pods-SimpleMarkdownParser_Tests */,
 				DDEB3081C61775B1D0AA14FCF94C2CAE /* SimpleMarkdownParser */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2E40337DC8CDB3988565AE188D096D95 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6B0DCA12FC21A9CE66E4A561E8ADDF29 /* Pods-SimpleMarkdownParser_Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		387025D55BF8941DCFCA19CA177EA398 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -406,17 +422,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AA86D37ABDFAE22718866F04C2D185F3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				385EF8F15A5F42C6A76A52F59FB796A5 /* Pods-SimpleMarkdownParser_Tests-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8E21CF875F9913194BBA9760EBB1564F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SimpleMarkdownParser;
+			target = DDEB3081C61775B1D0AA14FCF94C2CAE /* SimpleMarkdownParser */;
+			targetProxy = AD824B5B97A1C45FFF7BC800E66E468A /* PBXContainerItemProxy */;
+		};
 		A85F14DB9D9F9805CD77193DA304238B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SimpleMarkdownParser;
@@ -461,6 +475,39 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		393FC637A646876835D473173BB44B7A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 151224B34EB8626E4E75F1551A198702 /* Pods-SimpleMarkdownParser_Tests.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-SimpleMarkdownParser_Tests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SimpleMarkdownParser_Tests/Pods-SimpleMarkdownParser_Tests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_SimpleMarkdownParser_Tests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -522,39 +569,6 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		7415D1628FF8C13F921081EFA00EC737 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4BD4BF40BB8E437FA4DB64FBD58F7477 /* Pods-SimpleMarkdownParser_Tests.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-SimpleMarkdownParser_Tests/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-SimpleMarkdownParser_Tests/Pods-SimpleMarkdownParser_Tests.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_SimpleMarkdownParser_Tests;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -665,13 +679,13 @@
 			};
 			name = Debug;
 		};
-		E8FA76A1386EBDAE199D2EEB8232EF3F /* Release */ = {
+		DCC5E6BD54E69C64D92A5B38350F1C85 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 151224B34EB8626E4E75F1551A198702 /* Pods-SimpleMarkdownParser_Tests.release.xcconfig */;
+			baseConfigurationReference = 4BD4BF40BB8E437FA4DB64FBD58F7477 /* Pods-SimpleMarkdownParser_Tests.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -684,7 +698,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-SimpleMarkdownParser_Tests/Pods-SimpleMarkdownParser_Tests.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -692,11 +706,12 @@
 				PRODUCT_NAME = Pods_SimpleMarkdownParser_Tests;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -706,15 +721,6 @@
 			buildConfigurations = (
 				D3E3D092A3FF7311A98E44BBA36FFD12 /* Debug */,
 				0ACDCBCB0B6796575F46FFA2F5410C6B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		41D167701094298DD23B2E2C01B6554E /* Build configuration list for PBXNativeTarget "Pods-SimpleMarkdownParser_Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7415D1628FF8C13F921081EFA00EC737 /* Debug */,
-				E8FA76A1386EBDAE199D2EEB8232EF3F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -733,6 +739,15 @@
 			buildConfigurations = (
 				675EA7A84AB6971CF53529FA9B95FA82 /* Debug */,
 				CC92A6105865D4629850237FAEFB55E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E5BC6EA8B9ABA5AE75E0CC4265390D02 /* Build configuration list for PBXNativeTarget "Pods-SimpleMarkdownParser_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCC5E6BD54E69C64D92A5B38350F1C85 /* Debug */,
+				393FC637A646876835D473173BB44B7A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
