@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/crescentflare/SimpleMarkdownParser'
     gitUrl = 'https://github.com/crescentflare/SimpleMarkdownParser.git'
 
-    libraryVersion = '0.4.0'
+    libraryVersion = '0.5.0'
 
     developerId = 'crescentflare'
     developerName = 'Crescent Flare Apps'
@@ -32,8 +32,8 @@ android {
         minSdkVersion 9
         targetSdkVersion 22
         versionCode 1
-        versionName "0.4.0"
-        project.version "0.4.0"
+        versionName "0.5.0"
+        project.version "0.5.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -54,7 +54,7 @@ android.libraryVariants.all { variant ->
     Action copyClassesAction = new Action() {
         @Override
         void execute(Object o) {
-            String version = "0.4.0"
+            String version = "0.5.0"
             String variantLibsDir = getBuildDir().absolutePath + "/intermediates/bundles/" + variant.name + "/libs"
             String variantJniDir = getBuildDir().absolutePath + "/intermediates/bundles/" + variant.name + "/jni"
             String explodedJarDir = getBuildDir().absolutePath + "/intermediates/exploded-aar/MarkdownAndroid/SimpleMarkdownParserCoreLib/" + version + "/jars"
