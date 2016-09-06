@@ -1,6 +1,6 @@
 # SimpleMarkdownParser
 
-[![CI Status](http://img.shields.io/travis/crescentflare/SimpleMarkdownParser.svg?style=flat)](https://travis-ci.org/CrescentFlare/SimpleMarkdownParser)
+[![CI Status](http://img.shields.io/travis/crescentflare/SimpleMarkdownParser.svg?style=flat)](https://travis-ci.org/crescentflare/SimpleMarkdownParser)
 [![License](https://img.shields.io/cocoapods/l/SimpleMarkdownParser.svg?style=flat)](http://cocoapods.org/pods/SimpleMarkdownParser)
 [![Version](https://img.shields.io/cocoapods/v/SimpleMarkdownParser.svg?style=flat)](http://cocoapods.org/pods/SimpleMarkdownParser)
 [![Version](https://img.shields.io/bintray/v/crescentflare/maven/SimpleMarkdownParserLib.svg?style=flat)](https://bintray.com/crescentflare/maven/SimpleMarkdownParserLib)
