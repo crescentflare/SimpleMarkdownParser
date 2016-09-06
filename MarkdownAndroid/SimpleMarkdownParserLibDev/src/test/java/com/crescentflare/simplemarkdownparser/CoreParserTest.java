@@ -192,6 +192,12 @@ public class CoreParserTest
         assertTags(markdownTextLines, expectedTags);
     }
 
+    @Test
+    public void testEmptyString()
+    {
+        assertTags(new String[0], new WrappedMarkdownTag[0]);
+    }
+
     /**
      * Helpers
      */

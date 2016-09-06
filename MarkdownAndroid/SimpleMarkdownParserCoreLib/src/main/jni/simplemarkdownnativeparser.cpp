@@ -266,6 +266,10 @@ void addStyleTags(std::vector<MarkdownTag> &foundTags, const UTFString &markdown
  */
 MarkdownTag scanLine(const UTFString &markdownText, UTFStringIndex position, UTFStringIndex maxLength, MARKDOWN_TAG_TYPE sectionType)
 {
+    if (position >= maxLength)
+    {
+        return MarkdownTag();
+    }
     MarkdownTag styledTag;
     MarkdownTag normalTag;
     int skipChars = 0;
