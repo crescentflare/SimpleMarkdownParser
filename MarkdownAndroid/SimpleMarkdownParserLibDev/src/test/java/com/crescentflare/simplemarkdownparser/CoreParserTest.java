@@ -252,7 +252,7 @@ public class CoreParserTest
 
         public WrappedMarkdownTag(MarkdownTag.Type type, int weight, int flags, String text)
         {
-            this(type, weight, 0, text, "");
+            this(type, weight, flags, text, "");
         }
 
         public WrappedMarkdownTag(MarkdownTag.Type type, int weight, int flags, String text, String extra)
