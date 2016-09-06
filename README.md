@@ -1,9 +1,9 @@
 # SimpleMarkdownParser
 
 [![CI Status](http://img.shields.io/travis/crescentflare/SimpleMarkdownParser.svg?style=flat)](https://travis-ci.org/CrescentFlare/SimpleMarkdownParser)
-[![Version](https://img.shields.io/cocoapods/v/SimpleMarkdownParser.svg?style=flat)](http://cocoapods.org/pods/SimpleMarkdownParser)
 [![License](https://img.shields.io/cocoapods/l/SimpleMarkdownParser.svg?style=flat)](http://cocoapods.org/pods/SimpleMarkdownParser)
-[![Platform](https://img.shields.io/cocoapods/p/SimpleMarkdownParser.svg?style=flat)](http://cocoapods.org/pods/SimpleMarkdownParser)
+[![Version](https://img.shields.io/cocoapods/v/SimpleMarkdownParser.svg?style=flat)](http://cocoapods.org/pods/SimpleMarkdownParser)
+[![Version](https://img.shields.io/bintray/v/crescentflare/maven/SimpleMarkdownParserLib.svg?style=flat)](https://bintray.com/crescentflare/maven/SimpleMarkdownParserLib)
 
 A multi-functional and easy way to integrate markdown formatting within mobile apps. Supports iOS and Android.
 
@@ -23,7 +23,7 @@ A multi-functional and easy way to integrate markdown formatting within mobile a
 The library is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
 
 ```ruby
-pod "SimpleMarkdownParser", '~> 0.4.0'
+pod "SimpleMarkdownParser", '~> 0.5.0'
 ```
 
 
@@ -32,7 +32,7 @@ pod "SimpleMarkdownParser", '~> 0.4.0'
 When using gradle, the library can easily be imported into the build.gradle file of your project. Add the following dependency:
 
 ```
-compile ('com.crescentflare.simplemarkdownparser:SimpleMarkdownParserLib:0.4.0') {
+compile ('com.crescentflare.simplemarkdownparser:SimpleMarkdownParserLib:0.5.0') {
 transitive = false
 }
 ```
