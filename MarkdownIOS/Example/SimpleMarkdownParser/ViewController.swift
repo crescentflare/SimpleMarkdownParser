@@ -155,7 +155,8 @@ private class CustomAttributedStringConversion : MarkdownAttributedStringGenerat
             attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: true, range: NSMakeRange(start, length))
             break
         case .Link:
-            attributedString.addAttribute(NSLinkAttributeName, value: NSURL(string: extra)!, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSClickableTextAttributeName, value: NSURL(string: extra)!, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.purpleColor(), range: NSMakeRange(start, length))
             break
         default:
             break //No implementation for unknown tags

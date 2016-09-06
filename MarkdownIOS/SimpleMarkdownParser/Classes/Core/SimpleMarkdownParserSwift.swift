@@ -187,7 +187,10 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
     // MARK: Markdown line scanning
     // --
     
-    private func scanLine(markdownText: String, position: String.Index, maxLength: String.Index, sectionType: MarkdownTagType) -> MarkdownTag {
+    private func scanLine(markdownText: String, position: String.Index, maxLength: String.Index, sectionType: MarkdownTagType) -> MarkdownTag? {
+        if position >= maxLength {
+            return nil
+        }
         let styledTag = MarkdownTag()
         let normalTag = MarkdownTag()
         var skipChars = 0

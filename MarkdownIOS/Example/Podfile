@@ -5,7 +5,6 @@ target 'SimpleMarkdownParser_Example' do
 
   target 'SimpleMarkdownParser_Tests' do
     inherit! :search_paths
-
-    
+    pod 'SimpleMarkdownParser', :path => '../../'
   end
 end

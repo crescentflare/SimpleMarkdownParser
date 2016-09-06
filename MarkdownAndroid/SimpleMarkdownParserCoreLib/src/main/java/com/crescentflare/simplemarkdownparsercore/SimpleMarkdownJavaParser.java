@@ -193,6 +193,10 @@ public class SimpleMarkdownJavaParser implements SimpleMarkdownParser
      */
     private MarkdownTag scanLine(final String markdownText, int position, int maxLength, MarkdownTag.Type sectionType)
     {
+        if (position >= maxLength)
+        {
+            return null;
+        }
         MarkdownTag styledTag = new MarkdownTag();
         MarkdownTag normalTag = new MarkdownTag();
         int skipChars = 0;

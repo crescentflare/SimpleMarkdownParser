@@ -5,6 +5,8 @@
 //  Conversion library: utility class to convert markdown to HTML or attributed string
 //
 
+public let NSClickableTextAttributeName = "NSClickableTextAttributeName"
+
 public class SimpleMarkdownConverter {
     
     // --
