@@ -50,7 +50,9 @@ public class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedString
             attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: true, range: NSMakeRange(start, length))
             break
         case .Link:
-            attributedString.addAttribute(NSLinkAttributeName, value: NSURL(string: extra)!, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSClickableTextAttributeName, value: NSURL(string: extra)!, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(start, length))
             break
         default:
             break //No implementation for unknown tags

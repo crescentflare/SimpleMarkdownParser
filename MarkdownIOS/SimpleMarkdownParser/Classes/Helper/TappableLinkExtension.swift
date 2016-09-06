@@ -37,7 +37,7 @@ public extension UITapGestureRecognizer {
         var url: NSURL? = nil
         label.attributedText!.enumerateAttributesInRange(NSMakeRange(indexOfCharacter, 1), options: .LongestEffectiveRangeNotRequired, usingBlock: { (attributes: [String: AnyObject], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
             for (key, value) in attributes {
-                if key == NSLinkAttributeName {
+                if key == NSClickableTextAttributeName || key == NSLinkAttributeName {
                     if value is NSURL {
                         url = value as? NSURL
                         break
