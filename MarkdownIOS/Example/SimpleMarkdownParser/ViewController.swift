@@ -49,16 +49,16 @@ class ViewController: UIViewController {
             "",
             "Testing a link to [github](https://github.com/crescentflare/SimpleMarkdownParser)."
         ]
-        let markdownText = markdownTextArray.joinWithSeparator("\n")
+        let markdownText = markdownTextArray.joined(separator: "\n")
         
         // Markdown tests
         if testHtmlConversion {
-            testHtml(markdownText)
+            testHtml(markdownText: markdownText)
         } else {
             if testCustomStyle {
-                testCustomAttributedStringConversion(markdownText)
+                testCustomAttributedStringConversion(markdownText: markdownText)
             } else {
-                testDefaultAttributedStringConversion(markdownText)
+                testDefaultAttributedStringConversion(markdownText: markdownText)
             }
         }
         
@@ -85,20 +85,20 @@ class ViewController: UIViewController {
     // --
     
     func testHtml(markdownText: String) {
-        let htmlString = SimpleMarkdownConverter.toHtmlString(markdownText)
+        let htmlString = SimpleMarkdownConverter.toHtmlString(fromMarkdownText: markdownText)
         let options = [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                       NSCharacterEncodingDocumentAttribute: NSNumber(unsignedInteger:NSUTF8StringEncoding)]
-        let attributedString = try? NSAttributedString(data: htmlString.dataUsingEncoding(NSUTF8StringEncoding)!, options: options, documentAttributes: nil)
+                       NSCharacterEncodingDocumentAttribute: NSNumber(value: String.Encoding.utf8.rawValue)] as [String : Any]
+        let attributedString = try? NSAttributedString(data: htmlString.data(using: String.Encoding.utf8)!, options: options, documentAttributes: nil)
         label.attributedText = attributedString
     }
     
     func testCustomAttributedStringConversion(markdownText: String) {
-        let attributedString = SimpleMarkdownConverter.toAttributedString(label.font, markdownText: markdownText, attributedStringGenerator: CustomAttributedStringConversion())
+        let attributedString = SimpleMarkdownConverter.toAttributedString(defaultFont: label.font, markdownText: markdownText, attributedStringGenerator: CustomAttributedStringConversion())
         label.attributedText = attributedString
     }
     
     func testDefaultAttributedStringConversion(markdownText: String) {
-        let attributedString = SimpleMarkdownConverter.toAttributedString(label.font, markdownText: markdownText)
+        let attributedString = SimpleMarkdownConverter.toAttributedString(defaultFont: label.font, markdownText: markdownText)
         label.attributedText = attributedString
     }
 
@@ -107,9 +107,9 @@ class ViewController: UIViewController {
     // MARK: Selector
     // --
 
-    @objc func didTapOnLabel(gesture: UITapGestureRecognizer) {
-        if let url: NSURL = gesture.findUrlOnLabel(label) {
-            UIApplication.sharedApplication().openURL(url)
+    @objc func didTapOnLabel(_ gesture: UITapGestureRecognizer) {
+        if let url: URL = gesture.findUrl(onLabel: label) {
+            UIApplication.shared.openURL(url)
         }
     }
 
@@ -117,55 +117,55 @@ class ViewController: UIViewController {
 
 private class CustomAttributedStringConversion : MarkdownAttributedStringGenerator {
     
-    private func applyAttribute(defaultFont: UIFont, attributedString: NSMutableAttributedString, type: MarkdownTagType, weight: Int, start: Int, length: Int, extra: String) {
+    fileprivate func applyAttribute(defaultFont: UIFont, attributedString: NSMutableAttributedString, type: MarkdownTagType, weight: Int, start: Int, length: Int, extra: String) {
         switch type {
-        case .Paragraph:
-            attributedString.addAttribute(NSFontAttributeName, value: defaultFont.fontWithSize(defaultFont.pointSize * CGFloat(weight) * 0.5), range: NSMakeRange(start, length))
+        case .paragraph:
+            attributedString.addAttribute(NSFontAttributeName, value: defaultFont.withSize(defaultFont.pointSize * CGFloat(weight) * 0.5), range: NSMakeRange(start, length))
             break
-        case .Header:
-            attributedString.addAttribute(NSFontAttributeName, value: UIFont.init(descriptor: defaultFont.fontDescriptor(), size: defaultFont.pointSize * (2 - CGFloat(weight) * 0.15)), range: NSMakeRange(start, length))
+        case .header:
+            attributedString.addAttribute(NSFontAttributeName, value: UIFont.init(descriptor: defaultFont.fontDescriptor, size: defaultFont.pointSize * (2 - CGFloat(weight) * 0.15)), range: NSMakeRange(start, length))
             break
-        case .OrderedList, .UnorderedList:
+        case .orderedList, .unorderedList:
             let bulletParagraph = NSMutableParagraphStyle()
-            let tokenTabStop = NSTextTab(textAlignment: .Right, location: 12 + CGFloat(weight - 1) * 10, options: [:])
-            let textTabStop = NSTextTab(textAlignment: .Left, location: tokenTabStop.location + 8, options: [:])
+            let tokenTabStop = NSTextTab(textAlignment: .right, location: 12 + CGFloat(weight - 1) * 10, options: [:])
+            let textTabStop = NSTextTab(textAlignment: .left, location: tokenTabStop.location + 8, options: [:])
             bulletParagraph.tabStops = [ tokenTabStop, textTabStop ]
             bulletParagraph.firstLineHeadIndent = 0
             bulletParagraph.headIndent = textTabStop.location
             attributedString.addAttribute(NSParagraphStyleAttributeName, value: bulletParagraph, range: NSMakeRange(start, length))
             break
-        case .TextStyle:
+        case .textStyle:
             var deriveFont = defaultFont
-            attributedString.enumerateAttributesInRange(NSMakeRange(start, length), options: .LongestEffectiveRangeNotRequired, usingBlock: { (attributes: [String: AnyObject], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+            attributedString.enumerateAttributes(in: NSMakeRange(start, length), options: .longestEffectiveRangeNotRequired, using: { (attributes: [String: Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
                 if let font = attributes["NSFont"] as? UIFont {
                     deriveFont = font
                 }
             })
             var traits: UIFontDescriptorSymbolicTraits = UIFontDescriptorSymbolicTraits()
-            traits.insert(defaultFont.fontDescriptor().symbolicTraits)
+            traits.insert(defaultFont.fontDescriptor.symbolicTraits)
             if (weight & 1) > 0 {
-                traits.insert(.TraitItalic)
+                traits.insert(.traitItalic)
             }
             if (weight & 2) > 0 {
-                traits.insert(.TraitBold)
+                traits.insert(.traitBold)
             }
-            attributedString.addAttribute(NSFontAttributeName, value: UIFont.init(descriptor: deriveFont.fontDescriptor().fontDescriptorWithSymbolicTraits(traits), size: deriveFont.pointSize), range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSFontAttributeName, value: UIFont.init(descriptor: deriveFont.fontDescriptor.withSymbolicTraits(traits)!, size: deriveFont.pointSize), range: NSMakeRange(start, length))
             break
-        case .AlternativeTextStyle:
+        case .alternativeTextStyle:
             attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: true, range: NSMakeRange(start, length))
             break
-        case .Link:
-            attributedString.addAttribute(NSClickableTextAttributeName, value: NSURL(string: extra)!, range: NSMakeRange(start, length))
-            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.purpleColor(), range: NSMakeRange(start, length))
+        case .link:
+            attributedString.addAttribute(NSClickableTextAttributeName, value: URL(string: extra)!, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.purple, range: NSMakeRange(start, length))
             break
         default:
             break //No implementation for unknown tags
         }
     }
     
-    private func getListToken(type: MarkdownTagType, weight: Int, index: Int) -> String {
+    fileprivate func getListToken(fromType: MarkdownTagType, weight: Int, index: Int) -> String {
         var token = ""
-        if type == .OrderedList {
+        if fromType == .orderedList {
             for _ in 0..<index {
                 token += "i"
             }
