@@ -7,7 +7,7 @@
 
 public let NSClickableTextAttributeName = "NSClickableTextAttributeName"
 
-open class SimpleMarkdownConverter {
+public class SimpleMarkdownConverter {
     
     // --
     // MARK: HTML conversion handling

@@ -64,14 +64,14 @@ open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGe
         return "\t\(token)\t"
     }
 
-    fileprivate static func sizeForHeader(_ weight: Int) -> CGFloat {
+    private static func sizeForHeader(_ weight: Int) -> CGFloat {
         if weight >= 1 && weight < 6 {
             return 1.5 - CGFloat(weight - 1) * 0.1
         }
         return 1
     }
 
-    fileprivate static func fontForWeight(_ defaultFont: UIFont, weight: Int) -> UIFont {
+    private static func fontForWeight(_ defaultFont: UIFont, weight: Int) -> UIFont {
         var traits: UIFontDescriptorSymbolicTraits = UIFontDescriptorSymbolicTraits()
         traits.insert(defaultFont.fontDescriptor.symbolicTraits)
         switch (weight) {
@@ -91,7 +91,7 @@ open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGe
         return UIFont.init(descriptor: defaultFont.fontDescriptor.withSymbolicTraits(traits)!, size: defaultFont.pointSize)
     }
 
-    fileprivate static func bulletTokenForWeight(_ weight: Int) -> String {
+    private static func bulletTokenForWeight(_ weight: Int) -> String {
         if (weight == 2) {
             return "◦ "
         } else if (weight >= 3) {
