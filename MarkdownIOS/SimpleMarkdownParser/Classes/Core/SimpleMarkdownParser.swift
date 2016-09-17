@@ -17,11 +17,11 @@ public enum ExtractBetweenMode {
 // Parser protocol
 public protocol SimpleMarkdownParser: class {
     
-    func findTags(_ markdownText: String) -> [MarkdownTag]
-    func extractText(_ markdownText: String, tag: MarkdownTag) -> String
-    func extractTextBetween(_ markdownText: String, startTag: MarkdownTag, endTag: MarkdownTag, mode: ExtractBetweenMode) -> String
-    func extractFull(_ markdownText: String, tag: MarkdownTag) -> String
-    func extractFullBetween(_ markdownText: String, startTag: MarkdownTag, endTag: MarkdownTag, mode: ExtractBetweenMode) -> String
-    func extractExtra(_ markdownText: String, tag: MarkdownTag) -> String
+    func findTags(onMarkdownText: String) -> [MarkdownTag]
+    func extract(textFromMarkdownText: String, tag: MarkdownTag) -> String
+    func extract(textBetweenMarkdownText: String, startTag: MarkdownTag, endTag: MarkdownTag, mode: ExtractBetweenMode) -> String
+    func extract(fullFromMarkdownText: String, tag: MarkdownTag) -> String
+    func extract(fullBetweenMarkdownText: String, startTag: MarkdownTag, endTag: MarkdownTag, mode: ExtractBetweenMode) -> String
+    func extract(extraFromMarkdownText: String, tag: MarkdownTag) -> String
     
 }

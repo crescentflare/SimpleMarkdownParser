@@ -20,29 +20,29 @@ public enum MarkdownTagType {
 }
 
 // Tag object
-open class MarkdownTag {
+public class MarkdownTag {
 
     // --
     // MARK: Static flags
     // --
 
-    open static var FLAG_NONE = 0x0
-    open static var FLAG_ESCAPED = 0x40000000
+    public static var FLAG_NONE = 0x0
+    public static var FLAG_ESCAPED = 0x40000000
 
     
     // --
     // MARK: Fields
     // --
     
-    open var type = MarkdownTagType.normal
-    open var flags = MarkdownTag.FLAG_NONE
-    open var startPosition: String.Index? = nil
-    open var endPosition: String.Index? = nil
-    open var startText: String.Index? = nil
-    open var endText: String.Index? = nil
-    open var startExtra: String.Index? = nil
-    open var endExtra: String.Index? = nil
-    open var weight = 0
+    public var type = MarkdownTagType.normal
+    public var flags = MarkdownTag.FLAG_NONE
+    public var startPosition: String.Index? = nil
+    public var endPosition: String.Index? = nil
+    public var startText: String.Index? = nil
+    public var endText: String.Index? = nil
+    public var startExtra: String.Index? = nil
+    public var endExtra: String.Index? = nil
+    public var weight = 0
 
 
     // --

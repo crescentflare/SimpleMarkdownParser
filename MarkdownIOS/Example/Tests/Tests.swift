@@ -176,7 +176,7 @@ class Tests: XCTestCase {
     func assertTags(_ markdownTextLines: [String], expectedTags: [WrappedMarkdownTag], file: String = #file, line: UInt = #line) {
         let parser = SimpleMarkdownParserSwift()
         let markdownText = markdownTextLines.joined(separator: "\n")
-        let foundTags = parser.findTags(markdownText)
+        let foundTags = parser.findTags(onMarkdownText: markdownText)
         for i in 0..<min(foundTags.count, expectedTags.count) {
             let wrappedTag = WrappedMarkdownTag(markdownText: markdownText, tag: foundTags[i])
             if expectedTags[i] != wrappedTag {
@@ -229,8 +229,8 @@ class WrappedMarkdownTag: NSObject {
             type: tag.type,
             weight: tag.weight,
             flags: tag.flags,
-            text: SimpleMarkdownParserSwift().extractText(markdownText, tag: tag),
-            extra: SimpleMarkdownParserSwift().extractExtra(markdownText, tag: tag)
+            text: SimpleMarkdownParserSwift().extract(textFromMarkdownText: markdownText, tag: tag),
+            extra: SimpleMarkdownParserSwift().extract(extraFromMarkdownText: markdownText, tag: tag)
         )
     }
     

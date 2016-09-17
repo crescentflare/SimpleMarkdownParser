@@ -15,7 +15,7 @@ open class SimpleMarkdownConverter {
     
     open static func toHtmlString(_ markdownText: String) -> String {
         let parser = obtainParser(markdownText)
-        let foundTags = parser.findTags(markdownText)
+        let foundTags = parser.findTags(onMarkdownText: markdownText)
         var htmlString = ""
         var listCount: [Int] = []
         var prevSectionType = MarkdownTagType.paragraph
@@ -93,10 +93,10 @@ open class SimpleMarkdownConverter {
                     processingTag!.startExtra = curTag.startExtra
                     processingTag!.endExtra = curTag.endExtra
                     processingTag!.startText = adjustedHtmlString.endIndex
-                    adjustedHtmlString += parser.extractTextBetween(markdownText, startTag: curTag, endTag: nextTag!, mode: .startToNext)
+                    adjustedHtmlString += parser.extract(textBetweenMarkdownText: markdownText, startTag: curTag, endTag: nextTag!, mode: .startToNext)
                     processingTag!.endText = adjustedHtmlString.endIndex
                 } else {
-                    adjustedHtmlString += parser.extractTextBetween(markdownText, startTag: intermediateTag!, endTag: nextTag!, mode: .intermediateToNext)
+                    adjustedHtmlString += parser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: nextTag!, mode: .intermediateToNext)
                     processingTag!.endText = adjustedHtmlString.endIndex
                 }
                 let prevHandledTagSize = handledTags.count
@@ -115,10 +115,10 @@ open class SimpleMarkdownConverter {
                     processingTag!.startExtra = curTag.startExtra
                     processingTag!.endExtra = curTag.endExtra
                     processingTag!.startText = adjustedHtmlString.endIndex
-                    adjustedHtmlString += parser.extractText(markdownText, tag: curTag)
+                    adjustedHtmlString += parser.extract(textFromMarkdownText: markdownText, tag: curTag)
                     processingTag!.endText = adjustedHtmlString.endIndex
                 } else {
-                    adjustedHtmlString += parser.extractTextBetween(markdownText, startTag: intermediateTag!, endTag: curTag, mode: .intermediateToEnd)
+                    adjustedHtmlString += parser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: curTag, mode: .intermediateToEnd)
                     processingTag!.endText = adjustedHtmlString.endIndex
                 }
             }
@@ -159,9 +159,9 @@ open class SimpleMarkdownConverter {
         } else if tag.type == .link {
             start += "a"
             if !closingTag {
-                var linkLocation = parser.extractExtra(markdownText, tag: tag)
+                var linkLocation = parser.extract(extraFromMarkdownText: markdownText, tag: tag)
                 if linkLocation.characters.count == 0 {
-                    linkLocation = parser.extractText(markdownText, tag: tag)
+                    linkLocation = parser.extract(textFromMarkdownText: markdownText, tag: tag)
                 }
                 start += " href=" + linkLocation
             }
@@ -183,7 +183,7 @@ open class SimpleMarkdownConverter {
     open static func toAttributedString(_ defaultFont: UIFont, markdownText: String, attributedStringGenerator: MarkdownAttributedStringGenerator) -> NSAttributedString {
         // Handle tags and do the conversion
         let parser = obtainParser(markdownText)
-        let foundTags = parser.findTags(markdownText)
+        let foundTags = parser.findTags(onMarkdownText: markdownText)
         let attributedString = NSMutableAttributedString()
         var listCount: [Int] = []
         var addedParagraph = true
@@ -232,9 +232,9 @@ open class SimpleMarkdownConverter {
                     let start = markdownText.characters.distance(from: markdownText.startIndex, to: tag.startText!)
                     let end = markdownText.characters.distance(from: markdownText.startIndex, to: tag.endText!)
                     if tag.type == .link {
-                        extra = parser.extractExtra(markdownText, tag: tag)
+                        extra = parser.extract(extraFromMarkdownText: markdownText, tag: tag)
                         if extra == "" {
-                            extra = parser.extractText(markdownText, tag: tag)
+                            extra = parser.extract(textFromMarkdownText: markdownText, tag: tag)
                         }
                     }
                     attributedStringGenerator.applyAttribute(defaultFont, attributedString: attributedString, type: tag.type, weight: tag.weight, start: start + addDistance, length: end - start, extra: extra);
@@ -278,10 +278,10 @@ open class SimpleMarkdownConverter {
                     processingTag!.startExtra = curTag.startExtra
                     processingTag!.endExtra = curTag.endExtra
                     processingTag!.startText = attributedString.string.endIndex
-                    attributedString.append(NSAttributedString(string: parser.extractTextBetween(markdownText, startTag: curTag, endTag: nextTag!, mode: .startToNext)))
+                    attributedString.append(NSAttributedString(string: parser.extract(textBetweenMarkdownText: markdownText, startTag: curTag, endTag: nextTag!, mode: .startToNext)))
                     processingTag!.endText = attributedString.string.endIndex
                 } else {
-                    attributedString.append(NSAttributedString(string: parser.extractTextBetween(markdownText, startTag: intermediateTag!, endTag: nextTag!, mode: .intermediateToNext)))
+                    attributedString.append(NSAttributedString(string: parser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: nextTag!, mode: .intermediateToNext)))
                     processingTag!.endText = attributedString.string.endIndex
                 }
                 let prevConvertedTagSize = convertedTags.count
@@ -298,10 +298,10 @@ open class SimpleMarkdownConverter {
                     processingTag!.startExtra = curTag.startExtra
                     processingTag!.endExtra = curTag.endExtra
                     processingTag!.startText = attributedString.string.endIndex
-                    attributedString.append(NSAttributedString(string: parser.extractText(markdownText, tag: curTag)))
+                    attributedString.append(NSAttributedString(string: parser.extract(textFromMarkdownText: markdownText, tag: curTag)))
                     processingTag!.endText = attributedString.string.endIndex
                 } else {
-                    attributedString.append(NSAttributedString(string: parser.extractTextBetween(markdownText, startTag: intermediateTag!, endTag: curTag, mode: .intermediateToEnd)))
+                    attributedString.append(NSAttributedString(string: parser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: curTag, mode: .intermediateToEnd)))
                     processingTag!.endText = attributedString.string.endIndex
                 }
             }

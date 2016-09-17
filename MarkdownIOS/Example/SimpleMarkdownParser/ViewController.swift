@@ -108,7 +108,7 @@ class ViewController: UIViewController {
     // --
 
     @objc func didTapOnLabel(_ gesture: UITapGestureRecognizer) {
-        if let url: URL = gesture.findUrlOnLabel(label) {
+        if let url: URL = gesture.findUrl(onLabel: label) {
             UIApplication.shared.openURL(url)
         }
     }

@@ -7,13 +7,13 @@
 
 public extension UITapGestureRecognizer {
     
-    func findUrlOnLabel(_ label: UILabel) -> URL? {
+    func findUrl(onLabel: UILabel) -> URL? {
         // Fetch attributed text and apply label font entirely, then set up text storage
-        let attributedText = NSMutableAttributedString(attributedString: label.attributedText!)
+        let attributedText = NSMutableAttributedString(attributedString: onLabel.attributedText!)
         let textStorage = NSTextStorage(attributedString: attributedText)
         
         // Create instances of NSLayoutManager and NSTextContainer, then link them
-        let labelSize = label.bounds.size
+        let labelSize = onLabel.bounds.size
         let layoutManager = NSLayoutManager()
         let textContainer = NSTextContainer(size: labelSize)
         layoutManager.addTextContainer(textContainer)
@@ -21,11 +21,11 @@ public extension UITapGestureRecognizer {
         
         // Configure textContainer
         textContainer.lineFragmentPadding = 0.0
-        textContainer.lineBreakMode = label.lineBreakMode
-        textContainer.maximumNumberOfLines = label.numberOfLines
+        textContainer.lineBreakMode = onLabel.lineBreakMode
+        textContainer.maximumNumberOfLines = onLabel.numberOfLines
         
         // Find the tapped character location and compare it to the specified range
-        let locationOfTouchInLabel = self.location(in: label)
+        let locationOfTouchInLabel = self.location(in: onLabel)
         let textBoundingBox = layoutManager.usedRect(for: textContainer)
         let textContainerOffset = CGPoint(x: (labelSize.width - textBoundingBox.size.width) * 0.5 - textBoundingBox.origin.x,
                                               y: (labelSize.height - textBoundingBox.size.height) * 0.5 - textBoundingBox.origin.y);
@@ -35,7 +35,7 @@ public extension UITapGestureRecognizer {
         
         // Try to find a matching URL and return the result
         var url: URL? = nil
-        label.attributedText!.enumerateAttributes(in: NSMakeRange(indexOfCharacter, 1), options: .longestEffectiveRangeNotRequired, using: { (attributes: [String: Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+        onLabel.attributedText!.enumerateAttributes(in: NSMakeRange(indexOfCharacter, 1), options: .longestEffectiveRangeNotRequired, using: { (attributes: [String: Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
             for (key, value) in attributes {
                 if key == NSClickableTextAttributeName || key == NSLinkAttributeName {
                     if value is URL {
