@@ -8,20 +8,20 @@
 // The enum to define the way to extract the text between 2 tags
 public enum ExtractBetweenMode {
     
-    case StartToNext
-    case IntermediateToNext
-    case IntermediateToEnd
+    case startToNext
+    case intermediateToNext
+    case intermediateToEnd
     
 }
 
 // Parser protocol
 public protocol SimpleMarkdownParser: class {
     
-    func findTags(markdownText: String) -> [MarkdownTag]
-    func extractText(markdownText: String, tag: MarkdownTag) -> String
-    func extractTextBetween(markdownText: String, startTag: MarkdownTag, endTag: MarkdownTag, mode: ExtractBetweenMode) -> String
-    func extractFull(markdownText: String, tag: MarkdownTag) -> String
-    func extractFullBetween(markdownText: String, startTag: MarkdownTag, endTag: MarkdownTag, mode: ExtractBetweenMode) -> String
-    func extractExtra(markdownText: String, tag: MarkdownTag) -> String
+    func findTags(_ markdownText: String) -> [MarkdownTag]
+    func extractText(_ markdownText: String, tag: MarkdownTag) -> String
+    func extractTextBetween(_ markdownText: String, startTag: MarkdownTag, endTag: MarkdownTag, mode: ExtractBetweenMode) -> String
+    func extractFull(_ markdownText: String, tag: MarkdownTag) -> String
+    func extractFullBetween(_ markdownText: String, startTag: MarkdownTag, endTag: MarkdownTag, mode: ExtractBetweenMode) -> String
+    func extractExtra(_ markdownText: String, tag: MarkdownTag) -> String
     
 }

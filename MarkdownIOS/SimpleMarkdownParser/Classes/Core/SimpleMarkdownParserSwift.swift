@@ -11,7 +11,7 @@ private class MarkdownMarker {
     var weight: Int
     let position: String.Index
     
-    private init(chr: Character, weight: Int, position: String.Index) {
+    fileprivate init(chr: Character, weight: Int, position: String.Index) {
         self.chr = chr
         self.weight = weight
         self.position = position
@@ -19,7 +19,7 @@ private class MarkdownMarker {
 }
 
 // Parser class
-public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
+open class SimpleMarkdownParserSwift : SimpleMarkdownParser {
     
     // --
     // MARK: Default initializer
@@ -33,18 +33,18 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
     // MARK: Finding tags
     // --
     
-    public func findTags(markdownText: String) -> [MarkdownTag] {
+    open func findTags(_ markdownText: String) -> [MarkdownTag] {
         var foundTags: [MarkdownTag] = []
         let maxLength = markdownText.endIndex
         var paragraphStartPos: String.Index? = nil
-        var curLine: MarkdownTag? = scanLine(markdownText, position: markdownText.startIndex, maxLength: maxLength, sectionType: .Paragraph)
+        var curLine: MarkdownTag? = scanLine(markdownText, position: markdownText.startIndex, maxLength: maxLength, sectionType: .paragraph)
         while curLine != nil {
             // Fetch next line ahead
-            let hasNextLine = curLine!.endPosition < maxLength
-            let isEmptyLine = curLine!.startPosition?.advancedBy(1) == curLine!.endPosition
+            let hasNextLine = curLine!.endPosition! < maxLength
+            let isEmptyLine = markdownText.index(curLine!.startPosition!, offsetBy: 1) == curLine!.endPosition
             var curType = curLine!.type
             if isEmptyLine {
-                curType = .Paragraph
+                curType = .paragraph
             }
             let nextLine: MarkdownTag? = hasNextLine ? scanLine(markdownText, position: curLine!.endPosition!, maxLength: maxLength, sectionType: curType) : nil
             
@@ -65,19 +65,19 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
             
             // Insert paragraphs when needed
             if nextLine != nil {
-                let startNewParagraph = curLine!.type == .Header || nextLine!.type == .Header || nextLine!.startPosition!.advancedBy(1) == nextLine!.endPosition
-                let stopParagraph = nextLine!.startPosition!.advancedBy(1) != nextLine!.endPosition
+                let startNewParagraph = curLine!.type == .header || nextLine!.type == .header || markdownText.index(nextLine!.startPosition!, offsetBy: 1) == nextLine!.endPosition
+                let stopParagraph = markdownText.index(nextLine!.startPosition!, offsetBy: 1) != nextLine!.endPosition
                 if startNewParagraph && foundTags.count > 0 && paragraphStartPos == nil {
                     paragraphStartPos = curLine!.endPosition
                 }
                 if stopParagraph && paragraphStartPos != nil {
                     let paragraphTag = MarkdownTag()
-                    paragraphTag.type = .Paragraph
+                    paragraphTag.type = .paragraph
                     paragraphTag.startPosition = paragraphStartPos
                     paragraphTag.endPosition = nextLine!.startPosition
                     paragraphTag.startText = paragraphStartPos
                     paragraphTag.endText = paragraphStartPos
-                    paragraphTag.weight = nextLine!.type == .Header ? 2 : 1
+                    paragraphTag.weight = nextLine!.type == .header ? 2 : 1
                     foundTags.append(paragraphTag)
                     paragraphStartPos = nil
                 }
@@ -94,26 +94,26 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
     // MARK: Extracting text
     // --
     
-    public func extractText(markdownText: String, tag: MarkdownTag) -> String {
+    open func extractText(_ markdownText: String, tag: MarkdownTag) -> String {
         if (tag.flags & MarkdownTag.FLAG_ESCAPED) > 0 {
             return escapedSubstring(markdownText, startPosition: tag.startText!, endPosition: tag.endText!)
         }
-        return markdownText.substringWithRange(tag.startText!..<tag.endText!)
+        return markdownText.substring(with: tag.startText!..<tag.endText!)
     }
     
-    public func extractTextBetween(markdownText: String, startTag: MarkdownTag, endTag: MarkdownTag, mode: ExtractBetweenMode) -> String {
+    open func extractTextBetween(_ markdownText: String, startTag: MarkdownTag, endTag: MarkdownTag, mode: ExtractBetweenMode) -> String {
         var startPos = markdownText.startIndex
         var endPos = markdownText.startIndex
         switch mode {
-        case .StartToNext:
+        case .startToNext:
             startPos = startTag.startText!
             endPos = endTag.startPosition!
             break
-        case .IntermediateToNext:
+        case .intermediateToNext:
             startPos = startTag.endPosition!
             endPos = endTag.startPosition!
             break
-        case .IntermediateToEnd:
+        case .intermediateToEnd:
             startPos = startTag.endPosition!
             endPos = endTag.endText!
             break
@@ -124,29 +124,29 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
         if (startTag.flags & MarkdownTag.FLAG_ESCAPED) > 0 {
             return escapedSubstring(markdownText, startPosition: startPos, endPosition: endPos)
         }
-        return markdownText.substringWithRange(startPos..<endPos)
+        return markdownText.substring(with: startPos..<endPos)
     }
     
-    public func extractFull(markdownText: String, tag: MarkdownTag) -> String {
+    open func extractFull(_ markdownText: String, tag: MarkdownTag) -> String {
         if (tag.flags & MarkdownTag.FLAG_ESCAPED) > 0 {
             return escapedSubstring(markdownText, startPosition: tag.startPosition!, endPosition: tag.endPosition!)
         }
-        return markdownText.substringWithRange(tag.startPosition!..<tag.endPosition!)
+        return markdownText.substring(with: tag.startPosition!..<tag.endPosition!)
     }
     
-    public func extractFullBetween(markdownText: String, startTag: MarkdownTag, endTag: MarkdownTag, mode: ExtractBetweenMode) -> String {
+    open func extractFullBetween(_ markdownText: String, startTag: MarkdownTag, endTag: MarkdownTag, mode: ExtractBetweenMode) -> String {
         var startPos = markdownText.startIndex
         var endPos = markdownText.startIndex
         switch mode {
-        case .StartToNext:
+        case .startToNext:
             startPos = startTag.startPosition!
             endPos = endTag.startPosition!
             break
-        case .IntermediateToNext:
+        case .intermediateToNext:
             startPos = startTag.endPosition!
             endPos = endTag.startPosition!
             break
-        case .IntermediateToEnd:
+        case .intermediateToEnd:
             startPos = startTag.endPosition!
             endPos = endTag.endPosition!
             break
@@ -157,24 +157,24 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
         if (startTag.flags & MarkdownTag.FLAG_ESCAPED) > 0 {
             return escapedSubstring(markdownText, startPosition: startPos, endPosition: endPos)
         }
-        return markdownText.substringWithRange(startPos..<endPos)
+        return markdownText.substring(with: startPos..<endPos)
     }
     
-    public func extractExtra(markdownText: String, tag: MarkdownTag) -> String {
-        if tag.startExtra == nil || tag.endExtra == nil || tag.endExtra <= tag.startExtra {
+    open func extractExtra(_ markdownText: String, tag: MarkdownTag) -> String {
+        if tag.startExtra == nil || tag.endExtra == nil || tag.endExtra! <= tag.startExtra! {
             return ""
         }
         if (tag.flags & MarkdownTag.FLAG_ESCAPED) > 0 {
             return escapedSubstring(markdownText, startPosition: tag.startExtra!, endPosition: tag.endExtra!)
         }
-        return markdownText.substringWithRange(tag.startExtra!..<tag.endExtra!)
+        return markdownText.substring(with: tag.startExtra!..<tag.endExtra!)
     }
     
-    private func escapedSubstring(text: String, startPosition: String.Index, endPosition: String.Index) -> String {
+    fileprivate func escapedSubstring(_ text: String, startPosition: String.Index, endPosition: String.Index) -> String {
         var filteredText = ""
-        for i in startPosition..<endPosition {
+        for i in text.characters.indices[startPosition..<endPosition] {
             let chr = text.characters[i]
-            if chr == "\\" && text.characters[i.advancedBy(1)] != "\n" {
+            if chr == "\\" && text.characters[text.index(i, offsetBy: 1)] != "\n" {
                 continue
             }
             filteredText.append(chr)
@@ -187,7 +187,7 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
     // MARK: Markdown line scanning
     // --
     
-    private func scanLine(markdownText: String, position: String.Index, maxLength: String.Index, sectionType: MarkdownTagType) -> MarkdownTag? {
+    fileprivate func scanLine(_ markdownText: String, position: String.Index, maxLength: String.Index, sectionType: MarkdownTagType) -> MarkdownTag? {
         if position >= maxLength {
             return nil
         }
@@ -197,16 +197,16 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
         var chr: Character = "\0", nextChr = markdownText.characters[position], secondNextChr: Character = "\0"
         var styleTagDefined = false, escaped = false
         var headerTokenSequence = false
-        if position.distanceTo(maxLength) > 1 {
-            secondNextChr = markdownText.characters[position.advancedBy(1)]
+        if markdownText.distance(from: position, to: maxLength) > 1 {
+            secondNextChr = markdownText.characters[markdownText.index(position, offsetBy: 1)]
         }
         normalTag.startPosition = position
         styledTag.startPosition = position
-        for i in position..<maxLength {
+        for i in markdownText.characters.indices[position..<maxLength] {
             chr = nextChr
             nextChr = secondNextChr
-            if i.distanceTo(maxLength) > 2 {
-                secondNextChr = markdownText.characters[i.advancedBy(2)]
+            if markdownText.distance(from: i, to: maxLength) > 2 {
+                secondNextChr = markdownText.characters[markdownText.index(i, offsetBy: 2)]
             }
             if skipChars > 0 {
                 skipChars -= 1
@@ -227,44 +227,44 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
                         styledTag.startText = i
                     }
                 }
-                normalTag.endText = i.advancedBy(1)
-                styledTag.endText = i.advancedBy(1)
+                normalTag.endText = markdownText.index(i, offsetBy: 1)
+                styledTag.endText = markdownText.index(i, offsetBy: 1)
             } else {
                 if chr == "\n" {
-                    normalTag.endPosition = i.advancedBy(1)
-                    styledTag.endPosition = i.advancedBy(1)
+                    normalTag.endPosition = markdownText.index(i, offsetBy: 1)
+                    styledTag.endPosition = markdownText.index(i, offsetBy: 1)
                     break
                 }
                 if chr != " " {
                     if normalTag.startText == nil {
                         normalTag.startText = i
                     }
-                    normalTag.endText = i.advancedBy(1)
+                    normalTag.endText = markdownText.index(i, offsetBy: 1)
                 }
                 if !styleTagDefined {
-                    let allowNewParagraph = sectionType == .Paragraph || sectionType == .Header
-                    let continueBulletList = sectionType == .UnorderedList || sectionType == .OrderedList
+                    let allowNewParagraph = sectionType == .paragraph || sectionType == .header
+                    let continueBulletList = sectionType == .unorderedList || sectionType == .orderedList
                     if chr == "#" {
-                        styledTag.type = .Header
+                        styledTag.type = .header
                         styledTag.weight = 1
                         styleTagDefined = true
                         headerTokenSequence = true
-                    } else if (allowNewParagraph || continueBulletList) && (chr == "*" || chr == "-" || chr == "+") && nextChr == " " && position.distanceTo(i) % 2 == 0 {
-                        styledTag.type = .UnorderedList
-                        styledTag.weight = 1 + position.distanceTo(i) / 2
+                    } else if (allowNewParagraph || continueBulletList) && (chr == "*" || chr == "-" || chr == "+") && nextChr == " " && markdownText.distance(from: position, to: i) % 2 == 0 {
+                        styledTag.type = .unorderedList
+                        styledTag.weight = 1 + markdownText.distance(from: position, to: i) / 2
                         styleTagDefined = true
                         skipChars = 1
-                    } else if (allowNewParagraph || continueBulletList) && chr >= "0" && chr <= "9" && nextChr == "." && secondNextChr == " " && position.distanceTo(i) % 2 == 0 {
-                        styledTag.type = .OrderedList
-                        styledTag.weight = 1 + position.distanceTo(i) / 2
+                    } else if (allowNewParagraph || continueBulletList) && chr >= "0" && chr <= "9" && nextChr == "." && secondNextChr == " " && markdownText.distance(from: position, to: i) % 2 == 0 {
+                        styledTag.type = .orderedList
+                        styledTag.weight = 1 + markdownText.distance(from: position, to: i) / 2
                         styleTagDefined = true
                         skipChars = 2
                     } else if chr != " " {
-                        styledTag.type = .Normal
+                        styledTag.type = .normal
                         styleTagDefined = true
                     }
-                } else if styledTag.type != .Normal {
-                    if styledTag.type == .Header {
+                } else if styledTag.type != .normal {
+                    if styledTag.type == .header {
                         if chr == "#" && headerTokenSequence {
                             styledTag.weight += 1
                         } else {
@@ -272,23 +272,23 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
                         }
                         if chr != "#" && chr != " " && styledTag.startText == nil {
                             styledTag.startText = i
-                            styledTag.endText = i.advancedBy(1)
+                            styledTag.endText = markdownText.index(i, offsetBy: 1)
                         } else if (chr != "#" || (nextChr != "#" && nextChr != "\n" && nextChr != " " && nextChr != "\0")) && chr != " " && styledTag.startText != nil {
-                            styledTag.endText = i.advancedBy(1)
+                            styledTag.endText = markdownText.index(i, offsetBy: 1)
                         }
                     } else {
                         if chr != " " {
                             if styledTag.startText == nil {
                                 styledTag.startText = i
                             }
-                            styledTag.endText = i.advancedBy(1)
+                            styledTag.endText = markdownText.index(i, offsetBy: 1)
                         }
                     }
                 }
             }
             escaped = false
         }
-        if styleTagDefined && styledTag.type != .Normal && styledTag.startText != nil && styledTag.endText > styledTag.startText {
+        if styleTagDefined && styledTag.type != .normal && styledTag.startText != nil && styledTag.endText! > styledTag.startText! {
             if styledTag.endPosition == nil {
                 styledTag.endPosition = maxLength
             }
@@ -297,7 +297,7 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
         if normalTag.endPosition == nil {
             normalTag.endPosition = maxLength
         }
-        normalTag.type = .Normal
+        normalTag.type = .normal
         return normalTag
     }
 
@@ -306,7 +306,7 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
     // MARK: Markdown style tag scanning
     // --
 
-    private func addStyleTags(inout foundTags: [MarkdownTag], markdownText: String, inout sectionTag: MarkdownTag) {
+    fileprivate func addStyleTags(_ foundTags: inout [MarkdownTag], markdownText: String, sectionTag: inout MarkdownTag) {
         // First add the main section tag
         let mainTag = MarkdownTag()
         mainTag.type = sectionTag.type
@@ -325,7 +325,7 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
         var curMarkerWeight = 0
         var curMarkerChar: Character = "\0"
         var skipCharacters = 0
-        for i in sectionTag.startText!..<maxLength {
+        for i in markdownText.characters.indices[sectionTag.startText!..<maxLength] {
             if skipCharacters > 0 {
                 skipCharacters -= 1
                 continue
@@ -335,7 +335,7 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
                 if chr == curMarkerChar {
                     curMarkerWeight += 1
                 } else {
-                    tagMarkers.append(MarkdownMarker(chr: curMarkerChar, weight: curMarkerWeight, position: i.advancedBy(-curMarkerWeight)))
+                    tagMarkers.append(MarkdownMarker(chr: curMarkerChar, weight: curMarkerWeight, position: markdownText.index(i, offsetBy: -curMarkerWeight)))
                     curMarkerChar = "\0"
                 }
             }
@@ -352,16 +352,16 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
             }
         }
         if curMarkerChar != "\0" {
-            tagMarkers.append(MarkdownMarker(chr: curMarkerChar, weight: curMarkerWeight, position: maxLength.advancedBy(-curMarkerWeight)))
+            tagMarkers.append(MarkdownMarker(chr: curMarkerChar, weight: curMarkerWeight, position: markdownText.index(maxLength, offsetBy: -curMarkerWeight)))
         }
         
         //Sort tags to add and finally add them
-        processMarkers(&addTags, markers: &tagMarkers, start: 0, end: tagMarkers.count, addFlags: sectionTag.flags)
-        addTags.sortInPlace({ (lhs, rhs) -> Bool in
-            let diff = lhs.startPosition < rhs.startPosition ? lhs.startPosition!.distanceTo(rhs.startPosition!) : -rhs.startPosition!.distanceTo(lhs.startPosition!)
+        processMarkers(markdownText: markdownText, addTags: &addTags, markers: &tagMarkers, start: 0, end: tagMarkers.count, addFlags: sectionTag.flags)
+        addTags.sort(by: { (lhs, rhs) -> Bool in
+            let diff = lhs.startPosition! < rhs.startPosition! ? markdownText.distance(from: lhs.startPosition!, to: rhs.startPosition!) : -markdownText.distance(from: rhs.startPosition!, to: lhs.startPosition!)
             return diff > 0
         })
-        foundTags.appendContentsOf(addTags)
+        foundTags.append(contentsOf: addTags)
     }
     
 
@@ -369,7 +369,7 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
     // MARK: Markdown marker conversion (resursive)
     // --
     
-    private func processMarkers(inout addTags: [MarkdownTag], inout markers: [MarkdownMarker], start: Int, end: Int, addFlags: Int) {
+    fileprivate func processMarkers(markdownText: String, addTags: inout [MarkdownTag], markers: inout [MarkdownMarker], start: Int, end: Int, addFlags: Int) {
         var adjustedStart = start
         var processing = true
         while processing && adjustedStart < end {
@@ -384,25 +384,25 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
                         if (checkMarker.chr == "]" && linkTag == nil) || (checkMarker.chr == ")" && linkTag != nil) {
                             if linkTag == nil {
                                 linkTag = MarkdownTag()
-                                linkTag!.type = .Link
+                                linkTag!.type = .link
                                 linkTag!.startPosition = marker.position
-                                linkTag!.endPosition = checkMarker.position.advancedBy(checkMarker.weight)
-                                linkTag!.startText = linkTag!.startPosition!.advancedBy(marker.weight)
+                                linkTag!.endPosition = markdownText.index(checkMarker.position, offsetBy: checkMarker.weight)
+                                linkTag!.startText = markdownText.index(linkTag!.startPosition!, offsetBy: marker.weight)
                                 linkTag!.endText = checkMarker.position
                                 linkTag!.flags = addFlags
                                 addTags.append(linkTag!)
                                 adjustedStart = i + 1
                                 if adjustedStart < end {
                                     extraMarker = markers[adjustedStart]
-                                    if extraMarker!.chr != "(" || extraMarker!.position != checkMarker.position.advancedBy(checkMarker.weight) {
+                                    if extraMarker!.chr != "(" || extraMarker!.position != markdownText.index(checkMarker.position, offsetBy: checkMarker.weight) {
                                         processing = true
                                         break
                                     }
                                 }
                             } else if extraMarker != nil {
-                                linkTag!.startExtra = extraMarker!.position.advancedBy(extraMarker!.weight)
+                                linkTag!.startExtra = markdownText.index(extraMarker!.position, offsetBy: extraMarker!.weight)
                                 linkTag!.endExtra = checkMarker.position
-                                linkTag!.endPosition = checkMarker.position.advancedBy(checkMarker.weight)
+                                linkTag!.endPosition = markdownText.index(checkMarker.position, offsetBy: checkMarker.weight)
                                 adjustedStart = i + 1
                                 processing = true
                                 break
@@ -415,15 +415,15 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
                     let checkMarker = markers[i]
                     if checkMarker.chr == marker.chr && checkMarker.weight >= marker.weight {
                         let tag = MarkdownTag()
-                        tag.type = checkMarker.chr == "~" ? .AlternativeTextStyle : .TextStyle
+                        tag.type = checkMarker.chr == "~" ? .alternativeTextStyle : .textStyle
                         tag.weight = marker.weight
                         tag.startPosition = marker.position
-                        tag.endPosition = checkMarker.position.advancedBy(marker.weight)
-                        tag.startText = tag.startPosition?.advancedBy(marker.weight)
+                        tag.endPosition = markdownText.index(checkMarker.position, offsetBy: marker.weight)
+                        tag.startText = markdownText.index(tag.startPosition!, offsetBy: marker.weight)
                         tag.endText = checkMarker.position
                         tag.flags = addFlags
                         addTags.append(tag)
-                        processMarkers(&addTags, markers: &markers, start: adjustedStart + 1, end: i, addFlags: addFlags)
+                        processMarkers(markdownText: markdownText, addTags: &addTags, markers: &markers, start: adjustedStart + 1, end: i, addFlags: addFlags)
                         if checkMarker.weight > marker.weight {
                             checkMarker.weight -= marker.weight
                             adjustedStart = i

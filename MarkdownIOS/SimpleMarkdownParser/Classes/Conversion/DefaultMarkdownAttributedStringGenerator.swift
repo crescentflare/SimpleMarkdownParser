@@ -6,7 +6,7 @@
 //
 
 // Parser class
-public class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGenerator {
+open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGenerator {
     
     // --
     // MARK: Default initializer
@@ -20,38 +20,38 @@ public class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedString
     // MARK: Implementations
     // --
     
-    public func applyAttribute(defaultFont: UIFont, attributedString: NSMutableAttributedString, type: MarkdownTagType, weight: Int, start: Int, length: Int, extra: String) {
+    open func applyAttribute(_ defaultFont: UIFont, attributedString: NSMutableAttributedString, type: MarkdownTagType, weight: Int, start: Int, length: Int, extra: String) {
         switch type {
-        case .Paragraph:
-            attributedString.addAttribute(NSFontAttributeName, value: defaultFont.fontWithSize(defaultFont.pointSize * CGFloat(weight)), range: NSMakeRange(start, length))
+        case .paragraph:
+            attributedString.addAttribute(NSFontAttributeName, value: defaultFont.withSize(defaultFont.pointSize * CGFloat(weight)), range: NSMakeRange(start, length))
             break
-        case .Header:
-            attributedString.addAttribute(NSFontAttributeName, value: UIFont.init(descriptor: defaultFont.fontDescriptor().fontDescriptorWithSymbolicTraits(.TraitBold), size: defaultFont.pointSize * DefaultMarkdownAttributedStringGenerator.sizeForHeader(weight)), range: NSMakeRange(start, length))
+        case .header:
+            attributedString.addAttribute(NSFontAttributeName, value: UIFont.init(descriptor: defaultFont.fontDescriptor.withSymbolicTraits(.traitBold)!, size: defaultFont.pointSize * DefaultMarkdownAttributedStringGenerator.sizeForHeader(weight)), range: NSMakeRange(start, length))
             break
-        case .OrderedList, .UnorderedList:
+        case .orderedList, .unorderedList:
             let bulletParagraph = NSMutableParagraphStyle()
-            let tokenTabStop = NSTextTab(textAlignment: .Right, location: 25 + CGFloat(weight - 1) * 15, options: [:])
-            let textTabStop = NSTextTab(textAlignment: .Left, location: tokenTabStop.location + 5, options: [:])
+            let tokenTabStop = NSTextTab(textAlignment: .right, location: 25 + CGFloat(weight - 1) * 15, options: [:])
+            let textTabStop = NSTextTab(textAlignment: .left, location: tokenTabStop.location + 5, options: [:])
             bulletParagraph.tabStops = [ tokenTabStop, textTabStop ]
             bulletParagraph.firstLineHeadIndent = 0
             bulletParagraph.headIndent = textTabStop.location
             attributedString.addAttribute(NSParagraphStyleAttributeName, value: bulletParagraph, range: NSMakeRange(start, length))
             break
-        case .TextStyle:
+        case .textStyle:
             var deriveFont = defaultFont
-            attributedString.enumerateAttributesInRange(NSMakeRange(start, length), options: .LongestEffectiveRangeNotRequired, usingBlock: { (attributes: [String: AnyObject], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+            attributedString.enumerateAttributes(in: NSMakeRange(start, length), options: .longestEffectiveRangeNotRequired, using: { (attributes: [String: Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
                 if let font = attributes["NSFont"] as? UIFont {
                     deriveFont = font
                 }
             })
             attributedString.addAttribute(NSFontAttributeName, value: DefaultMarkdownAttributedStringGenerator.fontForWeight(deriveFont, weight: weight), range: NSMakeRange(start, length))
             break
-        case .AlternativeTextStyle:
+        case .alternativeTextStyle:
             attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: true, range: NSMakeRange(start, length))
             break
-        case .Link:
-            attributedString.addAttribute(NSClickableTextAttributeName, value: NSURL(string: extra)!, range: NSMakeRange(start, length))
-            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: NSMakeRange(start, length))
+        case .link:
+            attributedString.addAttribute(NSClickableTextAttributeName, value: URL(string: extra)!, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: NSMakeRange(start, length))
             attributedString.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(start, length))
             break
         default:
@@ -59,39 +59,39 @@ public class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedString
         }
     }
     
-    public func getListToken(type: MarkdownTagType, weight: Int, index: Int) -> String {
-        let token = type == .OrderedList ? "\(index)." : DefaultMarkdownAttributedStringGenerator.bulletTokenForWeight(weight)
+    open func getListToken(_ type: MarkdownTagType, weight: Int, index: Int) -> String {
+        let token = type == .orderedList ? "\(index)." : DefaultMarkdownAttributedStringGenerator.bulletTokenForWeight(weight)
         return "\t\(token)\t"
     }
 
-    private static func sizeForHeader(weight: Int) -> CGFloat {
+    fileprivate static func sizeForHeader(_ weight: Int) -> CGFloat {
         if weight >= 1 && weight < 6 {
             return 1.5 - CGFloat(weight - 1) * 0.1
         }
         return 1
     }
 
-    private static func fontForWeight(defaultFont: UIFont, weight: Int) -> UIFont {
+    fileprivate static func fontForWeight(_ defaultFont: UIFont, weight: Int) -> UIFont {
         var traits: UIFontDescriptorSymbolicTraits = UIFontDescriptorSymbolicTraits()
-        traits.insert(defaultFont.fontDescriptor().symbolicTraits)
+        traits.insert(defaultFont.fontDescriptor.symbolicTraits)
         switch (weight) {
         case 1:
-            traits.insert(.TraitItalic)
+            traits.insert(.traitItalic)
             break
         case 2:
-            traits.insert(.TraitBold)
+            traits.insert(.traitBold)
             break
         case 3:
-            traits.insert(.TraitItalic)
-            traits.insert(.TraitBold)
+            traits.insert(.traitItalic)
+            traits.insert(.traitBold)
             break
         default:
             break // Will return the default value below
         }
-        return UIFont.init(descriptor: defaultFont.fontDescriptor().fontDescriptorWithSymbolicTraits(traits), size: defaultFont.pointSize)
+        return UIFont.init(descriptor: defaultFont.fontDescriptor.withSymbolicTraits(traits)!, size: defaultFont.pointSize)
     }
 
-    private static func bulletTokenForWeight(weight: Int) -> String {
+    fileprivate static func bulletTokenForWeight(_ weight: Int) -> String {
         if (weight == 2) {
             return "◦ "
         } else if (weight >= 3) {
