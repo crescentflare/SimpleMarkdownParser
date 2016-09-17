@@ -1,6 +1,6 @@
 # SimpleMarkdownParser
 
-[![CI Status](http://img.shields.io/travis/crescentflare/SimpleMarkdownParser.svg?style=flat)](https://travis-ci.org/CrescentFlare/SimpleMarkdownParser)
+[![CI Status](http://img.shields.io/travis/crescentflare/SimpleMarkdownParser.svg?style=flat)](https://travis-ci.org/crescentflare/SimpleMarkdownParser)
 [![License](https://img.shields.io/cocoapods/l/SimpleMarkdownParser.svg?style=flat)](http://cocoapods.org/pods/SimpleMarkdownParser)
 [![Version](https://img.shields.io/cocoapods/v/SimpleMarkdownParser.svg?style=flat)](http://cocoapods.org/pods/SimpleMarkdownParser)
 [![Version](https://img.shields.io/bintray/v/crescentflare/maven/SimpleMarkdownParserLib.svg?style=flat)](https://bintray.com/crescentflare/maven/SimpleMarkdownParserLib)
@@ -20,10 +20,18 @@ A multi-functional and easy way to integrate markdown formatting within mobile a
 
 ### iOS integration guide
 
-The library is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
+The library is available through [CocoaPods](http://cocoapods.org). To install it, simply add one of the following lines to your Podfile.
+
+Swift 3:
 
 ```ruby
-pod "SimpleMarkdownParser", '~> 0.5.0'
+pod "SimpleMarkdownParser", '~> 0.5.1'
+```
+
+Swift 2.2:
+
+```ruby
+pod "SimpleMarkdownParser", '0.5.0'
 ```
 
 

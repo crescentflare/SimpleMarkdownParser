@@ -8,14 +8,14 @@
 // The enum to define the type of supported markdown tags
 public enum MarkdownTagType {
     
-    case Normal
-    case Paragraph
-    case TextStyle
-    case AlternativeTextStyle
-    case Link
-    case Header
-    case OrderedList
-    case UnorderedList
+    case normal
+    case paragraph
+    case textStyle
+    case alternativeTextStyle
+    case link
+    case header
+    case orderedList
+    case unorderedList
     
 }
 
@@ -34,7 +34,7 @@ public class MarkdownTag {
     // MARK: Fields
     // --
     
-    public var type = MarkdownTagType.Normal
+    public var type = MarkdownTagType.normal
     public var flags = MarkdownTag.FLAG_NONE
     public var startPosition: String.Index? = nil
     public var endPosition: String.Index? = nil
