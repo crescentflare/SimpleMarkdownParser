@@ -20,7 +20,7 @@ open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGe
     // MARK: Implementations
     // --
     
-    open func applyAttribute(_ defaultFont: UIFont, attributedString: NSMutableAttributedString, type: MarkdownTagType, weight: Int, start: Int, length: Int, extra: String) {
+    open func applyAttribute(defaultFont: UIFont, attributedString: NSMutableAttributedString, type: MarkdownTagType, weight: Int, start: Int, length: Int, extra: String) {
         switch type {
         case .paragraph:
             attributedString.addAttribute(NSFontAttributeName, value: defaultFont.withSize(defaultFont.pointSize * CGFloat(weight)), range: NSMakeRange(start, length))
@@ -59,8 +59,8 @@ open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGe
         }
     }
     
-    open func getListToken(_ type: MarkdownTagType, weight: Int, index: Int) -> String {
-        let token = type == .orderedList ? "\(index)." : DefaultMarkdownAttributedStringGenerator.bulletTokenForWeight(weight)
+    open func getListToken(fromType: MarkdownTagType, weight: Int, index: Int) -> String {
+        let token = fromType == .orderedList ? "\(index)." : DefaultMarkdownAttributedStringGenerator.bulletTokenForWeight(weight)
         return "\t\(token)\t"
     }
 

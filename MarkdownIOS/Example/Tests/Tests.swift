@@ -26,7 +26,7 @@ class Tests: XCTestCase {
             WrappedMarkdownTag(type: .paragraph, weight: 1, flags: MarkdownTag.FLAG_NONE, text: ""),
             WrappedMarkdownTag(type: .normal, flags: MarkdownTag.FLAG_NONE, text: "Another")
         ]
-        assertTags(markdownTextLines, expectedTags: expectedTags)
+        assertTags(markdownTextLines: markdownTextLines, expectedTags: expectedTags)
     }
 
     func testFindTagsHeaders() {
@@ -54,7 +54,7 @@ class Tests: XCTestCase {
             WrappedMarkdownTag(type: .paragraph, weight: 1, flags: MarkdownTag.FLAG_NONE, text: ""),
             WrappedMarkdownTag(type: .normal, flags: MarkdownTag.FLAG_NONE, text: "Final text")
         ]
-        assertTags(markdownTextLines, expectedTags: expectedTags)
+        assertTags(markdownTextLines: markdownTextLines, expectedTags: expectedTags)
     }
 
     func testFindTagsSections() {
@@ -96,7 +96,7 @@ class Tests: XCTestCase {
             WrappedMarkdownTag(type: .paragraph, weight: 1, flags: MarkdownTag.FLAG_NONE, text: ""),
             WrappedMarkdownTag(type: .normal, flags: MarkdownTag.FLAG_NONE, text: "New paragraph")
         ]
-        assertTags(markdownTextLines, expectedTags: expectedTags)
+        assertTags(markdownTextLines: markdownTextLines, expectedTags: expectedTags)
     }
 
     func testFindTagsStyling() {
@@ -149,7 +149,7 @@ class Tests: XCTestCase {
             WrappedMarkdownTag(type: .normal, flags: MarkdownTag.FLAG_NONE, text: "And some text afterwards with a [link](https://www.github.com)."),
             WrappedMarkdownTag(type: .link, flags: MarkdownTag.FLAG_NONE, text: "link", extra: "https://www.github.com")
         ]
-        assertTags(markdownTextLines, expectedTags: expectedTags)
+        assertTags(markdownTextLines: markdownTextLines, expectedTags: expectedTags)
     }
 
     func testFindTagsEdgeCases() {
@@ -161,11 +161,11 @@ class Tests: XCTestCase {
             WrappedMarkdownTag(type: .normal, flags: MarkdownTag.FLAG_NONE, text: "A strange ***combination** tag*."),
             WrappedMarkdownTag(type: .textStyle, weight: 2, flags: MarkdownTag.FLAG_NONE, text: "*combination")
         ]
-        assertTags(markdownTextLines, expectedTags: expectedTags)
+        assertTags(markdownTextLines: markdownTextLines, expectedTags: expectedTags)
     }
     
     func testEmptyString() {
-        assertTags([], expectedTags: []);
+        assertTags(markdownTextLines: [], expectedTags: []);
     }
 
     
@@ -173,7 +173,7 @@ class Tests: XCTestCase {
     // MARK: Helpers
     // --
     
-    func assertTags(_ markdownTextLines: [String], expectedTags: [WrappedMarkdownTag], file: String = #file, line: UInt = #line) {
+    func assertTags(markdownTextLines: [String], expectedTags: [WrappedMarkdownTag], file: String = #file, line: UInt = #line) {
         let parser = SimpleMarkdownParserSwift()
         let markdownText = markdownTextLines.joined(separator: "\n")
         let foundTags = parser.findTags(onMarkdownText: markdownText)

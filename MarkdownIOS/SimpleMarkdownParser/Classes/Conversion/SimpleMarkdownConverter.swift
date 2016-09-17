@@ -13,9 +13,9 @@ open class SimpleMarkdownConverter {
     // MARK: HTML conversion handling
     // --
     
-    open static func toHtmlString(_ markdownText: String) -> String {
-        let parser = obtainParser(markdownText)
-        let foundTags = parser.findTags(onMarkdownText: markdownText)
+    public static func toHtmlString(fromMarkdownText: String) -> String {
+        let parser = obtainParser(forMarkdownText: fromMarkdownText)
+        let foundTags = parser.findTags(onMarkdownText: fromMarkdownText)
         var htmlString = ""
         var listCount: [Int] = []
         var prevSectionType = MarkdownTagType.paragraph
@@ -47,9 +47,9 @@ open class SimpleMarkdownConverter {
             }
             if sectionTag.type == .header || sectionTag.type == .orderedList || sectionTag.type == .unorderedList || sectionTag.type == .normal {
                 var handledTags: [MarkdownTag] = []
-                htmlString += getHtmlTag(parser, markdownText: markdownText, tag: sectionTag, closingTag: false)
-                htmlString = appendHtmlString(parser, handledTags: &handledTags, htmlString: htmlString, markdownText: markdownText, foundTags: foundTags, start: i)
-                htmlString += getHtmlTag(parser, markdownText: markdownText, tag: sectionTag, closingTag: true)
+                htmlString += getHtmlTag(usingParser: parser, markdownText: fromMarkdownText, tag: sectionTag, closingTag: false)
+                htmlString = appendHtmlString(usingParser: parser, handledTags: &handledTags, htmlString: htmlString, markdownText: fromMarkdownText, foundTags: foundTags, start: i)
+                htmlString += getHtmlTag(usingParser: parser, markdownText: fromMarkdownText, tag: sectionTag, closingTag: true)
                 skipTags += handledTags.count - 1
                 addedParagraph = sectionTag.type != .normal
             } else if sectionTag.type == .paragraph {
@@ -74,7 +74,7 @@ open class SimpleMarkdownConverter {
         return htmlString;
     }
     
-    fileprivate static func appendHtmlString(_ parser: SimpleMarkdownParser, handledTags: inout [MarkdownTag], htmlString: String, markdownText: String, foundTags: [MarkdownTag], start: Int) -> String {
+    private static func appendHtmlString(usingParser: SimpleMarkdownParser, handledTags: inout [MarkdownTag], htmlString: String, markdownText: String, foundTags: [MarkdownTag], start: Int) -> String {
         var adjustedHtmlString = htmlString
         let curTag = foundTags[start]
         var intermediateTag: MarkdownTag? = nil
@@ -93,16 +93,16 @@ open class SimpleMarkdownConverter {
                     processingTag!.startExtra = curTag.startExtra
                     processingTag!.endExtra = curTag.endExtra
                     processingTag!.startText = adjustedHtmlString.endIndex
-                    adjustedHtmlString += parser.extract(textBetweenMarkdownText: markdownText, startTag: curTag, endTag: nextTag!, mode: .startToNext)
+                    adjustedHtmlString += usingParser.extract(textBetweenMarkdownText: markdownText, startTag: curTag, endTag: nextTag!, mode: .startToNext)
                     processingTag!.endText = adjustedHtmlString.endIndex
                 } else {
-                    adjustedHtmlString += parser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: nextTag!, mode: .intermediateToNext)
+                    adjustedHtmlString += usingParser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: nextTag!, mode: .intermediateToNext)
                     processingTag!.endText = adjustedHtmlString.endIndex
                 }
                 let prevHandledTagSize = handledTags.count
-                adjustedHtmlString += getHtmlTag(parser, markdownText: markdownText, tag: nextTag!, closingTag: false)
-                adjustedHtmlString = appendHtmlString(parser, handledTags: &handledTags, htmlString: adjustedHtmlString, markdownText: markdownText, foundTags: foundTags, start: checkPosition)
-                adjustedHtmlString += getHtmlTag(parser, markdownText: markdownText, tag: nextTag!, closingTag: true)
+                adjustedHtmlString += getHtmlTag(usingParser: usingParser, markdownText: markdownText, tag: nextTag!, closingTag: false)
+                adjustedHtmlString = appendHtmlString(usingParser: usingParser, handledTags: &handledTags, htmlString: adjustedHtmlString, markdownText: markdownText, foundTags: foundTags, start: checkPosition)
+                adjustedHtmlString += getHtmlTag(usingParser: usingParser, markdownText: markdownText, tag: nextTag!, closingTag: true)
                 intermediateTag = foundTags[checkPosition]
                 checkPosition += handledTags.count - prevHandledTagSize
                 processing = true
@@ -115,10 +115,10 @@ open class SimpleMarkdownConverter {
                     processingTag!.startExtra = curTag.startExtra
                     processingTag!.endExtra = curTag.endExtra
                     processingTag!.startText = adjustedHtmlString.endIndex
-                    adjustedHtmlString += parser.extract(textFromMarkdownText: markdownText, tag: curTag)
+                    adjustedHtmlString += usingParser.extract(textFromMarkdownText: markdownText, tag: curTag)
                     processingTag!.endText = adjustedHtmlString.endIndex
                 } else {
-                    adjustedHtmlString += parser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: curTag, mode: .intermediateToEnd)
+                    adjustedHtmlString += usingParser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: curTag, mode: .intermediateToEnd)
                     processingTag!.endText = adjustedHtmlString.endIndex
                 }
             }
@@ -126,7 +126,7 @@ open class SimpleMarkdownConverter {
         return adjustedHtmlString
     }
 
-    fileprivate static func getHtmlTag(_ parser: SimpleMarkdownParser, markdownText: String, tag: MarkdownTag, closingTag: Bool) -> String {
+    private static func getHtmlTag(usingParser: SimpleMarkdownParser, markdownText: String, tag: MarkdownTag, closingTag: Bool) -> String {
         var start = closingTag ? "</" : "<"
         if tag.type == .textStyle {
             switch tag.weight {
@@ -159,9 +159,9 @@ open class SimpleMarkdownConverter {
         } else if tag.type == .link {
             start += "a"
             if !closingTag {
-                var linkLocation = parser.extract(extraFromMarkdownText: markdownText, tag: tag)
+                var linkLocation = usingParser.extract(extraFromMarkdownText: markdownText, tag: tag)
                 if linkLocation.characters.count == 0 {
-                    linkLocation = parser.extract(textFromMarkdownText: markdownText, tag: tag)
+                    linkLocation = usingParser.extract(textFromMarkdownText: markdownText, tag: tag)
                 }
                 start += " href=" + linkLocation
             }
@@ -176,13 +176,13 @@ open class SimpleMarkdownConverter {
     // MARK: Attributed string conversion handling
     // --
     
-    open static func toAttributedString(_ defaultFont: UIFont, markdownText: String) -> NSAttributedString {
-        return toAttributedString(defaultFont, markdownText: markdownText, attributedStringGenerator: DefaultMarkdownAttributedStringGenerator())
+    public static func toAttributedString(defaultFont: UIFont, markdownText: String) -> NSAttributedString {
+        return toAttributedString(defaultFont: defaultFont, markdownText: markdownText, attributedStringGenerator: DefaultMarkdownAttributedStringGenerator())
     }
     
-    open static func toAttributedString(_ defaultFont: UIFont, markdownText: String, attributedStringGenerator: MarkdownAttributedStringGenerator) -> NSAttributedString {
+    public static func toAttributedString(defaultFont: UIFont, markdownText: String, attributedStringGenerator: MarkdownAttributedStringGenerator) -> NSAttributedString {
         // Handle tags and do the conversion
-        let parser = obtainParser(markdownText)
+        let parser = obtainParser(forMarkdownText: markdownText)
         let foundTags = parser.findTags(onMarkdownText: markdownText)
         let attributedString = NSMutableAttributedString()
         var listCount: [Int] = []
@@ -211,10 +211,10 @@ open class SimpleMarkdownConverter {
             if sectionTag.type == .header || sectionTag.type == .orderedList || sectionTag.type == .unorderedList || sectionTag.type == .normal {
                 var convertedTags: [MarkdownTag] = []
                 var addDistance = 0
-                appendAttributedString(parser, convertedTags: &convertedTags, attributedString: attributedString, markdownText: markdownText, foundTags: foundTags, start: i);
+                appendAttributedString(usingParser: parser, convertedTags: &convertedTags, attributedString: attributedString, markdownText: markdownText, foundTags: foundTags, start: i);
                 skipTags += convertedTags.count - 1
                 if sectionTag.type == .orderedList || sectionTag.type == .unorderedList {
-                    var token: String? = attributedStringGenerator.getListToken(sectionTag.type, weight: sectionTag.weight, index: listCount[listCount.count - 1])
+                    var token: String? = attributedStringGenerator.getListToken(fromType: sectionTag.type, weight: sectionTag.weight, index: listCount[listCount.count - 1])
                     let start = markdownText.characters.distance(from: markdownText.startIndex, to: convertedTags[0].startText!)
                     let end = markdownText.characters.distance(from: markdownText.startIndex, to: convertedTags[0].endText!)
                     if token == nil {
@@ -222,7 +222,7 @@ open class SimpleMarkdownConverter {
                     }
                     attributedString.insert(NSAttributedString(string: token!), at: markdownText.characters.distance(from: markdownText.startIndex, to: convertedTags[0].startText!))
                     addDistance = token!.characters.count
-                    attributedStringGenerator.applyAttribute(defaultFont, attributedString: attributedString, type: sectionTag.type, weight: sectionTag.weight, start: start, length: end - start + addDistance, extra: token!)
+                    attributedStringGenerator.applyAttribute(defaultFont: defaultFont, attributedString: attributedString, type: sectionTag.type, weight: sectionTag.weight, start: start, length: end - start + addDistance, extra: token!)
                 }
                 for tag in convertedTags {
                     if tag.type == .orderedList || tag.type == .unorderedList {
@@ -237,14 +237,14 @@ open class SimpleMarkdownConverter {
                             extra = parser.extract(textFromMarkdownText: markdownText, tag: tag)
                         }
                     }
-                    attributedStringGenerator.applyAttribute(defaultFont, attributedString: attributedString, type: tag.type, weight: tag.weight, start: start + addDistance, length: end - start, extra: extra);
+                    attributedStringGenerator.applyAttribute(defaultFont: defaultFont, attributedString: attributedString, type: tag.type, weight: tag.weight, start: start + addDistance, length: end - start, extra: extra);
                 }
                 addedParagraph = false
             } else if sectionTag.type == .paragraph {
                 if sectionTag.weight > 0 {
                     let pos = attributedString.string.characters.distance(from: attributedString.string.startIndex, to: attributedString.string.endIndex)
                     attributedString.append(NSAttributedString(string: "\n"))
-                    attributedStringGenerator.applyAttribute(defaultFont, attributedString: attributedString, type: .paragraph, weight: sectionTag.weight, start: pos, length: 1, extra: "")
+                    attributedStringGenerator.applyAttribute(defaultFont: defaultFont, attributedString: attributedString, type: .paragraph, weight: sectionTag.weight, start: pos, length: 1, extra: "")
                 }
                 addedParagraph = true
                 listCount.removeAll()
@@ -260,7 +260,7 @@ open class SimpleMarkdownConverter {
         return result
     }
 
-    fileprivate static func appendAttributedString(_ parser: SimpleMarkdownParser, convertedTags: inout [MarkdownTag], attributedString: NSMutableAttributedString, markdownText: String, foundTags: [MarkdownTag], start: Int) {
+    private static func appendAttributedString(usingParser: SimpleMarkdownParser, convertedTags: inout [MarkdownTag], attributedString: NSMutableAttributedString, markdownText: String, foundTags: [MarkdownTag], start: Int) {
         let curTag = foundTags[start]
         var intermediateTag: MarkdownTag? = nil
         var processingTag: MarkdownTag? = nil
@@ -278,14 +278,14 @@ open class SimpleMarkdownConverter {
                     processingTag!.startExtra = curTag.startExtra
                     processingTag!.endExtra = curTag.endExtra
                     processingTag!.startText = attributedString.string.endIndex
-                    attributedString.append(NSAttributedString(string: parser.extract(textBetweenMarkdownText: markdownText, startTag: curTag, endTag: nextTag!, mode: .startToNext)))
+                    attributedString.append(NSAttributedString(string: usingParser.extract(textBetweenMarkdownText: markdownText, startTag: curTag, endTag: nextTag!, mode: .startToNext)))
                     processingTag!.endText = attributedString.string.endIndex
                 } else {
-                    attributedString.append(NSAttributedString(string: parser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: nextTag!, mode: .intermediateToNext)))
+                    attributedString.append(NSAttributedString(string: usingParser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: nextTag!, mode: .intermediateToNext)))
                     processingTag!.endText = attributedString.string.endIndex
                 }
                 let prevConvertedTagSize = convertedTags.count
-                appendAttributedString(parser, convertedTags: &convertedTags, attributedString: attributedString, markdownText: markdownText, foundTags: foundTags, start: checkPosition)
+                appendAttributedString(usingParser: usingParser, convertedTags: &convertedTags, attributedString: attributedString, markdownText: markdownText, foundTags: foundTags, start: checkPosition)
                 intermediateTag = foundTags[checkPosition]
                 checkPosition += convertedTags.count - prevConvertedTagSize
                 processing = true
@@ -298,10 +298,10 @@ open class SimpleMarkdownConverter {
                     processingTag!.startExtra = curTag.startExtra
                     processingTag!.endExtra = curTag.endExtra
                     processingTag!.startText = attributedString.string.endIndex
-                    attributedString.append(NSAttributedString(string: parser.extract(textFromMarkdownText: markdownText, tag: curTag)))
+                    attributedString.append(NSAttributedString(string: usingParser.extract(textFromMarkdownText: markdownText, tag: curTag)))
                     processingTag!.endText = attributedString.string.endIndex
                 } else {
-                    attributedString.append(NSAttributedString(string: parser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: curTag, mode: .intermediateToEnd)))
+                    attributedString.append(NSAttributedString(string: usingParser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: curTag, mode: .intermediateToEnd)))
                     processingTag!.endText = attributedString.string.endIndex
                 }
             }
@@ -313,7 +313,7 @@ open class SimpleMarkdownConverter {
     // MARK: Obtain parser instance
     // --
     
-    fileprivate static func obtainParser(_ markdownText: String) -> SimpleMarkdownParser {
+    private static func obtainParser(forMarkdownText: String) -> SimpleMarkdownParser {
         return SimpleMarkdownParserSwift()
     }
 

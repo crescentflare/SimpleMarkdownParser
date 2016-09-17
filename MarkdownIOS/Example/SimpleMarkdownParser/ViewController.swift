@@ -53,12 +53,12 @@ class ViewController: UIViewController {
         
         // Markdown tests
         if testHtmlConversion {
-            testHtml(markdownText)
+            testHtml(markdownText: markdownText)
         } else {
             if testCustomStyle {
-                testCustomAttributedStringConversion(markdownText)
+                testCustomAttributedStringConversion(markdownText: markdownText)
             } else {
-                testDefaultAttributedStringConversion(markdownText)
+                testDefaultAttributedStringConversion(markdownText: markdownText)
             }
         }
         
@@ -84,21 +84,21 @@ class ViewController: UIViewController {
     // MARK: Markdown tests
     // --
     
-    func testHtml(_ markdownText: String) {
-        let htmlString = SimpleMarkdownConverter.toHtmlString(markdownText)
+    func testHtml(markdownText: String) {
+        let htmlString = SimpleMarkdownConverter.toHtmlString(fromMarkdownText: markdownText)
         let options = [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
                        NSCharacterEncodingDocumentAttribute: NSNumber(value: String.Encoding.utf8.rawValue)] as [String : Any]
         let attributedString = try? NSAttributedString(data: htmlString.data(using: String.Encoding.utf8)!, options: options, documentAttributes: nil)
         label.attributedText = attributedString
     }
     
-    func testCustomAttributedStringConversion(_ markdownText: String) {
-        let attributedString = SimpleMarkdownConverter.toAttributedString(label.font, markdownText: markdownText, attributedStringGenerator: CustomAttributedStringConversion())
+    func testCustomAttributedStringConversion(markdownText: String) {
+        let attributedString = SimpleMarkdownConverter.toAttributedString(defaultFont: label.font, markdownText: markdownText, attributedStringGenerator: CustomAttributedStringConversion())
         label.attributedText = attributedString
     }
     
-    func testDefaultAttributedStringConversion(_ markdownText: String) {
-        let attributedString = SimpleMarkdownConverter.toAttributedString(label.font, markdownText: markdownText)
+    func testDefaultAttributedStringConversion(markdownText: String) {
+        let attributedString = SimpleMarkdownConverter.toAttributedString(defaultFont: label.font, markdownText: markdownText)
         label.attributedText = attributedString
     }
 
@@ -117,7 +117,7 @@ class ViewController: UIViewController {
 
 private class CustomAttributedStringConversion : MarkdownAttributedStringGenerator {
     
-    fileprivate func applyAttribute(_ defaultFont: UIFont, attributedString: NSMutableAttributedString, type: MarkdownTagType, weight: Int, start: Int, length: Int, extra: String) {
+    fileprivate func applyAttribute(defaultFont: UIFont, attributedString: NSMutableAttributedString, type: MarkdownTagType, weight: Int, start: Int, length: Int, extra: String) {
         switch type {
         case .paragraph:
             attributedString.addAttribute(NSFontAttributeName, value: defaultFont.withSize(defaultFont.pointSize * CGFloat(weight) * 0.5), range: NSMakeRange(start, length))
@@ -163,9 +163,9 @@ private class CustomAttributedStringConversion : MarkdownAttributedStringGenerat
         }
     }
     
-    fileprivate func getListToken(_ type: MarkdownTagType, weight: Int, index: Int) -> String {
+    fileprivate func getListToken(fromType: MarkdownTagType, weight: Int, index: Int) -> String {
         var token = ""
-        if type == .orderedList {
+        if fromType == .orderedList {
             for _ in 0..<index {
                 token += "i"
             }
