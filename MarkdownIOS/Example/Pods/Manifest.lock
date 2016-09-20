@@ -1,5 +1,5 @@
 PODS:
-  - SimpleMarkdownParser (0.5.2)
+  - SimpleMarkdownParser (0.5.3)
 
 DEPENDENCIES:
   - SimpleMarkdownParser (from `../../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: ../../
 
 SPEC CHECKSUMS:
-  SimpleMarkdownParser: bc6197a9d86dd2f089530ab2f381529904d8e2a6
+  SimpleMarkdownParser: 53ce31aa92465b11a00c1232dc88f11379fcb015
 
 PODFILE CHECKSUM: 7a9c695bf36bb913a98f084bdff0e86228f31bb0
 
