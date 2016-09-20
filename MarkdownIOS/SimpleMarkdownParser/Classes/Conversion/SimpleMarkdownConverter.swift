@@ -215,12 +215,12 @@ public class SimpleMarkdownConverter {
                 skipTags += convertedTags.count - 1
                 if sectionTag.type == .orderedList || sectionTag.type == .unorderedList {
                     var token: String? = attributedStringGenerator.getListToken(fromType: sectionTag.type, weight: sectionTag.weight, index: listCount[listCount.count - 1])
-                    let start = markdownText.characters.distance(from: markdownText.startIndex, to: convertedTags[0].startText!)
-                    let end = markdownText.characters.distance(from: markdownText.startIndex, to: convertedTags[0].endText!)
+                    let start = attributedString.string.characters.distance(from: attributedString.string.startIndex, to: convertedTags[0].startText!)
+                    let end = attributedString.string.characters.distance(from: attributedString.string.startIndex, to: convertedTags[0].endText!)
                     if token == nil {
                         token = ""
                     }
-                    attributedString.insert(NSAttributedString(string: token!), at: markdownText.characters.distance(from: markdownText.startIndex, to: convertedTags[0].startText!))
+                    attributedString.insert(NSAttributedString(string: token!), at: attributedString.string.characters.distance(from: attributedString.string.startIndex, to: convertedTags[0].startText!))
                     addDistance = token!.characters.count
                     attributedStringGenerator.applyAttribute(defaultFont: defaultFont, attributedString: attributedString, type: sectionTag.type, weight: sectionTag.weight, start: start, length: end - start + addDistance, extra: token!)
                 }
@@ -229,8 +229,8 @@ public class SimpleMarkdownConverter {
                         continue
                     }
                     var extra = ""
-                    let start = markdownText.characters.distance(from: markdownText.startIndex, to: tag.startText!)
-                    let end = markdownText.characters.distance(from: markdownText.startIndex, to: tag.endText!)
+                    let start = attributedString.string.characters.distance(from: attributedString.string.startIndex, to: tag.startText!)
+                    let end = attributedString.string.characters.distance(from: attributedString.string.startIndex, to: tag.endText!)
                     if tag.type == .link {
                         extra = parser.extract(extraFromMarkdownText: markdownText, tag: tag)
                         if extra == "" {
