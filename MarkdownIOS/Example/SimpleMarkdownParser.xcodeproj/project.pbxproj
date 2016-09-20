@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04D4B0681D91D5620007FCA9 /* SimpleMarkdownParser.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 04D4B0671D91D5620007FCA9 /* SimpleMarkdownParser.podspec */; };
 		37E43084872437EAB4211EAA /* Pods_SimpleMarkdownParser_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A66EA5DC987FC85008F76F3 /* Pods_SimpleMarkdownParser_Tests.framework */; };
 		59B5A5FE1CB8B1FBC0940B65 /* Pods_SimpleMarkdownParser_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C2315DB08752891E5307122 /* Pods_SimpleMarkdownParser_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04D4B0671D91D5620007FCA9 /* SimpleMarkdownParser.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleMarkdownParser.podspec; path = ../../SimpleMarkdownParser.podspec; sourceTree = "<group>"; };
 		0A66EA5DC987FC85008F76F3 /* Pods_SimpleMarkdownParser_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleMarkdownParser_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C2315DB08752891E5307122 /* Pods_SimpleMarkdownParser_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleMarkdownParser_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		48EFD147D0C035EB610D08FE /* Pods-SimpleMarkdownParser_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleMarkdownParser_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleMarkdownParser_Example/Pods-SimpleMarkdownParser_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -42,7 +44,6 @@
 		607FACE51AFB9204008FA782 /* SimpleMarkdownParser_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleMarkdownParser_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		918EE53EE7C7E560B00838B0 /* SimpleMarkdownParser.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SimpleMarkdownParser.podspec; path = ../SimpleMarkdownParser.podspec; sourceTree = "<group>"; };
 		BDF15FD1AA48CC66DBE5EF2D /* Pods-SimpleMarkdownParser_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleMarkdownParser_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleMarkdownParser_Tests/Pods-SimpleMarkdownParser_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		EE79E162ADE4938B5ECE567B /* Pods-SimpleMarkdownParser_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleMarkdownParser_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleMarkdownParser_Tests/Pods-SimpleMarkdownParser_Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,7 +131,7 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				918EE53EE7C7E560B00838B0 /* SimpleMarkdownParser.podspec */,
+				04D4B0671D91D5620007FCA9 /* SimpleMarkdownParser.podspec */,
 			);
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
@@ -246,6 +247,7 @@
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				04D4B0681D91D5620007FCA9 /* SimpleMarkdownParser.podspec in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
