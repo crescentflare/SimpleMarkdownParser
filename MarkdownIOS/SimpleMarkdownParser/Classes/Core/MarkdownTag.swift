@@ -36,12 +36,18 @@ public class MarkdownTag {
     
     public var type = MarkdownTagType.normal
     public var flags = MarkdownTag.FLAG_NONE
-    public var startPosition: String.Index? = nil
-    public var endPosition: String.Index? = nil
-    public var startText: String.Index? = nil
-    public var endText: String.Index? = nil
-    public var startExtra: String.Index? = nil
-    public var endExtra: String.Index? = nil
+    public var startIndex: String.Index? = nil
+    public var endIndex: String.Index? = nil
+    public var startTextIndex: String.Index? = nil
+    public var endTextIndex: String.Index? = nil
+    public var startExtraIndex: String.Index? = nil
+    public var endExtraIndex: String.Index? = nil
+    public var startPosition: Int? = nil
+    public var endPosition: Int? = nil
+    public var startTextPosition: Int? = nil
+    public var endTextPosition: Int? = nil
+    public var startExtraPosition: Int? = nil
+    public var endExtraPosition: Int? = nil
     public var weight = 0
 
 

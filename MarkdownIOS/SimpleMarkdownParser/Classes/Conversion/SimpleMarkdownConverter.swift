@@ -90,14 +90,19 @@ public class SimpleMarkdownConverter {
                     handledTags.append(processingTag!)
                     processingTag!.type = curTag.type
                     processingTag!.weight = curTag.weight
-                    processingTag!.startExtra = curTag.startExtra
-                    processingTag!.endExtra = curTag.endExtra
-                    processingTag!.startText = adjustedHtmlString.endIndex
+                    processingTag!.startExtraIndex = curTag.startExtraIndex
+                    processingTag!.endExtraIndex = curTag.endExtraIndex
+                    processingTag!.startExtraPosition = curTag.startExtraPosition
+                    processingTag!.endExtraPosition = curTag.endExtraPosition
+                    processingTag!.startTextIndex = adjustedHtmlString.endIndex
+                    processingTag!.startTextPosition = adjustedHtmlString.characters.count
                     adjustedHtmlString += usingParser.extract(textBetweenMarkdownText: markdownText, startTag: curTag, endTag: nextTag!, mode: .startToNext)
-                    processingTag!.endText = adjustedHtmlString.endIndex
+                    processingTag!.endTextIndex = adjustedHtmlString.endIndex
+                    processingTag!.endTextPosition = adjustedHtmlString.characters.count
                 } else {
                     adjustedHtmlString += usingParser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: nextTag!, mode: .intermediateToNext)
-                    processingTag!.endText = adjustedHtmlString.endIndex
+                    processingTag!.endTextIndex = adjustedHtmlString.endIndex
+                    processingTag!.endTextPosition = adjustedHtmlString.characters.count
                 }
                 let prevHandledTagSize = handledTags.count
                 adjustedHtmlString += getHtmlTag(usingParser: usingParser, markdownText: markdownText, tag: nextTag!, closingTag: false)
@@ -112,14 +117,19 @@ public class SimpleMarkdownConverter {
                     handledTags.append(processingTag!)
                     processingTag!.type = curTag.type
                     processingTag!.weight = curTag.weight
-                    processingTag!.startExtra = curTag.startExtra
-                    processingTag!.endExtra = curTag.endExtra
-                    processingTag!.startText = adjustedHtmlString.endIndex
+                    processingTag!.startExtraIndex = curTag.startExtraIndex
+                    processingTag!.endExtraIndex = curTag.endExtraIndex
+                    processingTag!.startExtraPosition = curTag.startExtraPosition
+                    processingTag!.endExtraPosition = curTag.endExtraPosition
+                    processingTag!.startTextIndex = adjustedHtmlString.endIndex
+                    processingTag!.startTextPosition = adjustedHtmlString.characters.count
                     adjustedHtmlString += usingParser.extract(textFromMarkdownText: markdownText, tag: curTag)
-                    processingTag!.endText = adjustedHtmlString.endIndex
+                    processingTag!.endTextIndex = adjustedHtmlString.endIndex
+                    processingTag!.endTextPosition = adjustedHtmlString.characters.count
                 } else {
                     adjustedHtmlString += usingParser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: curTag, mode: .intermediateToEnd)
-                    processingTag!.endText = adjustedHtmlString.endIndex
+                    processingTag!.endTextIndex = adjustedHtmlString.endIndex
+                    processingTag!.endTextPosition = adjustedHtmlString.characters.count
                 }
             }
         }
@@ -215,12 +225,12 @@ public class SimpleMarkdownConverter {
                 skipTags += convertedTags.count - 1
                 if sectionTag.type == .orderedList || sectionTag.type == .unorderedList {
                     var token: String? = attributedStringGenerator.getListToken(fromType: sectionTag.type, weight: sectionTag.weight, index: listCount[listCount.count - 1])
-                    let start = attributedString.string.characters.distance(from: attributedString.string.startIndex, to: convertedTags[0].startText!)
-                    let end = attributedString.string.characters.distance(from: attributedString.string.startIndex, to: convertedTags[0].endText!)
+                    let start = convertedTags[0].startTextPosition!
+                    let end = convertedTags[0].endTextPosition!
                     if token == nil {
                         token = ""
                     }
-                    attributedString.insert(NSAttributedString(string: token!), at: attributedString.string.characters.distance(from: attributedString.string.startIndex, to: convertedTags[0].startText!))
+                    attributedString.insert(NSAttributedString(string: token!), at: convertedTags[0].startTextPosition!)
                     addDistance = token!.characters.count
                     attributedStringGenerator.applyAttribute(defaultFont: defaultFont, attributedString: attributedString, type: sectionTag.type, weight: sectionTag.weight, start: start, length: end - start + addDistance, extra: token!)
                 }
@@ -229,8 +239,8 @@ public class SimpleMarkdownConverter {
                         continue
                     }
                     var extra = ""
-                    let start = attributedString.string.characters.distance(from: attributedString.string.startIndex, to: tag.startText!)
-                    let end = attributedString.string.characters.distance(from: attributedString.string.startIndex, to: tag.endText!)
+                    let start = tag.startTextPosition!
+                    let end = tag.endTextPosition!
                     if tag.type == .link {
                         extra = parser.extract(extraFromMarkdownText: markdownText, tag: tag)
                         if extra == "" {
@@ -275,14 +285,19 @@ public class SimpleMarkdownConverter {
                     convertedTags.append(processingTag!)
                     processingTag!.type = curTag.type
                     processingTag!.weight = curTag.weight
-                    processingTag!.startExtra = curTag.startExtra
-                    processingTag!.endExtra = curTag.endExtra
-                    processingTag!.startText = attributedString.string.endIndex
+                    processingTag!.startExtraIndex = curTag.startExtraIndex
+                    processingTag!.endExtraIndex = curTag.endExtraIndex
+                    processingTag!.startExtraPosition = curTag.startExtraPosition
+                    processingTag!.endExtraPosition = curTag.endExtraPosition
+                    processingTag!.startTextIndex = attributedString.string.endIndex
+                    processingTag!.startTextPosition = attributedString.string.characters.count
                     attributedString.append(NSAttributedString(string: usingParser.extract(textBetweenMarkdownText: markdownText, startTag: curTag, endTag: nextTag!, mode: .startToNext)))
-                    processingTag!.endText = attributedString.string.endIndex
+                    processingTag!.endTextIndex = attributedString.string.endIndex
+                    processingTag!.endTextPosition = attributedString.string.characters.count
                 } else {
                     attributedString.append(NSAttributedString(string: usingParser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: nextTag!, mode: .intermediateToNext)))
-                    processingTag!.endText = attributedString.string.endIndex
+                    processingTag!.endTextIndex = attributedString.string.endIndex
+                    processingTag!.endTextPosition = attributedString.string.characters.count
                 }
                 let prevConvertedTagSize = convertedTags.count
                 appendAttributedString(usingParser: usingParser, convertedTags: &convertedTags, attributedString: attributedString, markdownText: markdownText, foundTags: foundTags, start: checkPosition)
@@ -295,14 +310,19 @@ public class SimpleMarkdownConverter {
                     convertedTags.append(processingTag!)
                     processingTag!.type = curTag.type
                     processingTag!.weight = curTag.weight
-                    processingTag!.startExtra = curTag.startExtra
-                    processingTag!.endExtra = curTag.endExtra
-                    processingTag!.startText = attributedString.string.endIndex
+                    processingTag!.startExtraIndex = curTag.startExtraIndex
+                    processingTag!.endExtraIndex = curTag.endExtraIndex
+                    processingTag!.startExtraPosition = curTag.startExtraPosition
+                    processingTag!.endExtraPosition = curTag.endExtraPosition
+                    processingTag!.startTextIndex = attributedString.string.endIndex
+                    processingTag!.startTextPosition = attributedString.string.characters.count
                     attributedString.append(NSAttributedString(string: usingParser.extract(textFromMarkdownText: markdownText, tag: curTag)))
-                    processingTag!.endText = attributedString.string.endIndex
+                    processingTag!.endTextIndex = attributedString.string.endIndex
+                    processingTag!.endTextPosition = attributedString.string.characters.count
                 } else {
                     attributedString.append(NSAttributedString(string: usingParser.extract(textBetweenMarkdownText: markdownText, startTag: intermediateTag!, endTag: curTag, mode: .intermediateToEnd)))
-                    processingTag!.endText = attributedString.string.endIndex
+                    processingTag!.endTextIndex = attributedString.string.endIndex
+                    processingTag!.endTextPosition = attributedString.string.characters.count
                 }
             }
         }
