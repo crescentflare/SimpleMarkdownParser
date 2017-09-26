@@ -25,7 +25,7 @@ The library is available through [CocoaPods](http://cocoapods.org). To install i
 Swift 3:
 
 ```ruby
-pod "SimpleMarkdownParser", '~> 0.5.3'
+pod "SimpleMarkdownParser", '~> 0.5.4'
 ```
 
 Swift 2.2:
