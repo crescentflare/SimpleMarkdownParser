@@ -86,8 +86,8 @@ class ViewController: UIViewController {
     
     func testHtml(markdownText: String) {
         let htmlString = SimpleMarkdownConverter.toHtmlString(fromMarkdownText: markdownText)
-        let options = [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                       NSCharacterEncodingDocumentAttribute: NSNumber(value: String.Encoding.utf8.rawValue)] as [String : Any]
+        let options = [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html,
+        NSAttributedString.DocumentReadingOptionKey.characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)] as [NSAttributedString.DocumentReadingOptionKey : Any]
         let attributedString = try? NSAttributedString(data: htmlString.data(using: String.Encoding.utf8)!, options: options, documentAttributes: nil)
         label.attributedText = attributedString
     }
@@ -120,10 +120,10 @@ private class CustomAttributedStringConversion : MarkdownAttributedStringGenerat
     fileprivate func applyAttribute(defaultFont: UIFont, attributedString: NSMutableAttributedString, type: MarkdownTagType, weight: Int, start: Int, length: Int, extra: String) {
         switch type {
         case .paragraph:
-            attributedString.addAttribute(NSFontAttributeName, value: defaultFont.withSize(defaultFont.pointSize * CGFloat(weight) * 0.5), range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedStringKey.font, value: defaultFont.withSize(defaultFont.pointSize * CGFloat(weight) * 0.5), range: NSMakeRange(start, length))
             break
         case .header:
-            attributedString.addAttribute(NSFontAttributeName, value: UIFont.init(descriptor: defaultFont.fontDescriptor, size: defaultFont.pointSize * (2 - CGFloat(weight) * 0.15)), range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.init(descriptor: defaultFont.fontDescriptor, size: defaultFont.pointSize * (2 - CGFloat(weight) * 0.15)), range: NSMakeRange(start, length))
             break
         case .orderedList, .unorderedList:
             let bulletParagraph = NSMutableParagraphStyle()
@@ -132,12 +132,12 @@ private class CustomAttributedStringConversion : MarkdownAttributedStringGenerat
             bulletParagraph.tabStops = [ tokenTabStop, textTabStop ]
             bulletParagraph.firstLineHeadIndent = 0
             bulletParagraph.headIndent = textTabStop.location
-            attributedString.addAttribute(NSParagraphStyleAttributeName, value: bulletParagraph, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value: bulletParagraph, range: NSMakeRange(start, length))
             break
         case .textStyle:
             var deriveFont = defaultFont
-            attributedString.enumerateAttributes(in: NSMakeRange(start, length), options: .longestEffectiveRangeNotRequired, using: { (attributes: [String: Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
-                if let font = attributes["NSFont"] as? UIFont {
+            attributedString.enumerateAttributes(in: NSMakeRange(start, length), options: .longestEffectiveRangeNotRequired, using: { (attributes: [NSAttributedStringKey: Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+                if let font = attributes[NSAttributedStringKey.font] as? UIFont {
                     deriveFont = font
                 }
             })
@@ -149,14 +149,14 @@ private class CustomAttributedStringConversion : MarkdownAttributedStringGenerat
             if (weight & 2) > 0 {
                 traits.insert(.traitBold)
             }
-            attributedString.addAttribute(NSFontAttributeName, value: UIFont.init(descriptor: deriveFont.fontDescriptor.withSymbolicTraits(traits)!, size: deriveFont.pointSize), range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.init(descriptor: deriveFont.fontDescriptor.withSymbolicTraits(traits)!, size: deriveFont.pointSize), range: NSMakeRange(start, length))
             break
         case .alternativeTextStyle:
-            attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: true, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: true, range: NSMakeRange(start, length))
             break
         case .link:
-            attributedString.addAttribute(NSClickableTextAttributeName, value: URL(string: extra)!, range: NSMakeRange(start, length))
-            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.purple, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedStringKey(rawValue: NSClickableTextAttributeName), value: URL(string: extra)!, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.purple, range: NSMakeRange(start, length))
             break
         default:
             break //No implementation for unknown tags

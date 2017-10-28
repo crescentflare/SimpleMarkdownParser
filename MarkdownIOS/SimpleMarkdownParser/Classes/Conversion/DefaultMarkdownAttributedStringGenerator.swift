@@ -23,10 +23,10 @@ open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGe
     open func applyAttribute(defaultFont: UIFont, attributedString: NSMutableAttributedString, type: MarkdownTagType, weight: Int, start: Int, length: Int, extra: String) {
         switch type {
         case .paragraph:
-            attributedString.addAttribute(NSFontAttributeName, value: defaultFont.withSize(defaultFont.pointSize * CGFloat(weight)), range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedStringKey.font, value: defaultFont.withSize(defaultFont.pointSize * CGFloat(weight)), range: NSMakeRange(start, length))
             break
         case .header:
-            attributedString.addAttribute(NSFontAttributeName, value: UIFont.init(descriptor: defaultFont.fontDescriptor.withSymbolicTraits(.traitBold)!, size: defaultFont.pointSize * DefaultMarkdownAttributedStringGenerator.sizeForHeader(weight)), range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.init(descriptor: defaultFont.fontDescriptor.withSymbolicTraits(.traitBold)!, size: defaultFont.pointSize * DefaultMarkdownAttributedStringGenerator.sizeForHeader(weight)), range: NSMakeRange(start, length))
             break
         case .orderedList, .unorderedList:
             let bulletParagraph = NSMutableParagraphStyle()
@@ -35,24 +35,24 @@ open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGe
             bulletParagraph.tabStops = [ tokenTabStop, textTabStop ]
             bulletParagraph.firstLineHeadIndent = 0
             bulletParagraph.headIndent = textTabStop.location
-            attributedString.addAttribute(NSParagraphStyleAttributeName, value: bulletParagraph, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value: bulletParagraph, range: NSMakeRange(start, length))
             break
         case .textStyle:
             var deriveFont = defaultFont
-            attributedString.enumerateAttributes(in: NSMakeRange(start, length), options: .longestEffectiveRangeNotRequired, using: { (attributes: [String: Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
-                if let font = attributes["NSFont"] as? UIFont {
+            attributedString.enumerateAttributes(in: NSMakeRange(start, length), options: .longestEffectiveRangeNotRequired, using: { (attributes: [NSAttributedStringKey: Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+                if let font = attributes[NSAttributedStringKey.font] as? UIFont {
                     deriveFont = font
                 }
             })
-            attributedString.addAttribute(NSFontAttributeName, value: DefaultMarkdownAttributedStringGenerator.fontForWeight(deriveFont, weight: weight), range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedStringKey.font, value: DefaultMarkdownAttributedStringGenerator.fontForWeight(deriveFont, weight: weight), range: NSMakeRange(start, length))
             break
         case .alternativeTextStyle:
-            attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: true, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: true, range: NSMakeRange(start, length))
             break
         case .link:
-            attributedString.addAttribute(NSClickableTextAttributeName, value: URL(string: extra)!, range: NSMakeRange(start, length))
-            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: NSMakeRange(start, length))
-            attributedString.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedStringKey(rawValue: NSClickableTextAttributeName), value: URL(string: extra)!, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.blue, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedStringKey.underlineStyle, value: 1, range: NSMakeRange(start, length))
             break
         default:
             break //No implementation for unknown tags

@@ -22,6 +22,12 @@ A multi-functional and easy way to integrate markdown formatting within mobile a
 
 The library is available through [CocoaPods](http://cocoapods.org). To install it, simply add one of the following lines to your Podfile.
 
+Swift 4:
+
+```ruby
+pod "SimpleMarkdownParser", '~> 0.5.5'
+```
+
 Swift 3:
 
 ```ruby

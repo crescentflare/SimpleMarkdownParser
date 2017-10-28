@@ -124,7 +124,7 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
         if (tag.flags & MarkdownTag.FLAG_ESCAPED) > 0 {
             return escapedSubstring(fromText: textFromMarkdownText, startPosition: tag.startTextIndex!, endPosition: tag.endTextIndex!)
         }
-        return textFromMarkdownText.substring(with: tag.startTextIndex!..<tag.endTextIndex!)
+        return String(textFromMarkdownText[tag.startTextIndex!..<tag.endTextIndex!])
     }
     
     public func extract(textBetweenMarkdownText: String, startTag: MarkdownTag, endTag: MarkdownTag, mode: ExtractBetweenMode) -> String {
@@ -150,14 +150,14 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
         if (startTag.flags & MarkdownTag.FLAG_ESCAPED) > 0 {
             return escapedSubstring(fromText: textBetweenMarkdownText, startPosition: startPos, endPosition: endPos)
         }
-        return textBetweenMarkdownText.substring(with: startPos..<endPos)
+        return String(textBetweenMarkdownText[startPos..<endPos])
     }
     
     public func extract(fullFromMarkdownText: String, tag: MarkdownTag) -> String {
         if (tag.flags & MarkdownTag.FLAG_ESCAPED) > 0 {
             return escapedSubstring(fromText: fullFromMarkdownText, startPosition: tag.startIndex!, endPosition: tag.endIndex!)
         }
-        return fullFromMarkdownText.substring(with: tag.startIndex!..<tag.endIndex!)
+        return String(fullFromMarkdownText[tag.startIndex!..<tag.endIndex!])
     }
     
     public func extract(fullBetweenMarkdownText: String, startTag: MarkdownTag, endTag: MarkdownTag, mode: ExtractBetweenMode) -> String {
@@ -183,7 +183,7 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
         if (startTag.flags & MarkdownTag.FLAG_ESCAPED) > 0 {
             return escapedSubstring(fromText: fullBetweenMarkdownText, startPosition: startPos, endPosition: endPos)
         }
-        return fullBetweenMarkdownText.substring(with: startPos..<endPos)
+        return String(fullBetweenMarkdownText[startPos..<endPos])
     }
     
     public func extract(extraFromMarkdownText: String, tag: MarkdownTag) -> String {
@@ -193,7 +193,7 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
         if (tag.flags & MarkdownTag.FLAG_ESCAPED) > 0 {
             return escapedSubstring(fromText: extraFromMarkdownText, startPosition: tag.startExtraIndex!, endPosition: tag.endExtraIndex!)
         }
-        return extraFromMarkdownText.substring(with: tag.startExtraIndex!..<tag.endExtraIndex!)
+        return String(extraFromMarkdownText[tag.startExtraIndex!..<tag.endExtraIndex!])
     }
     
     private func escapedSubstring(fromText: String, startPosition: String.Index, endPosition: String.Index) -> String {

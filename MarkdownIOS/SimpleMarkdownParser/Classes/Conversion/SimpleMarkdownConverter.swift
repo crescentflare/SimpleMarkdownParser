@@ -263,8 +263,8 @@ public class SimpleMarkdownConverter {
         
         // Fix the attributed string by using the default font in places without a font definition (needed for clickable links for example)
         let result = NSMutableAttributedString(attributedString: attributedString)
-        result.addAttribute(NSFontAttributeName, value: defaultFont, range: NSMakeRange(0, result.length))
-        attributedString.enumerateAttributes(in: NSMakeRange(0, attributedString.length), options: .longestEffectiveRangeNotRequired, using: { (attributes: [String: Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+        result.addAttribute(NSAttributedStringKey.font, value: defaultFont, range: NSMakeRange(0, result.length))
+        attributedString.enumerateAttributes(in: NSMakeRange(0, attributedString.length), options: .longestEffectiveRangeNotRequired, using: { (attributes: [NSAttributedStringKey: Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
             result.addAttributes(attributes, range: range)
         })
         return result
