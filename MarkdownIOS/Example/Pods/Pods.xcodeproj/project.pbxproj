@@ -46,7 +46,7 @@
 		03A54867A18D98821A75DE5F0E22A266 /* SimpleMarkdownParser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SimpleMarkdownParser-dummy.m"; sourceTree = "<group>"; };
 		0563DDCE181347EE7C081FA230E1A3E6 /* Pods-SimpleMarkdownParser_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SimpleMarkdownParser_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		058B36D0DE2DF9026B95D3CCC4674084 /* Pods-SimpleMarkdownParser_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SimpleMarkdownParser_Tests-dummy.m"; sourceTree = "<group>"; };
-		05B5B7ADBC96C4B77067E64789CA846D /* Pods_SimpleMarkdownParser_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SimpleMarkdownParser_Tests.framework; path = "Pods-SimpleMarkdownParser_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		05B5B7ADBC96C4B77067E64789CA846D /* Pods_SimpleMarkdownParser_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleMarkdownParser_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C74B77DFA1EB70139A33937C44CAB1 /* Pods-SimpleMarkdownParser_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SimpleMarkdownParser_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		0EE1ABDE4415D1A16B5DEB7AB595FF12 /* Pods-SimpleMarkdownParser_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SimpleMarkdownParser_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		1436460DF8C8F24AED411D4935B19363 /* Pods-SimpleMarkdownParser_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SimpleMarkdownParser_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -58,28 +58,28 @@
 		3FE98BD1B9725FDA336BBC3FF401956E /* Pods-SimpleMarkdownParser_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SimpleMarkdownParser_Tests-resources.sh"; sourceTree = "<group>"; };
 		473383CFB8AFA1BACBC9CC06160F4CEB /* SimpleMarkdownParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SimpleMarkdownParser.swift; sourceTree = "<group>"; };
 		4BD4BF40BB8E437FA4DB64FBD58F7477 /* Pods-SimpleMarkdownParser_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SimpleMarkdownParser_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		57B5A2946ED7D714037854C3093FCD46 /* SimpleMarkdownParser.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SimpleMarkdownParser.modulemap; sourceTree = "<group>"; };
+		57B5A2946ED7D714037854C3093FCD46 /* SimpleMarkdownParser.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SimpleMarkdownParser.modulemap; sourceTree = "<group>"; };
 		5DED6289E04C4F2E35E9AEB525CC48B3 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		78FC7CCD5ED0893FD822A694C1013064 /* Pods-SimpleMarkdownParser_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-SimpleMarkdownParser_Example.modulemap"; sourceTree = "<group>"; };
+		78FC7CCD5ED0893FD822A694C1013064 /* Pods-SimpleMarkdownParser_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SimpleMarkdownParser_Example.modulemap"; sourceTree = "<group>"; };
 		8C780ACE3FEB0E5C483CB224FDCF23F1 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		900571E59F076984E76203EA979E2D5C /* Pods-SimpleMarkdownParser_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SimpleMarkdownParser_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		93F9D6D90D499184C0E25AB5EE195478 /* MarkdownAttributedStringGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownAttributedStringGenerator.swift; sourceTree = "<group>"; };
 		A2AD0A2617FEBEF0816739EAE7F10731 /* SimpleMarkdownParserSwift.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SimpleMarkdownParserSwift.swift; sourceTree = "<group>"; };
 		A49C97AC19755B00ADDEBCB8E36822BA /* Pods-SimpleMarkdownParser_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SimpleMarkdownParser_Example-umbrella.h"; sourceTree = "<group>"; };
-		A5EDB1BF92CD2A7E98861E3B0FC8F8A1 /* Pods-SimpleMarkdownParser_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-SimpleMarkdownParser_Tests.modulemap"; sourceTree = "<group>"; };
+		A5EDB1BF92CD2A7E98861E3B0FC8F8A1 /* Pods-SimpleMarkdownParser_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SimpleMarkdownParser_Tests.modulemap"; sourceTree = "<group>"; };
 		A6CF57A64CB9E910D3AA7BF6096C0D47 /* TappableLinkExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TappableLinkExtension.swift; sourceTree = "<group>"; };
 		A8C026D1D4E0C7C0F99F3F587680DD8D /* Pods-SimpleMarkdownParser_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SimpleMarkdownParser_Example-frameworks.sh"; sourceTree = "<group>"; };
 		BB2EEB33DD10DF6257A5B50F626621CF /* Pods-SimpleMarkdownParser_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SimpleMarkdownParser_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		BDB0DE24E17B31BB118A2A521C2D6548 /* SimpleMarkdownParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SimpleMarkdownParser.framework; path = SimpleMarkdownParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDB0DE24E17B31BB118A2A521C2D6548 /* SimpleMarkdownParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimpleMarkdownParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7C1AFB9B8C9B03B1BA4BDF6138630B6 /* SimpleMarkdownParser-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SimpleMarkdownParser-umbrella.h"; sourceTree = "<group>"; };
 		CA79D6A7388F6D5687F437A3108DF261 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D212884F432E3878C91CE0F2E17DB17F /* DefaultMarkdownAttributedStringGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DefaultMarkdownAttributedStringGenerator.swift; sourceTree = "<group>"; };
 		D2DE9372FE5590697B7F1543554A6585 /* Pods-SimpleMarkdownParser_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SimpleMarkdownParser_Example-resources.sh"; sourceTree = "<group>"; };
 		EBD2E0759EC85E43E952CFF7A3B8722E /* MarkdownTag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownTag.swift; sourceTree = "<group>"; };
 		F6195D2C4640BD6EF93F5A2ED13B8DEE /* Pods-SimpleMarkdownParser_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SimpleMarkdownParser_Tests-umbrella.h"; sourceTree = "<group>"; };
-		F818E2D84303608A4F1123CA15F28F2D /* Pods_SimpleMarkdownParser_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SimpleMarkdownParser_Example.framework; path = "Pods-SimpleMarkdownParser_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F818E2D84303608A4F1123CA15F28F2D /* Pods_SimpleMarkdownParser_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleMarkdownParser_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8BEA45C169CD0E999AB8F109E21B05D /* SimpleMarkdownParser-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SimpleMarkdownParser-prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -635,6 +635,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_VERSION = 4.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
@@ -695,6 +696,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
