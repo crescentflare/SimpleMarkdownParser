@@ -180,11 +180,11 @@ class Tests: XCTestCase {
         for i in 0..<min(foundTags.count, expectedTags.count) {
             let wrappedTag = WrappedMarkdownTag(markdownText: markdownText, tag: foundTags[i])
             if expectedTags[i] != wrappedTag {
-                recordFailure(withDescription: "Tags not equal, expected: \(expectedTags[i]), but having: \(wrappedTag)", inFile: file, atLine: line, expected: true)
+                recordFailure(withDescription: "Tags not equal, expected: \(expectedTags[i]), but having: \(wrappedTag)", inFile: file, atLine: Int(line), expected: true)
             }
         }
         if expectedTags.count != foundTags.count {
-            recordFailure(withDescription: "Missing or too many tags, expected: \(expectedTags.count), but having: \(foundTags.count)", inFile: file, atLine: line, expected: true)
+            recordFailure(withDescription: "Missing or too many tags, expected: \(expectedTags.count), but having: \(foundTags.count)", inFile: file, atLine: Int(line), expected: true)
         }
         XCTAssertEqual(expectedTags.count, foundTags.count)
     }
