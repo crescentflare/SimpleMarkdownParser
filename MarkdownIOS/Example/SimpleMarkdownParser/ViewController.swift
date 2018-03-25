@@ -86,7 +86,8 @@ class ViewController: UIViewController {
     
     func testHtml(markdownText: String) {
         let htmlString = SimpleMarkdownConverter.toHtmlString(fromMarkdownText: markdownText)
-        let options = [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html] as [NSAttributedString.DocumentReadingOptionKey : Any]
+        let options = [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html,
+                       NSAttributedString.DocumentReadingOptionKey(rawValue: "CharacterEncoding"): NSNumber(value: String.Encoding.utf8.rawValue)] as [NSAttributedString.DocumentReadingOptionKey : Any]
         let attributedString = try? NSAttributedString(data: htmlString.data(using: String.Encoding.utf8)!, options: options, documentAttributes: nil)
         label.attributedText = attributedString
     }
