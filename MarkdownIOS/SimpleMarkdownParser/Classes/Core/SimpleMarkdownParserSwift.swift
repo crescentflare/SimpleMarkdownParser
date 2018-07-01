@@ -198,9 +198,9 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
     
     private func escapedSubstring(fromText: String, startPosition: String.Index, endPosition: String.Index) -> String {
         var filteredText = ""
-        for i in fromText.characters.indices[startPosition..<endPosition] {
-            let chr = fromText.characters[i]
-            if chr == "\\" && fromText.characters[fromText.index(i, offsetBy: 1)] != "\n" {
+        for i in fromText.indices[startPosition..<endPosition] {
+            let chr = fromText[i]
+            if chr == "\\" && fromText[fromText.index(i, offsetBy: 1)] != "\n" {
                 continue
             }
             filteredText.append(chr)
