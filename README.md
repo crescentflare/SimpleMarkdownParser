@@ -37,13 +37,18 @@ The above version is for Swift 4.1. For older Swift versions use the following:
 When using gradle, the library can easily be imported into the build.gradle file of your project. Add the following dependency:
 
 ```
-compile ('com.crescentflare.simplemarkdownparser:SimpleMarkdownParserLib:0.5.0') {
-transitive = false
-}
+compile 'com.crescentflare.simplemarkdownparser:SimpleMarkdownParserLib:0.6.0'
 ```
 
 Make sure that jcenter is added as a repository.
 
+The above library has a minimum deployment target of Android API level 14. It should also work better with the latest gradle and NDK plugins. Below is an old version which supports Android API level 9 and may rely on an old gradle or NDK plugin.
+
+```
+compile ('com.crescentflare.simplemarkdownparser:SimpleMarkdownParserLib:0.5.0') {
+transitive = false
+}
+```
 
 ### Example
 
