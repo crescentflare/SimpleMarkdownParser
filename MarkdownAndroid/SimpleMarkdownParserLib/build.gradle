@@ -25,61 +25,37 @@ ext {
 }
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion '23.0.2'
+    compileSdkVersion 26
 
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 22
+        minSdkVersion 14
+        targetSdkVersion 26
         versionCode 1
         versionName "0.5.0"
-        project.version "0.5.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles.add(file('proguard-rules.txt'))
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
         }
     }
 }
 
 dependencies {
-    compile project(':SimpleMarkdownParserCoreLib')
-    testCompile 'junit:junit:4.12'
-}
-
-android.libraryVariants.all { variant ->
-    Action copyClassesAction = new Action() {
-        @Override
-        void execute(Object o) {
-            String version = "0.5.0"
-            String variantLibsDir = getBuildDir().absolutePath + "/intermediates/bundles/" + variant.name + "/libs"
-            String variantJniDir = getBuildDir().absolutePath + "/intermediates/bundles/" + variant.name + "/jni"
-            String explodedJarDir = getBuildDir().absolutePath + "/intermediates/exploded-aar/MarkdownAndroid/SimpleMarkdownParserCoreLib/" + version + "/jars"
-            String explodedJniDir = getBuildDir().absolutePath + "/intermediates/exploded-aar/MarkdownAndroid/SimpleMarkdownParserCoreLib/" + version + "/jni"
-
-            File sourceJar = new File(explodedJarDir + "/classes.jar")
-            File destinationJar = new File(variantLibsDir + "/SimpleMarkdownParserCoreLib.jar")
-            destinationJar.bytes = sourceJar.bytes
-
-            String[] eabiDirs = new File(explodedJniDir).list()
-            for (int i = 0; i < eabiDirs.length; i++) {
-                String[] fileDirs = new File(explodedJniDir + "/" + eabiDirs[i]).list()
-                new File(variantJniDir + "/" + eabiDirs[i]).mkdirs()
-                for (int j = 0; j < fileDirs.length; j++) {
-                    File sourceJni = new File(explodedJniDir + "/" + eabiDirs[i] + "/" + fileDirs[j])
-                    File destinationJni = new File(variantJniDir + "/" + eabiDirs[i] + "/" + fileDirs[j])
-                    destinationJni.bytes = sourceJni.bytes
-                }
-            }
-        }
-    }
-
-    variant.outputs.each { output ->
-        output.packageLibrary.doFirst(copyClassesAction)
-    }
+    testImplementation 'junit:junit:4.12'
 }
 
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
