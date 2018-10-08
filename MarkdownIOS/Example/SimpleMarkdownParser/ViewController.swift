@@ -120,10 +120,10 @@ private class CustomAttributedStringConversion : MarkdownAttributedStringGenerat
     fileprivate func applyAttribute(defaultFont: UIFont, attributedString: NSMutableAttributedString, type: MarkdownTagType, weight: Int, start: Int, length: Int, extra: String) {
         switch type {
         case .paragraph:
-            attributedString.addAttribute(NSAttributedStringKey.font, value: defaultFont.withSize(defaultFont.pointSize * CGFloat(weight) * 0.5), range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedString.Key.font, value: defaultFont.withSize(defaultFont.pointSize * CGFloat(weight) * 0.5), range: NSMakeRange(start, length))
             break
         case .header:
-            attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.init(descriptor: defaultFont.fontDescriptor, size: defaultFont.pointSize * (2 - CGFloat(weight) * 0.15)), range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.init(descriptor: defaultFont.fontDescriptor, size: defaultFont.pointSize * (2 - CGFloat(weight) * 0.15)), range: NSMakeRange(start, length))
             break
         case .orderedList, .unorderedList:
             let bulletParagraph = NSMutableParagraphStyle()
@@ -132,16 +132,16 @@ private class CustomAttributedStringConversion : MarkdownAttributedStringGenerat
             bulletParagraph.tabStops = [ tokenTabStop, textTabStop ]
             bulletParagraph.firstLineHeadIndent = 0
             bulletParagraph.headIndent = textTabStop.location
-            attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value: bulletParagraph, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: bulletParagraph, range: NSMakeRange(start, length))
             break
         case .textStyle:
             var deriveFont = defaultFont
-            attributedString.enumerateAttributes(in: NSMakeRange(start, length), options: .longestEffectiveRangeNotRequired, using: { (attributes: [NSAttributedStringKey: Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
-                if let font = attributes[NSAttributedStringKey.font] as? UIFont {
+            attributedString.enumerateAttributes(in: NSMakeRange(start, length), options: .longestEffectiveRangeNotRequired, using: { (attributes: [NSAttributedString.Key: Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+                if let font = attributes[NSAttributedString.Key.font] as? UIFont {
                     deriveFont = font
                 }
             })
-            var traits: UIFontDescriptorSymbolicTraits = UIFontDescriptorSymbolicTraits()
+            var traits: UIFontDescriptor.SymbolicTraits = UIFontDescriptor.SymbolicTraits()
             traits.insert(defaultFont.fontDescriptor.symbolicTraits)
             if (weight & 1) > 0 {
                 traits.insert(.traitItalic)
@@ -149,14 +149,14 @@ private class CustomAttributedStringConversion : MarkdownAttributedStringGenerat
             if (weight & 2) > 0 {
                 traits.insert(.traitBold)
             }
-            attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.init(descriptor: deriveFont.fontDescriptor.withSymbolicTraits(traits)!, size: deriveFont.pointSize), range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.init(descriptor: deriveFont.fontDescriptor.withSymbolicTraits(traits)!, size: deriveFont.pointSize), range: NSMakeRange(start, length))
             break
         case .alternativeTextStyle:
-            attributedString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: true, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: true, range: NSMakeRange(start, length))
             break
         case .link:
-            attributedString.addAttribute(NSAttributedStringKey(rawValue: NSClickableTextAttributeName), value: URL(string: extra)!, range: NSMakeRange(start, length))
-            attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.purple, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedString.Key(rawValue: NSClickableTextAttributeName), value: URL(string: extra)!, range: NSMakeRange(start, length))
+            attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.purple, range: NSMakeRange(start, length))
             break
         default:
             break //No implementation for unknown tags
