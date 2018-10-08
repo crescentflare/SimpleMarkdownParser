@@ -50,10 +50,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		05B5B7ADBC96C4B77067E64789CA846D /* Pods_SimpleMarkdownParser_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleMarkdownParser_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0A0ADD72F00E2C0A74684CBE2B78928F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		05B5B7ADBC96C4B77067E64789CA846D /* Pods_SimpleMarkdownParser_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SimpleMarkdownParser_Tests.framework; path = "Pods-SimpleMarkdownParser_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A0ADD72F00E2C0A74684CBE2B78928F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		1A5DBEB0BD26747B78F527588B2F1CCA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		219160344A847425D7B6A1D0A34A12F1 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		219160344A847425D7B6A1D0A34A12F1 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		24EB9C306CE3987B107030FFFD5A4FE1 /* Pods-SimpleMarkdownParser_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SimpleMarkdownParser_Example-resources.sh"; sourceTree = "<group>"; };
 		26FE8B7A8B1B1C0E792CDC43EAD91E23 /* SimpleMarkdownParser.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SimpleMarkdownParser.modulemap; sourceTree = "<group>"; };
 		30AACDF0A95A69A3950FE9A396BDB0F7 /* Pods-SimpleMarkdownParser_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SimpleMarkdownParser_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 		4AC63939525F121D8E15BE8392077C34 /* MarkdownAttributedStringGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownAttributedStringGenerator.swift; sourceTree = "<group>"; };
 		4BAB8A2538D794C6C749CD31BF14FFCB /* Pods-SimpleMarkdownParser_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SimpleMarkdownParser_Example.modulemap"; sourceTree = "<group>"; };
 		4F8FD99BB0A9FF68844A9B7A247961CE /* Pods-SimpleMarkdownParser_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SimpleMarkdownParser_Tests.modulemap"; sourceTree = "<group>"; };
-		52E776D262E4C76EBD15CD54CCAE4EDA /* SimpleMarkdownParser.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = SimpleMarkdownParser.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		52E776D262E4C76EBD15CD54CCAE4EDA /* SimpleMarkdownParser.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = SimpleMarkdownParser.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		56588BF061743A87C926F71B797D0932 /* Pods-SimpleMarkdownParser_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SimpleMarkdownParser_Example-umbrella.h"; sourceTree = "<group>"; };
 		5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		765CDA7130DAC44531BA140B99CC0CE2 /* Pods-SimpleMarkdownParser_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SimpleMarkdownParser_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 		885D23BAF956DC78FB0949B53EACA6F8 /* DefaultMarkdownAttributedStringGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DefaultMarkdownAttributedStringGenerator.swift; sourceTree = "<group>"; };
 		89F84E8BCCE16C5CD916CB4EF5767FBE /* Pods-SimpleMarkdownParser_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SimpleMarkdownParser_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		8E271212B280FA990B65B85A3C456DA7 /* SimpleMarkdownConverter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SimpleMarkdownConverter.swift; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		95FEFBE9316F0ED8CA8D0BD44BEE076E /* Pods-SimpleMarkdownParser_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SimpleMarkdownParser_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		9B0F3584B8D86D343B964071A7480D23 /* Pods-SimpleMarkdownParser_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SimpleMarkdownParser_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		9FD4A7B3E729BDDC0A32D9F6E661FD2E /* Pods-SimpleMarkdownParser_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SimpleMarkdownParser_Tests-frameworks.sh"; sourceTree = "<group>"; };
@@ -82,7 +82,7 @@
 		AFE470975699ED649904678DD3B12C29 /* SimpleMarkdownParser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SimpleMarkdownParser-dummy.m"; sourceTree = "<group>"; };
 		B7BD05D9E757114E87996F26F96E62A4 /* Pods-SimpleMarkdownParser_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SimpleMarkdownParser_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		BBCAB0989E74BBD2A5C8A25DD0A31542 /* SimpleMarkdownParser-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SimpleMarkdownParser-umbrella.h"; sourceTree = "<group>"; };
-		BDB0DE24E17B31BB118A2A521C2D6548 /* SimpleMarkdownParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimpleMarkdownParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDB0DE24E17B31BB118A2A521C2D6548 /* SimpleMarkdownParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SimpleMarkdownParser.framework; path = SimpleMarkdownParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C31D71F2DBACCF2C3240614B1324D84C /* Pods-SimpleMarkdownParser_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SimpleMarkdownParser_Example-frameworks.sh"; sourceTree = "<group>"; };
 		D2DF2F6D59DF9B715EFBDFD1D0F97C10 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9ACA3DA2C29D206F8224A2F5F19FC67 /* SimpleMarkdownParser-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SimpleMarkdownParser-prefix.pch"; sourceTree = "<group>"; };
@@ -90,7 +90,7 @@
 		E3697ECF77C7A856C0E0DD9E2BEEFD1A /* Pods-SimpleMarkdownParser_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SimpleMarkdownParser_Example-dummy.m"; sourceTree = "<group>"; };
 		F38CA4AFC44483F8827D8A81B2C004E1 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F7355B5ECEA6A06F1986232300289D83 /* Pods-SimpleMarkdownParser_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SimpleMarkdownParser_Tests-dummy.m"; sourceTree = "<group>"; };
-		F818E2D84303608A4F1123CA15F28F2D /* Pods_SimpleMarkdownParser_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleMarkdownParser_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F818E2D84303608A4F1123CA15F28F2D /* Pods_SimpleMarkdownParser_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SimpleMarkdownParser_Example.framework; path = "Pods-SimpleMarkdownParser_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -371,11 +371,6 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
-				TargetAttributes = {
-					51BAB04522B9F7D9BEA149094EEA930D = {
-						LastSwiftMigration = 1000;
-					};
-				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -452,38 +447,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		12F280B1395985D5EF9DBBDA362DB681 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 42E73E3B01B15CF335EE72D0D9C171B1 /* SimpleMarkdownParser.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SimpleMarkdownParser/SimpleMarkdownParser-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SimpleMarkdownParser/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SimpleMarkdownParser/SimpleMarkdownParser.modulemap";
-				PRODUCT_MODULE_NAME = SimpleMarkdownParser;
-				PRODUCT_NAME = SimpleMarkdownParser;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		1372910BE6998E020BB5B4B04602875E /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 49A612E0983C7E187B8133FA3158ABF9 /* Pods-SimpleMarkdownParser_Tests.release.xcconfig */;
@@ -617,7 +580,7 @@
 			};
 			name = Debug;
 		};
-		64653F9E8ED86F17A6F4B6162E8AA3FB /* Release */ = {
+		53720FDB4AAD3136893DDAB9E53B1F99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 42E73E3B01B15CF335EE72D0D9C171B1 /* SimpleMarkdownParser.xcconfig */;
 			buildSettings = {
@@ -641,14 +604,13 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 		6EB74E4991E5FD1F73E37808E89A6395 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -684,6 +646,39 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		93255D3DBA9D219396CF85554558E8E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42E73E3B01B15CF335EE72D0D9C171B1 /* SimpleMarkdownParser.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SimpleMarkdownParser/SimpleMarkdownParser-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SimpleMarkdownParser/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SimpleMarkdownParser/SimpleMarkdownParser.modulemap";
+				PRODUCT_MODULE_NAME = SimpleMarkdownParser;
+				PRODUCT_NAME = SimpleMarkdownParser;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		D1B618557AFC9FC65678C4D1CB25DFFB /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -784,8 +779,8 @@
 		077BD2AB29DFC002C27AF03DDB938BAE /* Build configuration list for PBXNativeTarget "SimpleMarkdownParser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				12F280B1395985D5EF9DBBDA362DB681 /* Debug */,
-				64653F9E8ED86F17A6F4B6162E8AA3FB /* Release */,
+				53720FDB4AAD3136893DDAB9E53B1F99 /* Debug */,
+				93255D3DBA9D219396CF85554558E8E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
