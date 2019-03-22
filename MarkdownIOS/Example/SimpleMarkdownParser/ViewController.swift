@@ -47,7 +47,7 @@ class ViewController: UIViewController {
             "  * First nested bullet item",
             "  * Second nested bullet item with a longer set of text to make it wrap around to a new line",
             "",
-            "Testing a link to [github](https://github.com/crescentflare/SimpleMarkdownParser)."
+            "Testing a link to [github](https://github.com/crescentflare/SimpleMarkdownParser \"SimpleMarkdownParser\")."
         ]
         let markdownText = markdownTextArray.joined(separator: "\n")
         

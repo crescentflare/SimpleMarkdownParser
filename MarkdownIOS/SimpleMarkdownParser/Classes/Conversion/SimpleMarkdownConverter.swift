@@ -173,6 +173,9 @@ public class SimpleMarkdownConverter {
                 if linkLocation.count == 0 {
                     linkLocation = usingParser.extract(textFromMarkdownText: markdownText, tag: tag)
                 }
+                if let index = linkLocation.firstIndex(of: " ") {
+                    linkLocation = String(linkLocation[linkLocation.startIndex..<index])
+                }
                 start += " href=" + linkLocation
             }
         } else {
@@ -245,6 +248,9 @@ public class SimpleMarkdownConverter {
                         extra = parser.extract(extraFromMarkdownText: markdownText, tag: tag)
                         if extra == "" {
                             extra = parser.extract(textFromMarkdownText: markdownText, tag: tag)
+                        }
+                        if let index = extra.firstIndex(of: " ") {
+                            extra = String(extra[extra.startIndex..<index])
                         }
                     }
                     attributedStringGenerator.applyAttribute(defaultFont: defaultFont, attributedString: attributedString, type: tag.type, weight: tag.weight, start: start + addDistance, length: end - start, extra: extra);
