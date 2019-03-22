@@ -149,14 +149,18 @@ private class CustomAttributedStringConversion : MarkdownAttributedStringGenerat
             if (weight & 2) > 0 {
                 traits.insert(.traitBold)
             }
-            attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.init(descriptor: deriveFont.fontDescriptor.withSymbolicTraits(traits)!, size: deriveFont.pointSize), range: NSMakeRange(start, length))
+            if let descriptor = deriveFont.fontDescriptor.withSymbolicTraits(traits) {
+                attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.init(descriptor: descriptor, size: deriveFont.pointSize), range: NSMakeRange(start, length))
+            }
             break
         case .alternativeTextStyle:
             attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: true, range: NSMakeRange(start, length))
             break
         case .link:
-            attributedString.addAttribute(NSAttributedString.Key(rawValue: NSClickableTextAttributeName), value: URL(string: extra)!, range: NSMakeRange(start, length))
-            attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.purple, range: NSMakeRange(start, length))
+            if let url = URL(string: extra) {
+                attributedString.addAttribute(NSAttributedString.Key(rawValue: NSClickableTextAttributeName), value: url, range: NSMakeRange(start, length))
+                attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.purple, range: NSMakeRange(start, length))
+            }
             break
         default:
             break //No implementation for unknown tags
