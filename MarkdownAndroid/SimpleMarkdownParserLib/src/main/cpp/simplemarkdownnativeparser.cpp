@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <vector>
+#include <cstring>
 #include "utfstring.h"
 
 /**
