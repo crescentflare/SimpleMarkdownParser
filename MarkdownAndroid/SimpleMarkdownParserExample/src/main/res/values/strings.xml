@@ -14,6 +14,6 @@
         <item>"  * First nested bullet item"</item>
         <item>"  * Second nested bullet item with a longer set of text to make it wrap around to a new line"</item>
         <item>""</item>
-        <item>Testing a link to [github](https://github.com/crescentflare/SimpleMarkdownParser).</item>
+        <item>Testing a link to [github](https://github.com/crescentflare/SimpleMarkdownParser "SimpleMarkdownParser").</item>
     </string-array>
 </resources>
