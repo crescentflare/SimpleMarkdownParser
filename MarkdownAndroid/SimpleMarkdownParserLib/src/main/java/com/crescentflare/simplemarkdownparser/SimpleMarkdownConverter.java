@@ -212,6 +212,11 @@ public class SimpleMarkdownConverter
                 {
                     linkLocation = parser.extractText(markdownText, tag);
                 }
+                int spacePos = linkLocation.indexOf(' ');
+                if (spacePos >= 0)
+                {
+                    linkLocation = linkLocation.substring(0, spacePos);
+                }
                 start += " href=" + linkLocation;
             }
         }
@@ -290,6 +295,11 @@ public class SimpleMarkdownConverter
                         if (extra.length() == 0)
                         {
                             extra = builder.subSequence(tag.startText, tag.endText).toString();
+                        }
+                        int spacePos = extra.indexOf(' ');
+                        if (spacePos >= 0)
+                        {
+                            extra = extra.substring(0, spacePos);
                         }
                     }
                     spanGenerator.applySpan(builder, tag.type, tag.weight, tag.startText, tag.endText, extra);

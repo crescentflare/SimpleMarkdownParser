@@ -47,7 +47,7 @@ class ViewController: UIViewController {
             "  * First nested bullet item",
             "  * Second nested bullet item with a longer set of text to make it wrap around to a new line",
             "",
-            "Testing a link to [github](https://github.com/crescentflare/SimpleMarkdownParser)."
+            "Testing a link to [github](https://github.com/crescentflare/SimpleMarkdownParser \"SimpleMarkdownParser\")."
         ]
         let markdownText = markdownTextArray.joined(separator: "\n")
         
@@ -149,14 +149,18 @@ private class CustomAttributedStringConversion : MarkdownAttributedStringGenerat
             if (weight & 2) > 0 {
                 traits.insert(.traitBold)
             }
-            attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.init(descriptor: deriveFont.fontDescriptor.withSymbolicTraits(traits)!, size: deriveFont.pointSize), range: NSMakeRange(start, length))
+            if let descriptor = deriveFont.fontDescriptor.withSymbolicTraits(traits) {
+                attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.init(descriptor: descriptor, size: deriveFont.pointSize), range: NSMakeRange(start, length))
+            }
             break
         case .alternativeTextStyle:
             attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: true, range: NSMakeRange(start, length))
             break
         case .link:
-            attributedString.addAttribute(NSAttributedString.Key(rawValue: NSClickableTextAttributeName), value: URL(string: extra)!, range: NSMakeRange(start, length))
-            attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.purple, range: NSMakeRange(start, length))
+            if let url = URL(string: extra) {
+                attributedString.addAttribute(NSAttributedString.Key(rawValue: NSClickableTextAttributeName), value: url, range: NSMakeRange(start, length))
+                attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.purple, range: NSMakeRange(start, length))
+            }
             break
         default:
             break //No implementation for unknown tags

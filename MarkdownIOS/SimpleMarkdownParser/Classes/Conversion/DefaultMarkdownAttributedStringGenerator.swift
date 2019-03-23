@@ -26,7 +26,9 @@ open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGe
             attributedString.addAttribute(NSAttributedString.Key.font, value: defaultFont.withSize(defaultFont.pointSize * CGFloat(weight)), range: NSMakeRange(start, length))
             break
         case .header:
-            attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.init(descriptor: defaultFont.fontDescriptor.withSymbolicTraits(.traitBold)!, size: defaultFont.pointSize * DefaultMarkdownAttributedStringGenerator.sizeForHeader(weight)), range: NSMakeRange(start, length))
+            if let descriptor = defaultFont.fontDescriptor.withSymbolicTraits(.traitBold) {
+                attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.init(descriptor: descriptor, size: defaultFont.pointSize * DefaultMarkdownAttributedStringGenerator.sizeForHeader(weight)), range: NSMakeRange(start, length))
+            }
             break
         case .orderedList, .unorderedList:
             let bulletParagraph = NSMutableParagraphStyle()
@@ -44,15 +46,19 @@ open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGe
                     deriveFont = font
                 }
             })
-            attributedString.addAttribute(NSAttributedString.Key.font, value: DefaultMarkdownAttributedStringGenerator.fontForWeight(deriveFont, weight: weight), range: NSMakeRange(start, length))
+            if let font = DefaultMarkdownAttributedStringGenerator.fontForWeight(deriveFont, weight: weight) {
+                attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: NSMakeRange(start, length))
+            }
             break
         case .alternativeTextStyle:
             attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: true, range: NSMakeRange(start, length))
             break
         case .link:
-            attributedString.addAttribute(NSAttributedString.Key(rawValue: NSClickableTextAttributeName), value: URL(string: extra)!, range: NSMakeRange(start, length))
-            attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.blue, range: NSMakeRange(start, length))
-            attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range: NSMakeRange(start, length))
+            if let url = URL(string: extra) {
+                attributedString.addAttribute(NSAttributedString.Key(rawValue: NSClickableTextAttributeName), value: url, range: NSMakeRange(start, length))
+                attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.blue, range: NSMakeRange(start, length))
+                attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range: NSMakeRange(start, length))
+            }
             break
         default:
             break //No implementation for unknown tags
@@ -71,7 +77,7 @@ open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGe
         return 1
     }
 
-    private static func fontForWeight(_ defaultFont: UIFont, weight: Int) -> UIFont {
+    private static func fontForWeight(_ defaultFont: UIFont, weight: Int) -> UIFont? {
         var traits: UIFontDescriptor.SymbolicTraits = UIFontDescriptor.SymbolicTraits()
         traits.insert(defaultFont.fontDescriptor.symbolicTraits)
         switch (weight) {
@@ -88,7 +94,10 @@ open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGe
         default:
             break // Will return the default value below
         }
-        return UIFont.init(descriptor: defaultFont.fontDescriptor.withSymbolicTraits(traits)!, size: defaultFont.pointSize)
+        if let descriptor = defaultFont.fontDescriptor.withSymbolicTraits(traits) {
+            return UIFont.init(descriptor: descriptor, size: defaultFont.pointSize)
+        }
+        return nil
     }
 
     private static func bulletTokenForWeight(_ weight: Int) -> String {

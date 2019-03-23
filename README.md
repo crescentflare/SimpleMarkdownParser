@@ -20,13 +20,22 @@ A multi-functional and easy way to integrate markdown formatting within mobile a
 
 ### iOS integration guide
 
+##### CocoaPods
 The library is available through [CocoaPods](http://cocoapods.org). To install it, simply add one of the following lines to your Podfile.
 
 ```ruby
-pod "SimpleMarkdownParser", '~> 0.6.1'
+pod "SimpleMarkdownParser", '~> 0.6.2'
 ```
 
-The above version is for Swift 4.2. For older Swift versions use the following:
+##### Carthage
+
+```ruby
+github "crescentflare/SimpleMarkdownParser" ~> 0.6.2
+```
+
+##### Older versions
+
+The newest version is for Swift 4.2. For older Swift versions use the following:
 - Swift 4.1: SimpleMarkdownParser 0.5.6
 - Swift 4.0: SimpleMarkdownParser 0.5.5
 - Swift 3: SimpleMarkdownParser 0.5.4
@@ -38,7 +47,7 @@ The above version is for Swift 4.2. For older Swift versions use the following:
 When using gradle, the library can easily be imported into the build.gradle file of your project. Add the following dependency:
 
 ```
-compile 'com.crescentflare.simplemarkdownparser:SimpleMarkdownParserLib:0.6.0'
+compile 'com.crescentflare.simplemarkdownparser:SimpleMarkdownParserLib:0.6.2'
 ```
 
 Make sure that jcenter is added as a repository.
