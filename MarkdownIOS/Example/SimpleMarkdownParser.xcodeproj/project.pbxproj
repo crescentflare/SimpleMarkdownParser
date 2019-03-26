@@ -284,7 +284,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SimpleMarkdownParser_Example/Pods-SimpleMarkdownParser_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SimpleMarkdownParser_Example/Pods-SimpleMarkdownParser_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/SimpleMarkdownParser/SimpleMarkdownParser.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -293,7 +293,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SimpleMarkdownParser_Example/Pods-SimpleMarkdownParser_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SimpleMarkdownParser_Example/Pods-SimpleMarkdownParser_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5719EBC65BAF02DB2A8E698E /* [CP] Embed Pods Frameworks */ = {
@@ -302,7 +302,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SimpleMarkdownParser_Tests/Pods-SimpleMarkdownParser_Tests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SimpleMarkdownParser_Tests/Pods-SimpleMarkdownParser_Tests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/SimpleMarkdownParser/SimpleMarkdownParser.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -311,7 +311,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SimpleMarkdownParser_Tests/Pods-SimpleMarkdownParser_Tests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SimpleMarkdownParser_Tests/Pods-SimpleMarkdownParser_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C35A193227FD09F52AC4B9FE /* [CP] Check Pods Manifest.lock */ = {
