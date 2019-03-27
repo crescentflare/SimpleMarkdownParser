@@ -24,13 +24,13 @@ A multi-functional and easy way to integrate markdown formatting within mobile a
 The library is available through [CocoaPods](http://cocoapods.org). To install it, simply add one of the following lines to your Podfile.
 
 ```ruby
-pod "SimpleMarkdownParser", '~> 0.6.3'
+pod "SimpleMarkdownParser", '~> 0.6.4'
 ```
 
 ##### Carthage
 
 ```ruby
-github "crescentflare/SimpleMarkdownParser" ~> 0.6.3
+github "crescentflare/SimpleMarkdownParser" ~> 0.6.4
 ```
 
 ##### Older versions
