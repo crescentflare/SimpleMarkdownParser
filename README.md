@@ -48,7 +48,7 @@ The newest version is for Swift 5.0. For older Swift versions use the following:
 When using gradle, the library can easily be imported into the build.gradle file of your project. Add the following dependency:
 
 ```
-compile 'com.crescentflare.simplemarkdownparser:SimpleMarkdownParserLib:0.6.2'
+compile 'com.crescentflare.simplemarkdownparser:SimpleMarkdownParserLib:0.6.5'
 ```
 
 Make sure that jcenter is added as a repository.
