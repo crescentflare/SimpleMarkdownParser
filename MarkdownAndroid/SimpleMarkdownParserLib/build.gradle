@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/crescentflare/SimpleMarkdownParser'
     gitUrl = 'https://github.com/crescentflare/SimpleMarkdownParser.git'
 
-    libraryVersion = '0.6.2'
+    libraryVersion = '0.6.5'
 
     developerId = 'crescentflare'
     developerName = 'Crescent Flare Apps'
@@ -31,7 +31,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
-        versionName "0.6.2"
+        versionName "0.6.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
