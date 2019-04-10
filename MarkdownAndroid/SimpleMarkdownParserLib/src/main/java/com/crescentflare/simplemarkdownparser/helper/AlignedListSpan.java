@@ -38,7 +38,7 @@ public class AlignedListSpan implements LeadingMarginSpan
         {
             Paint.Style orgStyle = p.getStyle();
             p.setStyle(Paint.Style.FILL);
-            c.drawText(listToken, x + getLeadingMargin(true) - offset - p.measureText(listToken), bottom - p.descent(), p);
+            c.drawText(listToken, x + getLeadingMargin(true) - offset - p.measureText(listToken), baseline, p);
             p.setStyle(orgStyle);
         }
     }
