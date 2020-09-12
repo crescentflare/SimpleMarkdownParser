@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SimpleMarkdownParser'
-  s.version          = '0.6.4'
+  s.version          = '0.6.6'
   s.swift_version    = '5.0'
   s.summary          = 'A multi-functional and easy way to integrate markdown formatting within mobile apps.'
 

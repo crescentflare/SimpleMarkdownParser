@@ -1,5 +1,5 @@
 PODS:
-  - SimpleMarkdownParser (0.6.4)
+  - SimpleMarkdownParser (0.6.6)
 
 DEPENDENCIES:
   - SimpleMarkdownParser (from `../../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  SimpleMarkdownParser: 07fd83a31f8f8f3e68b40d8d3cc4acd22583e2f6
+  SimpleMarkdownParser: 521f90a38ab29eec02e110549252592e0e1f9306
 
 PODFILE CHECKSUM: c0afd962388924547008469eed02cb2e5592b1e3
 
-COCOAPODS: 1.7.0.beta.2
+COCOAPODS: 1.9.3
