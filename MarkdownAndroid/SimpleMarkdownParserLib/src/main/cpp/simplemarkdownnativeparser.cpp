@@ -177,12 +177,12 @@ void processMarkers(std::vector<MarkdownTag> &addTags, std::vector<MarkdownMarke
             if (marker.weight > 1)
             {
                 marker.weight--;
-                processing = true;
             }
             else
             {
                 start++;
             }
+            processing = true;
         }
     }
 }

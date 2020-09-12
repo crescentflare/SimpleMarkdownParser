@@ -508,12 +508,12 @@ public class SimpleMarkdownJavaParser implements SimpleMarkdownParser
                 if (marker.weight > 1)
                 {
                     marker.weight--;
-                    processing = true;
                 }
                 else
                 {
                     start++;
                 }
+                processing = true;
             }
         }
     }
