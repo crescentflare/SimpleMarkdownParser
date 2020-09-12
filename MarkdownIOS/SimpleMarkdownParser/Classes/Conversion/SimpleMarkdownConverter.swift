@@ -90,10 +90,10 @@ public class SimpleMarkdownConverter {
                     handledTags.append(processingTag!)
                     processingTag!.type = curTag.type
                     processingTag!.weight = curTag.weight
-                    processingTag!.startExtraIndex = curTag.startExtraIndex
-                    processingTag!.endExtraIndex = curTag.endExtraIndex
-                    processingTag!.startExtraPosition = curTag.startExtraPosition
-                    processingTag!.endExtraPosition = curTag.endExtraPosition
+                    processingTag!.startExtraIndex = curTag.startExtraIndex ?? curTag.startTextIndex
+                    processingTag!.endExtraIndex = curTag.endExtraIndex ?? curTag.endTextIndex
+                    processingTag!.startExtraPosition = curTag.startExtraPosition ?? curTag.startTextPosition
+                    processingTag!.endExtraPosition = curTag.endExtraPosition ?? curTag.endTextPosition
                     processingTag!.startTextIndex = adjustedHtmlString.endIndex
                     processingTag!.startTextPosition = adjustedHtmlString.count
                     adjustedHtmlString += usingParser.extract(textBetweenMarkdownText: markdownText, startTag: curTag, endTag: nextTag!, mode: .startToNext)
@@ -117,10 +117,10 @@ public class SimpleMarkdownConverter {
                     handledTags.append(processingTag!)
                     processingTag!.type = curTag.type
                     processingTag!.weight = curTag.weight
-                    processingTag!.startExtraIndex = curTag.startExtraIndex
-                    processingTag!.endExtraIndex = curTag.endExtraIndex
-                    processingTag!.startExtraPosition = curTag.startExtraPosition
-                    processingTag!.endExtraPosition = curTag.endExtraPosition
+                    processingTag!.startExtraIndex = curTag.startExtraIndex ?? curTag.startTextIndex
+                    processingTag!.endExtraIndex = curTag.endExtraIndex ?? curTag.endTextIndex
+                    processingTag!.startExtraPosition = curTag.startExtraPosition ?? curTag.startTextPosition
+                    processingTag!.endExtraPosition = curTag.endExtraPosition ?? curTag.endTextPosition
                     processingTag!.startTextIndex = adjustedHtmlString.endIndex
                     processingTag!.startTextPosition = adjustedHtmlString.count
                     adjustedHtmlString += usingParser.extract(textFromMarkdownText: markdownText, tag: curTag)
@@ -291,10 +291,10 @@ public class SimpleMarkdownConverter {
                     convertedTags.append(processingTag!)
                     processingTag!.type = curTag.type
                     processingTag!.weight = curTag.weight
-                    processingTag!.startExtraIndex = curTag.startExtraIndex
-                    processingTag!.endExtraIndex = curTag.endExtraIndex
-                    processingTag!.startExtraPosition = curTag.startExtraPosition
-                    processingTag!.endExtraPosition = curTag.endExtraPosition
+                    processingTag!.startExtraIndex = curTag.startExtraIndex ?? curTag.startTextIndex
+                    processingTag!.endExtraIndex = curTag.endExtraIndex ?? curTag.endTextIndex
+                    processingTag!.startExtraPosition = curTag.startExtraPosition ?? curTag.startTextPosition
+                    processingTag!.endExtraPosition = curTag.endExtraPosition ?? curTag.endTextPosition
                     processingTag!.startTextIndex = attributedString.string.endIndex
                     processingTag!.startTextPosition = attributedString.string.count
                     attributedString.append(NSAttributedString(string: usingParser.extract(textBetweenMarkdownText: markdownText, startTag: curTag, endTag: nextTag!, mode: .startToNext)))
@@ -316,10 +316,10 @@ public class SimpleMarkdownConverter {
                     convertedTags.append(processingTag!)
                     processingTag!.type = curTag.type
                     processingTag!.weight = curTag.weight
-                    processingTag!.startExtraIndex = curTag.startExtraIndex
-                    processingTag!.endExtraIndex = curTag.endExtraIndex
-                    processingTag!.startExtraPosition = curTag.startExtraPosition
-                    processingTag!.endExtraPosition = curTag.endExtraPosition
+                    processingTag!.startExtraIndex = curTag.startExtraIndex ?? curTag.startTextIndex
+                    processingTag!.endExtraIndex = curTag.endExtraIndex ?? curTag.endTextIndex
+                    processingTag!.startExtraPosition = curTag.startExtraPosition ?? curTag.startTextPosition
+                    processingTag!.endExtraPosition = curTag.endExtraPosition ?? curTag.endTextPosition
                     processingTag!.startTextIndex = attributedString.string.endIndex
                     processingTag!.startTextPosition = attributedString.string.count
                     attributedString.append(NSAttributedString(string: usingParser.extract(textFromMarkdownText: markdownText, tag: curTag)))

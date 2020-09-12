@@ -87,7 +87,7 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
                 }
             }
             
-            //Set pointer to next line and continue
+            // Set pointer to next line and continue
             curLine = nextLine
         }
         
@@ -344,7 +344,7 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
         mainTag.flags = sectionTag.flags
         foundTags.append(mainTag)
         
-        //Traverse string and find tag markers
+        // Traverse string and find tag markers
         var tagMarkers: [MarkdownMarker] = []
         var addTags: [MarkdownTag] = []
         let maxLength = sectionTag.endTextPosition!
@@ -381,7 +381,7 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
             tagMarkers.append(MarkdownMarker(chr: curMarkerChar, weight: curMarkerWeight, position: maxLength - curMarkerWeight))
         }
         
-        //Sort tags to add and finally add them
+        // Sort tags to add and finally add them
         processMarkers(onMarkdownTextArray: markdownTextArray, addTags: &addTags, markers: &tagMarkers, start: 0, end: tagMarkers.count, addFlags: sectionTag.flags)
         addTags.sort(by: { (lhs, rhs) -> Bool in
             return rhs.startPosition! - lhs.startPosition! > 0
@@ -463,10 +463,10 @@ public class SimpleMarkdownParserSwift : SimpleMarkdownParser {
             if !processing {
                 if marker.weight > 1 {
                     marker.weight -= 1
-                    processing = true
                 } else {
                     adjustedStart += 1
                 }
+                processing = true
             }
         }
     }
