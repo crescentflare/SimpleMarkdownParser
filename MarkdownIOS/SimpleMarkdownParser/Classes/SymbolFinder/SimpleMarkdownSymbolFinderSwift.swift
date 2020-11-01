@@ -1,5 +1,5 @@
 //
-//  SimpleMarkdownSymbolFinder.swift
+//  SimpleMarkdownSymbolFinderSwift.swift
 //  SimpleMarkdownParser Pod
 //
 //  Library symbol parsing: implements the symbol finder in swift
@@ -183,8 +183,9 @@ public class SimpleMarkdownSymbolFinderSwift: SimpleMarkdownSymbolFinder {
         }
         
         // Update line position
-        if character.isNewline {
+        if !escaped && character.isNewline {
             linePosition = 0
+            currentLine += 1
         } else if lastEscapePosition != position {
             linePosition += 1
         }

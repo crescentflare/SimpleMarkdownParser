@@ -6,16 +6,18 @@
 //
 
 // The enum to define the type of supported markdown tags
-public enum MarkdownTagType {
+public enum MarkdownTagType: Int {
     
-    case normal
-    case paragraph
-    case textStyle
-    case alternativeTextStyle
-    case link
-    case header
-    case orderedList
-    case unorderedList
+    case normal = -1 // To be deprecated
+    case paragraph = 0
+    case header = 1
+    case list = 2
+    case line = 3
+    case orderedList = 4
+    case unorderedList = 5
+    case link = 6
+    case textStyle = 7
+    case alternativeTextStyle = 8
     
 }
 
@@ -49,6 +51,7 @@ public class MarkdownTag {
     public var startExtraPosition: Int? = nil
     public var endExtraPosition: Int? = nil
     public var weight = 0
+    public var escapeSymbols = [MarkdownSymbol]()
 
 
     // --

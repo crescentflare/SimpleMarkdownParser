@@ -23,6 +23,10 @@ public enum MarkdownSymbolType {
     case openUrl
     case closeUrl
     
+    public func isTextStyle() -> Bool {
+        return self == .firstTextStyle || self == .secondTextStyle || self == .thirdTextStyle
+    }
+    
 }
 
 // Symbol object
