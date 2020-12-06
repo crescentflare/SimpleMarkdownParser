@@ -21,15 +21,34 @@ public class SimpleMarkdownTagFinder {
     // --
 
     public func findTags(text: String, symbols: [MarkdownSymbol]) -> [MarkdownTag] {
-        // Find tags
+        // Find first paragraph tag
         var result = [MarkdownTag]()
         var paragraphIndex = findNextParagraphBlockIndex(symbols: symbols)
         var startSymbolIndex = 0
-        var firstParagraph = true
+        for index in 0..<symbols.count {
+            if symbols[index].startPosition >= symbols[paragraphIndex].startPosition {
+                startSymbolIndex = index
+                break
+            }
+        }
+        
+        // Add lines that could come before it
+        if startSymbolIndex > 0 {
+            let scanSymbols = symbols[0..<startSymbolIndex]
+            let dummyParagraphTag = MarkdownTag()
+            dummyParagraphTag.type = .paragraph
+            dummyParagraphTag.startPosition = symbols[0].startPosition
+            dummyParagraphTag.endPosition = symbols[startSymbolIndex].startPosition - symbols[startSymbolIndex].linePosition
+            dummyParagraphTag.startIndex = symbols[0].startIndex
+            dummyParagraphTag.endIndex = text.index(symbols[startSymbolIndex].startIndex, offsetBy: -symbols[startSymbolIndex].linePosition)
+            result.append(contentsOf: findLineTags(text: text, symbols: scanSymbols, forParagraph: dummyParagraphTag))
+        }
+        
+        // Start finding inner tags
         while paragraphIndex >= 0 {
             // Set up paragraph tag
             let nextParagraphIndex = findNextParagraphBlockIndex(symbols: symbols, afterParagraphIndex: paragraphIndex)
-            let paragraphTag = makeParagraphTag(text: text, symbols: symbols, fromIndex: paragraphIndex, toIndex: nextParagraphIndex, firstItem: firstParagraph)
+            let paragraphTag = makeParagraphTag(text: text, symbols: symbols, fromIndex: paragraphIndex, toIndex: nextParagraphIndex)
             result.append(paragraphTag)
             
             // Determine symbols found within the paragraph tag
@@ -40,15 +59,26 @@ public class SimpleMarkdownTagFinder {
                 }
             }
             
-            // Add tags within the paragraph
+            // Find line tags and shorten the paragraph if empty lines are at the end
             let scanSymbols = symbols[startSymbolIndex..<endSymbolIndex]
-            result.append(contentsOf: findLineTags(text: text, symbols: scanSymbols, forParagraph: paragraphTag))
+            let lineTags = findLineTags(text: text, symbols: scanSymbols, forParagraph: paragraphTag)
+            result.append(contentsOf: lineTags)
+            for index in lineTags.indices {
+                if lineTags[index].startTextPosition ?? 0 >= lineTags[index].endTextPosition ?? 0 {
+                    if index > 0 {
+                        paragraphTag.endPosition = lineTags[index - 1].endPosition
+                        paragraphTag.endIndex = lineTags[index - 1].endIndex
+                    }
+                    break
+                }
+            }
+
+            // Add other tags within the paragraph
             result.append(contentsOf: findTextStyleTags(text: text, symbols: scanSymbols, forParagraph: paragraphTag))
             result.append(contentsOf: findLinkTags(text: text, symbols: scanSymbols, forParagraph: paragraphTag))
             result.append(contentsOf: findListTags(text: text, symbols: scanSymbols, forParagraph: paragraphTag))
-
+            
             // Prepare for the next iteration
-            firstParagraph = false
             startSymbolIndex = endSymbolIndex
             paragraphIndex = nextParagraphIndex
         }
@@ -78,8 +108,9 @@ public class SimpleMarkdownTagFinder {
         tag.startPosition = firstItem ? 0 : symbols[fromIndex].startPosition - symbols[fromIndex].linePosition
         tag.endPosition = toIndex >= 0 ? symbols[toIndex].startPosition - symbols[toIndex].linePosition : text.count
         tag.startTextPosition = symbols[fromIndex].startPosition
-        if toIndex > fromIndex {
-            for index in fromIndex..<toIndex {
+        if toIndex > fromIndex || toIndex < 0 {
+            let endIndex = toIndex < 0 ? symbols.count : toIndex
+            for index in fromIndex..<endIndex {
                 if symbols[index].type == .textBlock {
                     tag.endTextPosition = symbols[index].endPosition
                 }
@@ -92,8 +123,9 @@ public class SimpleMarkdownTagFinder {
         tag.startIndex = firstItem ? text.startIndex : text.index(symbols[fromIndex].startIndex, offsetBy: -symbols[fromIndex].linePosition)
         tag.endIndex = toIndex >= 0 ? text.index(symbols[toIndex].startIndex, offsetBy: -symbols[toIndex].linePosition) : text.endIndex
         tag.startTextIndex = symbols[fromIndex].startIndex
-        if toIndex > fromIndex {
-            for index in fromIndex..<toIndex {
+        if toIndex > fromIndex || toIndex < 0 {
+            let endIndex = toIndex < 0 ? symbols.count : toIndex
+            for index in fromIndex..<endIndex {
                 if symbols[index].type == .textBlock {
                     tag.endTextIndex = symbols[index].endIndex
                 }
@@ -115,7 +147,7 @@ public class SimpleMarkdownTagFinder {
                                 tag.weight = symbol.endPosition - symbol.startPosition
                                 firstHeader = false
                             } else {
-                                tag.endTextPosition = symbol.endPosition
+                                tag.endTextPosition = symbol.startPosition
                                 tag.endTextIndex = symbol.startIndex
                                 break
                             }
@@ -204,9 +236,9 @@ public class SimpleMarkdownTagFinder {
         tag.type = .line
         tag.weight = 0
         tag.startPosition = startSymbol.type == .newline ? startSymbol.endPosition : startSymbol.startPosition
-        tag.endPosition = endSymbol.type == .newline ? endSymbol.startPosition : endSymbol.endPosition
+        tag.endPosition = endSymbol.endPosition
         tag.startIndex = startSymbol.type == .newline ? startSymbol.endIndex : startSymbol.startIndex
-        tag.endIndex = endSymbol.type == .newline ? endSymbol.startIndex : endSymbol.endIndex
+        tag.endIndex = endSymbol.endIndex
         tag.startTextPosition = startSymbol.type == .newline ? startSymbol.endPosition : startSymbol.startPosition
         tag.endTextPosition = endSymbol.type == .newline ? endSymbol.startPosition : endSymbol.endPosition
         tag.startTextIndex = startSymbol.type == .newline ? startSymbol.endIndex : startSymbol.startIndex

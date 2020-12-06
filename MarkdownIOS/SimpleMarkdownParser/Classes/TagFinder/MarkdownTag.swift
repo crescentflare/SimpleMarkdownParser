@@ -2,7 +2,7 @@
 //  MarkdownTag.swift
 //  SimpleMarkdownParser Pod
 //
-//  Core library: a markdown parapgraph, heading or styling tag found within the markdown text
+//  Library tag parsing: a markdown parapgraph, heading or styling tag found within the markdown text
 //
 
 // The enum to define the type of supported markdown tags
@@ -19,6 +19,10 @@ public enum MarkdownTagType: Int {
     case textStyle = 7
     case alternativeTextStyle = 8
     
+    public func isSection() -> Bool {
+        return self == .paragraph || self == .header || self == .list
+    }
+
 }
 
 // Tag object
@@ -59,6 +63,38 @@ public class MarkdownTag {
     // --
     
     public init() {
+    }
+
+}
+
+// Processed tag object (after text processing)
+public class ProcessedMarkdownTag {
+
+    // --
+    // MARK: Fields
+    // --
+    
+    public let type: MarkdownTagType
+    public let startIndex: String.Index
+    public let endIndex: String.Index
+    public let startPosition: Int
+    public let endPosition: Int
+    public var weight = 0
+    public var link: String?
+
+
+    // --
+    // MARK: Default initializer
+    // --
+    
+    public init(type: MarkdownTagType, weight: Int, startIndex: String.Index, endIndex: String.Index, startPosition: Int, endPosition: Int, startExtraIndex: String.Index? = nil, endExtraIndex: String.Index? = nil, link: String? = nil) {
+        self.type = type
+        self.weight = weight
+        self.startIndex = startIndex
+        self.endIndex = endIndex
+        self.startPosition = startPosition
+        self.endPosition = endPosition
+        self.link = link
     }
 
 }

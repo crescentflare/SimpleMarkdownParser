@@ -66,6 +66,9 @@ open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGe
     }
     
     open func getListToken(fromType: MarkdownTagType, weight: Int, index: Int) -> String {
+        if fromType == .line {
+            return "\t\t"
+        }
         let token = fromType == .orderedList ? "\(index)." : DefaultMarkdownAttributedStringGenerator.bulletTokenForWeight(weight)
         return "\t\(token)\t"
     }
