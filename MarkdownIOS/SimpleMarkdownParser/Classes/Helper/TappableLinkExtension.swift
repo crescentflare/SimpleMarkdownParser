@@ -12,6 +12,11 @@ public extension UITapGestureRecognizer {
             // Fetch attributed text and apply label font entirely, then set up text storage
             let attributedText = NSMutableAttributedString(attributedString: attributedText)
             let textStorage = NSTextStorage(attributedString: attributedText)
+            if onLabel.textAlignment != .left {
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.alignment = onLabel.textAlignment
+                textStorage.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedText.length))
+            }
             
             // Create instances of NSLayoutManager and NSTextContainer, then link them
             let labelSize = onLabel.bounds.size
@@ -25,22 +30,23 @@ public extension UITapGestureRecognizer {
             textContainer.lineBreakMode = onLabel.lineBreakMode
             textContainer.maximumNumberOfLines = onLabel.numberOfLines
             
-            // Determine offset multiplier based on label alignment
-            var offsetMultiplier: CGFloat = 0
-            if onLabel.textAlignment == .center {
-                offsetMultiplier = 0.5
-            } else if onLabel.textAlignment == .right {
-                offsetMultiplier = 1
-            }
-            
             // Find the tapped character location and compare it to the specified range
             let locationOfTouchInLabel = self.location(in: onLabel)
             let textBoundingBox = layoutManager.usedRect(for: textContainer)
-            let textContainerOffset = CGPoint(x: (labelSize.width - textBoundingBox.size.width) * offsetMultiplier - textBoundingBox.origin.x,
-                                              y: (labelSize.height - textBoundingBox.size.height) * offsetMultiplier - textBoundingBox.origin.y);
-            let locationOfTouchInTextContainer = CGPoint(x: locationOfTouchInLabel.x - textContainerOffset.x,
-                                                         y: locationOfTouchInLabel.y - textContainerOffset.y);
+            let textVerticalOffset = (labelSize.height - textBoundingBox.size.height) * 0.5
+            let locationOfTouchInTextContainer = CGPoint(x: locationOfTouchInLabel.x, y: locationOfTouchInLabel.y - textVerticalOffset)
             let indexOfCharacter = layoutManager.characterIndex(for: locationOfTouchInTextContainer, in: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+            
+            // Safeguard for detecting links outside of the actual character (2 points extra margin is added on purpose)
+            let extraCheckMargin: CGFloat = 2
+            let glyphsForIndex = layoutManager.glyphRange(forCharacterRange: NSMakeRange(indexOfCharacter, 1), actualCharacterRange: nil)
+            let characterBounds = layoutManager.boundingRect(forGlyphRange: glyphsForIndex, in: textContainer)
+            if locationOfTouchInTextContainer.y < characterBounds.minY - extraCheckMargin || locationOfTouchInTextContainer.y >= characterBounds.maxY + extraCheckMargin {
+                return nil
+            }
+            if locationOfTouchInTextContainer.x < characterBounds.minX - extraCheckMargin || locationOfTouchInTextContainer.x >= characterBounds.maxX + extraCheckMargin {
+                return nil
+            }
             
             // Try to find a matching URL and return the result
             var url: URL? = nil

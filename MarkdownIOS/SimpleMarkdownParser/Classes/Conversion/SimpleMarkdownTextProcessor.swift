@@ -189,6 +189,7 @@ public class SimpleMarkdownTextProcessor {
     private func getDeleteRanges(sectionTag: MarkdownTag, copyRanges: [SimpleMarkdownProcessRange]) -> [SimpleMarkdownProcessRange] {
         var result = [SimpleMarkdownProcessRange]()
         if var previousRange = SimpleMarkdownProcessRange(startPosition: sectionTag.startPosition, endPosition: sectionTag.startPosition, type: .copy) {
+            // Add delete range between each copy range
             for range in copyRanges {
                 if range.type == .copy {
                     if range.startPosition > previousRange.endPosition {
@@ -199,6 +200,13 @@ public class SimpleMarkdownTextProcessor {
                     previousRange = range
                 } else {
                     result.append(range)
+                }
+            }
+            
+            // Check if there is something left to delete at the end
+            if previousRange.endPosition < sectionTag.endPosition ?? 0 {
+                if let deleteRange = SimpleMarkdownProcessRange(startPosition: previousRange.endPosition, endPosition: sectionTag.endPosition, type: .delete) {
+                    result.append(deleteRange)
                 }
             }
         }
