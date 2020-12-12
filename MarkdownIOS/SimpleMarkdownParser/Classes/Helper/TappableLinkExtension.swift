@@ -7,9 +7,9 @@
 
 public extension UITapGestureRecognizer {
     
-    func findUrl(onLabel: UILabel) -> URL? {
+    func findCharacterIndex(onLabel: UILabel) -> Int? {
         if let attributedText = onLabel.attributedText {
-            // Fetch attributed text and apply label font entirely, then set up text storage
+            // Fetch attributed text, set up text storage and apply text alignment if needed
             let attributedText = NSMutableAttributedString(attributedString: attributedText)
             let textStorage = NSTextStorage(attributedString: attributedText)
             if onLabel.textAlignment != .left {
@@ -48,7 +48,14 @@ public extension UITapGestureRecognizer {
                 return nil
             }
             
-            // Try to find a matching URL and return the result
+            // Return result
+            return indexOfCharacter
+        }
+        return nil
+    }
+    
+    func findUrl(onLabel: UILabel) -> URL? {
+        if let indexOfCharacter = findCharacterIndex(onLabel: onLabel), let attributedText = onLabel.attributedText {
             var url: URL? = nil
             attributedText.enumerateAttributes(in: NSMakeRange(indexOfCharacter, 1), options: .longestEffectiveRangeNotRequired, using: { (attributes: [NSAttributedString.Key: Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
                 for (key, value) in attributes {
