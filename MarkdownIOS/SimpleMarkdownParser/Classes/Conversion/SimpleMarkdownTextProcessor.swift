@@ -101,9 +101,10 @@ public class SimpleMarkdownTextProcessor {
                 tags.append(processedTag)
             }
 
-            // Add newline between blocks
+            // Add section spacer and newlines between sections
             if sectionIndex + 1 < sectionTags.count {
-                text += "\n"
+                text += "\n\n"
+                tags.append(ProcessedMarkdownTag(type: .sectionSpacer, weight: 0, startIndex: text.index(before: text.endIndex), endIndex: text.endIndex, startPosition: text.count - 1, endPosition: text.count))
             }
         }
     }

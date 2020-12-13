@@ -13,11 +13,12 @@ public enum MarkdownTagType: Int {
     case header = 1
     case list = 2
     case line = 3
-    case orderedList = 4
-    case unorderedList = 5
-    case link = 6
-    case textStyle = 7
-    case alternativeTextStyle = 8
+    case sectionSpacer = 4
+    case orderedList = 5
+    case unorderedList = 6
+    case link = 7
+    case textStyle = 8
+    case alternativeTextStyle = 9
     
     public func isSection() -> Bool {
         return self == .paragraph || self == .header || self == .list
