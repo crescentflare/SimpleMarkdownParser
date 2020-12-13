@@ -63,7 +63,7 @@ class ViewController: UIViewController {
         }
         
         // Add a gesture recognizer to handle tappable links from the markdown
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnLabel(_:)))
+        let gestureRecognizer = MarkdownLinkTapRecognizer(target: self, action: #selector(didTapOnLabelLink(_:)))
         label.addGestureRecognizer(gestureRecognizer)
     }
     
@@ -107,8 +107,8 @@ class ViewController: UIViewController {
     // MARK: Selector
     // --
 
-    @objc func didTapOnLabel(_ gesture: UITapGestureRecognizer) {
-        if let url: URL = gesture.findUrl(onLabel: label) {
+    @objc func didTapOnLabelLink(_ gesture: MarkdownLinkTapRecognizer) {
+        if let url = gesture.lastTappedTouchArea?.url {
             UIApplication.shared.openURL(url)
         }
     }

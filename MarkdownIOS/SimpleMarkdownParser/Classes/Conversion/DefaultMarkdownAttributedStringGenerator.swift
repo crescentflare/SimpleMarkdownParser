@@ -57,6 +57,7 @@ open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGe
             if let url = URL(string: extra) {
                 attributedString.addAttribute(NSAttributedString.Key(rawValue: NSClickableTextAttributeName), value: url, range: NSMakeRange(start, length))
                 attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.blue, range: NSMakeRange(start, length))
+                attributedString.addAttribute(NSAttributedString.Key(rawValue: NSHighlightColorAttributeName), value: UIColor.red, range: NSMakeRange(start, length))
                 attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range: NSMakeRange(start, length))
             }
             break

@@ -6,6 +6,7 @@
 //
 
 public let NSClickableTextAttributeName = "NSClickableTextAttributeName"
+public let NSHighlightColorAttributeName = "NSHighlightColorAttributeName"
 
 public class SimpleMarkdownConverter {
     
