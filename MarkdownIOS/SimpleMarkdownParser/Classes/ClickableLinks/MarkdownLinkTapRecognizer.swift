@@ -33,7 +33,7 @@ public class MarkdownLinkTapRecognizer: UIGestureRecognizer {
     // --
     // MARK: Interaction
     // --
-
+    
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Call super
         if let event = event {
@@ -113,11 +113,6 @@ public class MarkdownLinkTapRecognizer: UIGestureRecognizer {
             super.touchesEnded(touches, with: event)
         }
         
-        // Cancel highlighted link
-        if let label = view as? UILabel, hasHighlight {
-            label.attributedText = originalAttributedString
-        }
-
         // Ignore when already failed or recognized
         if state == .failed || state == .recognized {
             return
@@ -138,9 +133,6 @@ public class MarkdownLinkTapRecognizer: UIGestureRecognizer {
         } else {
             state = .failed
         }
-        
-        // Reset state
-        reset()
     }
     
     public override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
@@ -149,18 +141,20 @@ public class MarkdownLinkTapRecognizer: UIGestureRecognizer {
             super.touchesCancelled(touches, with: event)
         }
         
-        // Cancel highlighted link
-        if let label = view as? UILabel, hasHighlight {
-            label.attributedText = originalAttributedString
-        }
-        
         // Reset state
         state = .cancelled
-        reset()
     }
     
     public override func reset() {
+        // Call super
         super.reset()
+        
+        // Remove highlighted link state
+        if let label = view as? UILabel, hasHighlight, label.attributedText == highlightedAttributedString {
+            label.attributedText = originalAttributedString
+        }
+        
+        // Reset tracking variables
         originalAttributedString = nil
         highlightedAttributedString = nil
         highlightTouchArea = nil
