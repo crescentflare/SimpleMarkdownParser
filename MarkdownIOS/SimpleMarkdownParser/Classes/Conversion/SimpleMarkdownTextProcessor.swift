@@ -115,7 +115,7 @@ public class SimpleMarkdownTextProcessor {
     
 
     // --
-    // MARK: Processing
+    // MARK: Helper
     // --
 
     private func getCopyRanges(sectionTag: MarkdownTag, innerTags: [MarkdownTag]) -> [SimpleMarkdownProcessRange] {

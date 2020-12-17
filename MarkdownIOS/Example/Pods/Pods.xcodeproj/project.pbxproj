@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040145D5258BE11900F04290 /* SimpleMarkdownHtmlProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040145D3258BDF9C00F04290 /* SimpleMarkdownHtmlProcessor.swift */; };
 		040B51F42532210500E75A3B /* MarkdownSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040B51F32532210500E75A3B /* MarkdownSymbol.swift */; };
 		040B51FB253223F600E75A3B /* SimpleMarkdownSymbolFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040B51F9253223F600E75A3B /* SimpleMarkdownSymbolFinder.swift */; };
 		040B51FC253223F600E75A3B /* SimpleMarkdownSymbolStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040B51FA253223F600E75A3B /* SimpleMarkdownSymbolStorage.swift */; };
@@ -59,6 +60,7 @@
 
 /* Begin PBXFileReference section */
 		0295288768DAA6184A05FADCF84D7175 /* Pods-SimpleMarkdownParser_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SimpleMarkdownParser_Example-umbrella.h"; sourceTree = "<group>"; };
+		040145D3258BDF9C00F04290 /* SimpleMarkdownHtmlProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleMarkdownHtmlProcessor.swift; sourceTree = "<group>"; };
 		040B51F32532210500E75A3B /* MarkdownSymbol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownSymbol.swift; sourceTree = "<group>"; };
 		040B51F9253223F600E75A3B /* SimpleMarkdownSymbolFinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleMarkdownSymbolFinder.swift; sourceTree = "<group>"; };
 		040B51FA253223F600E75A3B /* SimpleMarkdownSymbolStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleMarkdownSymbolStorage.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				D461A59D38B539BB6DD3C7361626BBA4 /* MarkdownAttributedStringGenerator.swift */,
 				7A5F5E7385CF85FB5461A0F3BAF9031C /* SimpleMarkdownConverter.swift */,
 				045B7FBD257CFF3E00AB1D8D /* SimpleMarkdownTextProcessor.swift */,
+				040145D3258BDF9C00F04290 /* SimpleMarkdownHtmlProcessor.swift */,
 			);
 			name = Conversion;
 			path = MarkdownIOS/SimpleMarkdownParser/Classes/Conversion;
@@ -414,6 +417,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1100;
+				TargetAttributes = {
+					DBD8D079A0A8701661649E5F5BF81310 = {
+						LastSwiftMigration = 1130;
+					};
+				};
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -465,6 +473,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E9198E599AAEE0AE7F1F6C9C81F5D03 /* DefaultMarkdownAttributedStringGenerator.swift in Sources */,
+				040145D5258BE11900F04290 /* SimpleMarkdownHtmlProcessor.swift in Sources */,
 				040B51F42532210500E75A3B /* MarkdownSymbol.swift in Sources */,
 				C19C08C0D55AEE04A506C3C3880C321C /* MarkdownAttributedStringGenerator.swift in Sources */,
 				0476E9312586243C003DCF39 /* MarkdownLinkTouchAreaFinder.swift in Sources */,
@@ -561,6 +570,7 @@
 			baseConfigurationReference = 84092DED78C2FC1DF8BA5AF2B250991C /* Pods-SimpleMarkdownParser_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -583,6 +593,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -595,6 +606,7 @@
 			baseConfigurationReference = 766E5B85F92A8037B6D446E32FEFE8BE /* Pods-SimpleMarkdownParser_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -617,6 +629,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
