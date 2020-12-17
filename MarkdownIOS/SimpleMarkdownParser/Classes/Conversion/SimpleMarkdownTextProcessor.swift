@@ -45,7 +45,7 @@ public class SimpleMarkdownTextProcessor {
         for sectionIndex in sectionTags.indices {
             // Determine tags and copy ranges for this section
             let sectionTag = sectionTags[sectionIndex]
-            let innerTags = originalTags.filter { !$0.type.isSection() && $0.startTextPosition ?? 0 >= sectionTag.startTextPosition ?? 0 && $0.endTextPosition ?? 0 <= sectionTag.endTextPosition ?? 0 }
+            let innerTags = originalTags.filter { !$0.type.isSection() && $0.startPosition ?? 0 >= sectionTag.startPosition ?? 0 && $0.endPosition ?? 0 <= sectionTag.endPosition ?? 0 }
             let copyRanges = getCopyRanges(sectionTag: sectionTag, innerTags: innerTags)
                 
             // Add to text
@@ -103,8 +103,12 @@ public class SimpleMarkdownTextProcessor {
 
             // Add section spacer and newlines between sections
             if sectionIndex + 1 < sectionTags.count {
-                text += "\n\n"
-                tags.append(ProcessedMarkdownTag(type: .sectionSpacer, weight: 0, startIndex: text.index(before: text.endIndex), endIndex: text.endIndex, startPosition: text.count - 1, endPosition: text.count))
+                if attributedStringGenerator != nil {
+                    text += "\n\n"
+                    tags.append(ProcessedMarkdownTag(type: .sectionSpacer, weight: 0, startIndex: text.index(before: text.endIndex), endIndex: text.endIndex, startPosition: text.count - 1, endPosition: text.count))
+                } else {
+                    text += "\n"
+                }
             }
         }
     }
@@ -175,11 +179,13 @@ public class SimpleMarkdownTextProcessor {
                         }
                     } else if weightIndex + 1 < listWeightCounter.count {
                         listWeightCounter = listWeightCounter.dropLast(listWeightCounter.count - weightIndex - 1)
+                    } else if (listWeightCounter[weightIndex] > 0) != (innerTag.type == .orderedList) {
+                        listWeightCounter[weightIndex] = 0
                     }
-                    if let listPointRange = SimpleMarkdownProcessRange(startPosition: innerTag.startTextPosition, endPosition: innerTag.startTextPosition, type: .insertListToken, insertText: attributedStringGenerator.getListToken(fromType: innerTag.type, weight: innerTag.weight, index: listWeightCounter[weightIndex] + 1)) {
+                    if let listPointRange = SimpleMarkdownProcessRange(startPosition: innerTag.startTextPosition, endPosition: innerTag.startTextPosition, type: .insertListToken, insertText: attributedStringGenerator.getListToken(fromType: innerTag.type, weight: innerTag.weight, index: abs(listWeightCounter[weightIndex]) + 1)) {
                         modifyRanges.append(listPointRange)
                     }
-                    listWeightCounter[weightIndex] += 1
+                    listWeightCounter[weightIndex] += innerTag.type == .orderedList ? 1 : -1
                 }
             }
             return modifyRanges.sorted { $0.startPosition < $1.startPosition || ($0.startPosition == $1.startPosition && $0.type.isInsert() && !$1.type.isInsert() ) }
