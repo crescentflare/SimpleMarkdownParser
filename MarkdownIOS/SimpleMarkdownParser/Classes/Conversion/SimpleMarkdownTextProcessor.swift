@@ -39,7 +39,28 @@ public class SimpleMarkdownTextProcessor {
         instance.processInternal()
         return instance
     }
-
+    
+    public func rearrangeNestedTextStyles() {
+        let originalTags = tags
+        var scanPosition = 0
+        tags = []
+        for index in originalTags.indices {
+            let checkTag = originalTags[index]
+            if checkTag.type == .textStyle || checkTag.type == .alternativeTextStyle {
+                if checkTag.startPosition >= scanPosition {
+                    let nestedTags = getRearrangedTextStyleTags(checkTags: originalTags, index: index)
+                    tags.append(contentsOf: nestedTags)
+                    if let lastNestedTag = nestedTags.last {
+                        scanPosition = lastNestedTag.endPosition
+                    }
+                }
+            } else {
+                tags.append(checkTag)
+            }
+        }
+        tags.sort { $0.startPosition < $1.startPosition || ($0.type.rawValue < $1.type.rawValue && $0.startPosition <= $1.startPosition) }
+    }
+    
     private func processInternal() {
         let sectionTags = originalTags.filter { $0.type.isSection() }
         for sectionIndex in sectionTags.indices {
@@ -113,6 +134,36 @@ public class SimpleMarkdownTextProcessor {
         }
     }
     
+    private func getRearrangedTextStyleTags(checkTags: [ProcessedMarkdownTag], index: Int, addWeight: Int = 0) -> [ProcessedMarkdownTag] {
+        // Scan nested tags
+        let textStyleTag = checkTags[index]
+        var result = [ProcessedMarkdownTag]()
+        var scanPosition = textStyleTag.startPosition
+        for i in (index + 1)..<checkTags.count {
+            // Break when reaching the end of the current text style tag
+            let checkTag = checkTags[i]
+            if checkTag.startPosition >= textStyleTag.endPosition {
+                break
+            }
+            
+            // Check nested text style tag
+            if checkTag.startPosition >= scanPosition && checkTag.type == textStyleTag.type {
+                let nestedTags = getRearrangedTextStyleTags(checkTags: checkTags, index: i, addWeight: textStyleTag.weight + addWeight)
+                result.append(ProcessedMarkdownTag(type: textStyleTag.type, weight: textStyleTag.weight + addWeight, startIndex: text.index(textStyleTag.startIndex, offsetBy: scanPosition - textStyleTag.startPosition), endIndex: checkTag.startIndex, startPosition: scanPosition, endPosition: checkTag.startPosition))
+                result.append(contentsOf: nestedTags)
+                if let lastNestedTag = nestedTags.last {
+                    scanPosition = lastNestedTag.endPosition
+                }
+            }
+        }
+        
+        // Finish current tag and return result
+        if scanPosition < textStyleTag.endPosition {
+            result.append(ProcessedMarkdownTag(type: textStyleTag.type, weight: textStyleTag.weight + addWeight, startIndex: text.index(textStyleTag.startIndex, offsetBy: scanPosition - textStyleTag.startPosition), endIndex: textStyleTag.endIndex, startPosition: scanPosition, endPosition: textStyleTag.endPosition))
+        }
+        return result
+    }
+
 
     // --
     // MARK: Helper
