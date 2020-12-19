@@ -73,7 +73,9 @@ public class SimpleMarkdownHtmlProcessor {
                     htmlTags.append(MarkdownHtmlTag(index: tag.startIndex, tag: .openListItem, counter: htmlTags.count))
                     htmlTags.append(MarkdownHtmlTag(index: tag.endIndex, tag: .closeListItem, counter: htmlTags.count))
                 case .line:
-                    htmlTags.append(MarkdownHtmlTag(index: tag.endIndex, tag: .lineBreak, counter: htmlTags.count))
+                    let htmlTag = MarkdownHtmlTag(index: tag.endIndex, tag: .lineBreak, counter: htmlTags.count)
+                    htmlTag.preventCancelation = sectionTag.type == .list && tag.endPosition == sectionTag.endPosition
+                    htmlTags.append(htmlTag)
                 default:
                     break
                 }
@@ -83,7 +85,7 @@ public class SimpleMarkdownHtmlProcessor {
         // Remove line breaks canceled by other html tags
         var removeIndices = [Int]()
         for index in htmlTags.indices {
-            if htmlTags[index].tag == .lineBreak {
+            if htmlTags[index].tag == .lineBreak && !htmlTags[index].preventCancelation {
                 for checkIndex in htmlTags.indices {
                     if checkIndex != index && htmlTags[index].index == htmlTags[checkIndex].index && htmlTags[checkIndex].tag.cancelsLineBreak() {
                         removeIndices.append(index)
@@ -201,11 +203,11 @@ private enum MarkdownHtmlTagType: String {
     static var allCloseTextStyles: [MarkdownHtmlTagType] = [ .closeTextStyle1, .closeTextStyle2, .closeTextStyle3 ]
 
     func cancelsLineBreak() -> Bool {
-        return MarkdownHtmlTagType.allCloseHeaders.contains(self) || self == .closeParagraph || self == .closeUnorderedList || self == .closeOrderedList || self == .closeListItem || self == .closeLink
+        return MarkdownHtmlTagType.allCloseHeaders.contains(self) || self == .closeParagraph || self == .closeUnorderedList || self == .closeOrderedList || self == .closeListItem
     }
     
     func isClosingTag() -> Bool {
-        return MarkdownHtmlTagType.allCloseHeaders.contains(self) || MarkdownHtmlTagType.allCloseTextStyles.contains(self) || self == .closeParagraph || self == .closeUnorderedList || self == .closeOrderedList || self == .closeListItem || self == .closeAlternativeTextStyle
+        return MarkdownHtmlTagType.allCloseHeaders.contains(self) || MarkdownHtmlTagType.allCloseTextStyles.contains(self) || self == .closeParagraph || self == .closeUnorderedList || self == .closeOrderedList || self == .closeListItem || self == .closeAlternativeTextStyle || self == .closeLink
     }
     
     func priority() -> Int {
@@ -227,6 +229,7 @@ private class MarkdownHtmlTag {
     let tag: MarkdownHtmlTagType
     let counter: Int
     let value: String?
+    var preventCancelation = false
     
     init(index: String.Index, tag: MarkdownHtmlTagType, counter: Int, value: String? = nil) {
         self.index = index
