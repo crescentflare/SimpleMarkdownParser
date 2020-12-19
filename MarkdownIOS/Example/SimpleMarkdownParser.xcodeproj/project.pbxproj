@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04B10DAB258E397F008A6BE8 /* SimpleMarkdownSymbolFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B10DAA258E397E008A6BE8 /* SimpleMarkdownSymbolFinderTests.swift */; };
 		04D4B0681D91D5620007FCA9 /* SimpleMarkdownParser.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 04D4B0671D91D5620007FCA9 /* SimpleMarkdownParser.podspec */; };
 		37E43084872437EAB4211EAA /* Pods_SimpleMarkdownParser_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A66EA5DC987FC85008F76F3 /* Pods_SimpleMarkdownParser_Tests.framework */; };
 		59B5A5FE1CB8B1FBC0940B65 /* Pods_SimpleMarkdownParser_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C2315DB08752891E5307122 /* Pods_SimpleMarkdownParser_Example.framework */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04B10DAA258E397E008A6BE8 /* SimpleMarkdownSymbolFinderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleMarkdownSymbolFinderTests.swift; sourceTree = "<group>"; };
 		04D4B0671D91D5620007FCA9 /* SimpleMarkdownParser.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleMarkdownParser.podspec; path = ../../SimpleMarkdownParser.podspec; sourceTree = "<group>"; };
 		0A66EA5DC987FC85008F76F3 /* Pods_SimpleMarkdownParser_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleMarkdownParser_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C2315DB08752891E5307122 /* Pods_SimpleMarkdownParser_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleMarkdownParser_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACEB1AFB9204008FA782 /* Tests.swift */,
+				04B10DAA258E397E008A6BE8 /* SimpleMarkdownSymbolFinderTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -348,6 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04B10DAB258E397F008A6BE8 /* SimpleMarkdownSymbolFinderTests.swift in Sources */,
 				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

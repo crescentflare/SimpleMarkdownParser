@@ -131,7 +131,7 @@ public class SimpleMarkdownSymbolFinderSwift: SimpleMarkdownSymbolFinder {
             currentTextStyleSymbol = MarkdownSymbol(type: textStyleType, line: currentLine, startPosition: position, startIndex: index, endPosition: position + 1, endIndex: nextIndex, linePosition: linePosition)
         }
         
-        // Check for unordered lists
+        // Check for lists
         if !escaped {
             if let listItemSymbol = currentListItemSymbol {
                 if listItemSymbol.type == .unorderedListItem && character == " " {
