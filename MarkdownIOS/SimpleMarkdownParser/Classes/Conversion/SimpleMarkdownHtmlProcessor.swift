@@ -2,7 +2,7 @@
 //  SimpleMarkdownHtmlProcessor.swift
 //  SimpleMarkdownParser Pod
 //
-//  Conversion library: helper class to obtain HTML tags to insert into the processed markdown text
+//  Conversion library: helper class to generate HTML tags which are inserted into the processed markdown text
 //
 
 // Process text to insert HTML tags from processed markdown
