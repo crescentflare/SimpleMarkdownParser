@@ -53,7 +53,7 @@ public class SimpleMarkdownHtmlProcessor {
             
             // Process inner tags
             let innerTags = markdownTags.filter { !$0.type.isSection() && $0.startIndex >= sectionTag.startIndex && $0.endIndex <= sectionTag.endIndex }
-            let innerListTags = innerTags.filter { $0.type == .orderedList || $0.type == .unorderedList }
+            let innerListTags = innerTags.filter { $0.type == .orderedListItem || $0.type == .unorderedListItem }
             if innerListTags.count > 0 {
                 addHtmlListTags(innerTags: innerListTags, index: 0, untilIndex: innerListTags.count, weight: 1)
             }
@@ -69,7 +69,7 @@ public class SimpleMarkdownHtmlProcessor {
                 case .link:
                     htmlTags.append(MarkdownHtmlTag(index: tag.startIndex, tag: .openLink, counter: htmlTags.count, value: tag.link))
                     htmlTags.append(MarkdownHtmlTag(index: tag.endIndex, tag: .closeLink, counter: htmlTags.count))
-                case .orderedList, .unorderedList:
+                case .orderedListItem, .unorderedListItem:
                     htmlTags.append(MarkdownHtmlTag(index: tag.startIndex, tag: .openListItem, counter: htmlTags.count))
                     htmlTags.append(MarkdownHtmlTag(index: tag.endIndex, tag: .closeListItem, counter: htmlTags.count))
                 case .line:
@@ -150,8 +150,8 @@ public class SimpleMarkdownHtmlProcessor {
         }
         
         // Insert list section tags
-        htmlTags.append(MarkdownHtmlTag(index: innerTags[startIndex].startIndex, tag: checkType == .orderedList ? .openOrderedList : .openUnorderedList, counter: htmlTags.count))
-        htmlTags.append(MarkdownHtmlTag(index: innerTags[endIndex - 1].endIndex, tag: checkType == .orderedList ? .closeOrderedList : .closeUnorderedList, counter: htmlTags.count))
+        htmlTags.append(MarkdownHtmlTag(index: innerTags[startIndex].startIndex, tag: checkType == .orderedListItem ? .openOrderedList : .openUnorderedList, counter: htmlTags.count))
+        htmlTags.append(MarkdownHtmlTag(index: innerTags[endIndex - 1].endIndex, tag: checkType == .orderedListItem ? .closeOrderedList : .closeUnorderedList, counter: htmlTags.count))
         
         // Call recursively for a higher weight, or continuation into a different list type
         addHtmlListTags(innerTags: innerTags, index: startIndex, untilIndex: endIndex, weight: weight + 1)

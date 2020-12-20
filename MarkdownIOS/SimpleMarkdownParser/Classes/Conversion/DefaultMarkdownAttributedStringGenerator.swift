@@ -26,7 +26,7 @@ open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGe
             if let descriptor = defaultFont.fontDescriptor.withSymbolicTraits(.traitBold) {
                 attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.init(descriptor: descriptor, size: defaultFont.pointSize * DefaultMarkdownAttributedStringGenerator.sizeForHeader(weight)), range: NSMakeRange(start, length))
             }
-        case .orderedList, .unorderedList:
+        case .orderedListItem, .unorderedListItem:
             let bulletParagraph = NSMutableParagraphStyle()
             let tokenTabStop = NSTextTab(textAlignment: .right, location: 25 + CGFloat(weight - 1) * 15, options: [:])
             let textTabStop = NSTextTab(textAlignment: .left, location: tokenTabStop.location + 5, options: [:])
@@ -67,7 +67,7 @@ open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGe
         if fromType == .line {
             return "\t\t"
         }
-        let token = fromType == .orderedList ? "\(index)." : DefaultMarkdownAttributedStringGenerator.bulletTokenForWeight(weight)
+        let token = fromType == .orderedListItem ? "\(index)." : DefaultMarkdownAttributedStringGenerator.bulletTokenForWeight(weight)
         return "\t\(token)\t"
     }
 

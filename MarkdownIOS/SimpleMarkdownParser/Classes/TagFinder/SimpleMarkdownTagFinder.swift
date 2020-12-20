@@ -399,7 +399,7 @@ public class SimpleMarkdownTagFinder {
 
     private func makeListItemTag(text: String, startSymbol: MarkdownSymbol, endPosition: Int, endIndex: String.Index) -> MarkdownTag {
         let tag = MarkdownTag()
-        tag.type = startSymbol.type == .orderedListItem ? .orderedList : .unorderedList
+        tag.type = startSymbol.type == .orderedListItem ? .orderedListItem : .unorderedListItem
         tag.weight = 1 + startSymbol.linePosition / 2
         tag.startPosition = startSymbol.startPosition
         tag.endPosition = endPosition

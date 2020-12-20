@@ -123,7 +123,7 @@ private class CustomAttributedStringConversion : MarkdownAttributedStringGenerat
         switch type {
         case .header:
             attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.init(descriptor: defaultFont.fontDescriptor, size: defaultFont.pointSize * (2 - CGFloat(weight) * 0.15)), range: NSMakeRange(start, length))
-        case .orderedList, .unorderedList:
+        case .orderedListItem, .unorderedListItem:
             let bulletParagraph = NSMutableParagraphStyle()
             let tokenTabStop = NSTextTab(textAlignment: .right, location: 12 + CGFloat(weight - 1) * 10, options: [:])
             let textTabStop = NSTextTab(textAlignment: .left, location: tokenTabStop.location + 8, options: [:])
@@ -169,7 +169,7 @@ private class CustomAttributedStringConversion : MarkdownAttributedStringGenerat
     
     fileprivate func getListToken(fromType: MarkdownTagType, weight: Int, index: Int) -> String {
         var token = ""
-        if fromType == .orderedList {
+        if fromType == .orderedListItem {
             for _ in 0..<index {
                 token += "i"
             }

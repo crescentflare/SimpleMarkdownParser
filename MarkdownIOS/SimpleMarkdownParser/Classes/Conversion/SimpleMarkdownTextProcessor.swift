@@ -105,7 +105,7 @@ public class SimpleMarkdownTextProcessor {
                         endOffset -= startAdjustment + min(tagLength, min(rangeLength, max(0, min((innerTag.endTextPosition ?? 0) - range.startPosition, range.endPosition - (innerTag.startTextPosition ?? 0)))))
                     } else if (range.type == .insert || range.type == .insertListToken) && range.startPosition < innerTag.endTextPosition ?? 0 {
                         let length = range.insertText?.count ?? 0
-                        let includeInTag = range.type == .insertListToken && (innerTag.type == .orderedList || innerTag.type == .unorderedList || innerTag.type == .line) && range.startPosition == innerTag.startTextPosition ?? 0
+                        let includeInTag = range.type == .insertListToken && (innerTag.type == .orderedListItem || innerTag.type == .unorderedListItem || innerTag.type == .line) && range.startPosition == innerTag.startTextPosition ?? 0
                         if range.endPosition <= innerTag.startTextPosition ?? 0 && !includeInTag {
                             startOffset += length
                         }
@@ -215,7 +215,7 @@ public class SimpleMarkdownTextProcessor {
                     if sectionTag.type == .list {
                         var foundListTag = false
                         for checkTag in innerTags {
-                            if (checkTag.type == .orderedList || checkTag.type == .unorderedList) && checkTag.startPosition ?? 0 == innerTag.startTextPosition ?? 0 {
+                            if (checkTag.type == .orderedListItem || checkTag.type == .unorderedListItem) && checkTag.startPosition ?? 0 == innerTag.startTextPosition ?? 0 {
                                 foundListTag = true
                                 break
                             }
@@ -227,7 +227,7 @@ public class SimpleMarkdownTextProcessor {
                     if innerTag.endPosition ?? 0 < sectionTag.endPosition ?? 0, let newlineRange = SimpleMarkdownProcessRange(startPosition: innerTag.endTextPosition, endPosition: innerTag.endTextPosition, type: .insert, insertText: "\n") {
                         modifyRanges.append(newlineRange)
                     }
-                } else if innerTag.type == .orderedList || innerTag.type == .unorderedList, let attributedStringGenerator = attributedStringGenerator {
+                } else if innerTag.type == .orderedListItem || innerTag.type == .unorderedListItem, let attributedStringGenerator = attributedStringGenerator {
                     let weightIndex = max(0, innerTag.weight - 1)
                     if weightIndex >= listWeightCounter.count {
                         for _ in listWeightCounter.count...weightIndex {
@@ -235,13 +235,13 @@ public class SimpleMarkdownTextProcessor {
                         }
                     } else if weightIndex + 1 < listWeightCounter.count {
                         listWeightCounter = listWeightCounter.dropLast(listWeightCounter.count - weightIndex - 1)
-                    } else if (listWeightCounter[weightIndex] > 0) != (innerTag.type == .orderedList) {
+                    } else if (listWeightCounter[weightIndex] > 0) != (innerTag.type == .orderedListItem) {
                         listWeightCounter[weightIndex] = 0
                     }
                     if let listPointRange = SimpleMarkdownProcessRange(startPosition: innerTag.startTextPosition, endPosition: innerTag.startTextPosition, type: .insertListToken, insertText: attributedStringGenerator.getListToken(fromType: innerTag.type, weight: innerTag.weight, index: abs(listWeightCounter[weightIndex]) + 1)) {
                         modifyRanges.append(listPointRange)
                     }
-                    listWeightCounter[weightIndex] += innerTag.type == .orderedList ? 1 : -1
+                    listWeightCounter[weightIndex] += innerTag.type == .orderedListItem ? 1 : -1
                 }
             }
             return modifyRanges.sorted { $0.startPosition < $1.startPosition || ($0.startPosition == $1.startPosition && $0.type.isInsert() && !$1.type.isInsert() ) }
