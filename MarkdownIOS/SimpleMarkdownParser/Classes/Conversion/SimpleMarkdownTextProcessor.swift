@@ -43,15 +43,20 @@ public class SimpleMarkdownTextProcessor {
     public func rearrangeNestedTextStyles() {
         let originalTags = tags
         var scanPosition = 0
+        var alternativeScanPosition = 0
         tags = []
         for index in originalTags.indices {
             let checkTag = originalTags[index]
             if checkTag.type == .textStyle || checkTag.type == .alternativeTextStyle {
-                if checkTag.startPosition >= scanPosition {
+                if (checkTag.type == .textStyle && checkTag.startPosition >= scanPosition) || (checkTag.type == .alternativeTextStyle && checkTag.startPosition >= alternativeScanPosition) {
                     let nestedTags = getRearrangedTextStyleTags(checkTags: originalTags, index: index)
                     tags.append(contentsOf: nestedTags)
                     if let lastNestedTag = nestedTags.last {
-                        scanPosition = lastNestedTag.endPosition
+                        if checkTag.type == .textStyle {
+                            scanPosition = lastNestedTag.endPosition
+                        } else {
+                            alternativeScanPosition = lastNestedTag.endPosition
+                        }
                     }
                 }
             } else {
