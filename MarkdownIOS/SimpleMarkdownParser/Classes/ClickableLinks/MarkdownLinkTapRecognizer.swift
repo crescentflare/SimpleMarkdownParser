@@ -6,6 +6,7 @@
 //  Stores the last tapped touch area to fetch the link when it activates
 //
 
+// A custom tap recognizer that highlights clickable links, fetch the last clicked link easily after that
 public class MarkdownLinkTapRecognizer: UIGestureRecognizer {
     
     // --

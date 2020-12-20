@@ -5,6 +5,7 @@
 //  Conversion library: defines the protocol for generating the attributed string
 //
 
+// A protocol used to apply label string attributes based on markdown tags
 public protocol MarkdownAttributedStringGenerator: class {
     
     func applyAttribute(defaultFont: UIFont, attributedString: NSMutableAttributedString, type: MarkdownTagType, weight: Int, start: Int, length: Int, extra: String)

@@ -5,7 +5,7 @@
 //  Conversion library: default implementation of the attributed string generator
 //
 
-// Parser class
+// The default implementation of applying string attributes based on markdown tags
 open class DefaultMarkdownAttributedStringGenerator : MarkdownAttributedStringGenerator {
     
     // --

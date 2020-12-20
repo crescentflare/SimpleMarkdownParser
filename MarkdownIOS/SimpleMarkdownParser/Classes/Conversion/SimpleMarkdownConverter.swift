@@ -8,6 +8,7 @@
 public let NSClickableTextAttributeName = "NSClickableTextAttributeName"
 public let NSHighlightColorAttributeName = "NSHighlightColorAttributeName"
 
+// Convert markdown text to an attributed string or HTML
 public class SimpleMarkdownConverter {
     
     // --

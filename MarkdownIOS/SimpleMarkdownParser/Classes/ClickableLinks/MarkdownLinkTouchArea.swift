@@ -5,6 +5,7 @@
 //  Library clickable link support: used to store a touch area of a markdown link within a label
 //
 
+// A touch area for a clickable link in an attributed string of a label
 public class MarkdownLinkTouchArea {
     
     // --

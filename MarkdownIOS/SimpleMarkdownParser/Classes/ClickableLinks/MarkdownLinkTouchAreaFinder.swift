@@ -5,6 +5,7 @@
 //  Library clickable link support: find and stores all clickable links in an attributed string of a label
 //
 
+// Scan the attributed string of a label for clickable links and store them as touch areas
 public class MarkdownLinkTouchAreaFinder {
     
     // --

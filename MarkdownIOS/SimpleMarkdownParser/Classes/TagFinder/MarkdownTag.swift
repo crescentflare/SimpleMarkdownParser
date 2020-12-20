@@ -28,18 +28,6 @@ public enum MarkdownTagType: Int {
 // Tag object
 public class MarkdownTag {
 
-    // --
-    // MARK: Static flags
-    // --
-
-    public static var FLAG_NONE = 0x0
-    public static var FLAG_ESCAPED = 0x40000000
-
-    
-    // --
-    // MARK: Fields
-    // --
-    
     public var type = MarkdownTagType.paragraph
     public var startIndex: String.Index? = nil
     public var endIndex: String.Index? = nil
@@ -55,11 +43,6 @@ public class MarkdownTag {
     public var endExtraPosition: Int? = nil
     public var weight = 0
     public var escapeSymbols = [MarkdownSymbol]()
-
-
-    // --
-    // MARK: Default initializer
-    // --
     
     public init() {
     }
@@ -69,10 +52,6 @@ public class MarkdownTag {
 // Processed tag object (after text processing)
 public class ProcessedMarkdownTag {
 
-    // --
-    // MARK: Fields
-    // --
-    
     public let type: MarkdownTagType
     public let startIndex: String.Index
     public let endIndex: String.Index
@@ -81,11 +60,6 @@ public class ProcessedMarkdownTag {
     public var weight = 0
     public var link: String?
 
-
-    // --
-    // MARK: Default initializer
-    // --
-    
     public init(type: MarkdownTagType, weight: Int, startIndex: String.Index, endIndex: String.Index, startPosition: Int, endPosition: Int, startExtraIndex: String.Index? = nil, endExtraIndex: String.Index? = nil, link: String? = nil) {
         self.type = type
         self.weight = weight
