@@ -1,17 +1,16 @@
-/**
- * Forward class declaration
- */
+// --
+// Forward class declaration
+// --
 
 class UTFStringIndex;
 class UTFString;
 
 
-/**
- * A utility class to handle UTF(8) strings more easily than a character array
- */
+// --
+// A utility class to handle UTF(8) strings more easily than a character array
+// --
 
-class UTFString
-{
+class UTFString {
     friend class UTFStringIndex;
 
 private:
@@ -28,12 +27,11 @@ public:
 };
 
 
-/**
- * Used to index UTF(8) strings
- */
+// --
+// Used to index UTF(8) strings
+// --
 
-class UTFStringIndex
-{
+class UTFStringIndex {
     friend class UTFString;
 
 public:
@@ -65,8 +63,7 @@ public:
     UTFStringIndex operator-(int count) const;
 
 public:
-    static const unsigned char charSize(const char chr)
-    {
+    static const unsigned char charSize(const char chr) {
         return (unsigned char)((chr & 0x80) == 0x0 ? 1 : ((chr & 0xE0) == 0xC0 ? 2 : ((chr & 0xF0) == 0xE0 ? 3 : ((chr & 0xF8) == 0xF0 ? 4 : 0))));
     }
 };
