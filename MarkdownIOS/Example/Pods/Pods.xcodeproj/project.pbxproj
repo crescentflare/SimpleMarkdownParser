@@ -21,10 +21,8 @@
 		4E9198E599AAEE0AE7F1F6C9C81F5D03 /* DefaultMarkdownAttributedStringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB467B0312D39AF4EAF8135B6303BE3 /* DefaultMarkdownAttributedStringGenerator.swift */; };
 		4FEB5490C7A804C4D104567E05EB16F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 		64E2CD042E5CA1B59F6E33272F42A061 /* SimpleMarkdownParser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1CD2141C5CEC2B29EC25468236620B /* SimpleMarkdownParser-dummy.m */; };
-		7DC7FDC949EF1B8989C42B0EBA5B8EDE /* SimpleMarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F7192E4394F32F2C2536952D8F9BD /* SimpleMarkdownParser.swift */; };
 		8EF46AAE37FE8E722294F7565936FBBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 		8F0399D61C9F0FEC29F644F249863F8F /* MarkdownLinkTapRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94738334F0BB094B5AA550E16A7D7404 /* MarkdownLinkTapRecognizer.swift */; };
-		946276076CD0610FE3121F621ABDE94E /* SimpleMarkdownParserSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141003307E1F5C1031A11C4E61CDD0BD /* SimpleMarkdownParserSwift.swift */; };
 		A7B192E05F6F6225B7FD47FE61134C62 /* Pods-SimpleMarkdownParser_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 19B51F3C8906ACF294E7DE54A2C819FC /* Pods-SimpleMarkdownParser_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BB7916988FDC458B6E5B390A1931F00E /* Pods-SimpleMarkdownParser_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0295288768DAA6184A05FADCF84D7175 /* Pods-SimpleMarkdownParser_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C19C08C0D55AEE04A506C3C3880C321C /* MarkdownAttributedStringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D461A59D38B539BB6DD3C7361626BBA4 /* MarkdownAttributedStringGenerator.swift */; };
@@ -72,7 +70,6 @@
 		068FA37CF6FE2462C8007A424F23D1FD /* Pods-SimpleMarkdownParser_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SimpleMarkdownParser_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		0BDF395AA43E608B8FF81B762343ADC5 /* SimpleMarkdownParser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SimpleMarkdownParser.debug.xcconfig; sourceTree = "<group>"; };
 		1040DBC7C28AC4CC1F61C86EB2CD9BBA /* Pods-SimpleMarkdownParser_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SimpleMarkdownParser_Tests.modulemap"; sourceTree = "<group>"; };
-		141003307E1F5C1031A11C4E61CDD0BD /* SimpleMarkdownParserSwift.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SimpleMarkdownParserSwift.swift; sourceTree = "<group>"; };
 		16CEA3E1F24C0A09AEA1F3B99563185E /* SimpleMarkdownParser-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SimpleMarkdownParser-Info.plist"; sourceTree = "<group>"; };
 		17D46D12E083971520C8D4621F7A75B6 /* Pods-SimpleMarkdownParser_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SimpleMarkdownParser_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		19B51F3C8906ACF294E7DE54A2C819FC /* Pods-SimpleMarkdownParser_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SimpleMarkdownParser_Tests-umbrella.h"; sourceTree = "<group>"; };
@@ -97,7 +94,6 @@
 		C169E81A223315270B123B386DE8EC47 /* Pods_SimpleMarkdownParser_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleMarkdownParser_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D093F9F7DC3A5944B283A70C33ED1CCA /* Pods-SimpleMarkdownParser_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SimpleMarkdownParser_Example-Info.plist"; sourceTree = "<group>"; };
 		D461A59D38B539BB6DD3C7361626BBA4 /* MarkdownAttributedStringGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownAttributedStringGenerator.swift; sourceTree = "<group>"; };
-		D78F7192E4394F32F2C2536952D8F9BD /* SimpleMarkdownParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SimpleMarkdownParser.swift; sourceTree = "<group>"; };
 		D9373238BBBD21BCB1932561BA88223C /* Pods-SimpleMarkdownParser_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SimpleMarkdownParser_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		E7F72E77F0BD9514C01D20A3C96C23A0 /* Pods-SimpleMarkdownParser_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SimpleMarkdownParser_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		E8225057DD2B251166AAAAA2946E0A6A /* Pods-SimpleMarkdownParser_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SimpleMarkdownParser_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -185,7 +181,6 @@
 			isa = PBXGroup;
 			children = (
 				1F80E284257ECDFC5A90B519894380AB /* Conversion */,
-				4DA018C798FB192AB87BE1727FA54B87 /* Core */,
 				81FC3E471504BB20E3877EB7CFE2561E /* ClickableLinks */,
 				040B51F22532207000E75A3B /* SymbolFinder */,
 				048D0EA5254EBDE200672504 /* TagFinder */,
@@ -194,16 +189,6 @@
 			);
 			name = SimpleMarkdownParser;
 			path = ../../..;
-			sourceTree = "<group>";
-		};
-		4DA018C798FB192AB87BE1727FA54B87 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				D78F7192E4394F32F2C2536952D8F9BD /* SimpleMarkdownParser.swift */,
-				141003307E1F5C1031A11C4E61CDD0BD /* SimpleMarkdownParserSwift.swift */,
-			);
-			name = Core;
-			path = MarkdownIOS/SimpleMarkdownParser/Classes/Core;
 			sourceTree = "<group>";
 		};
 		519EBDF26B93CF67C12659C2F2D5CD43 /* Targets Support Files */ = {
@@ -485,8 +470,6 @@
 				64E2CD042E5CA1B59F6E33272F42A061 /* SimpleMarkdownParser-dummy.m in Sources */,
 				040B51FC253223F600E75A3B /* SimpleMarkdownSymbolStorage.swift in Sources */,
 				040B51FB253223F600E75A3B /* SimpleMarkdownSymbolFinder.swift in Sources */,
-				7DC7FDC949EF1B8989C42B0EBA5B8EDE /* SimpleMarkdownParser.swift in Sources */,
-				946276076CD0610FE3121F621ABDE94E /* SimpleMarkdownParserSwift.swift in Sources */,
 				045B7FBE257CFF3E00AB1D8D /* SimpleMarkdownTextProcessor.swift in Sources */,
 				8F0399D61C9F0FEC29F644F249863F8F /* MarkdownLinkTapRecognizer.swift in Sources */,
 			);
