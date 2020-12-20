@@ -71,7 +71,7 @@ public class SimpleMarkdownTextProcessor {
         for sectionIndex in sectionTags.indices {
             // Determine tags and copy ranges for this section
             let sectionTag = sectionTags[sectionIndex]
-            let innerTags = originalTags.filter { !$0.type.isSection() && $0.startPosition ?? 0 >= sectionTag.startPosition ?? 0 && $0.endPosition ?? 0 <= sectionTag.endPosition ?? 0 }
+            let innerTags = originalTags.filter { !$0.type.isSection() && $0.startPosition >= sectionTag.startPosition && $0.endPosition <= sectionTag.endPosition }
             let copyRanges = getCopyRanges(sectionTag: sectionTag, innerTags: innerTags)
                 
             // Add to text
@@ -91,22 +91,22 @@ public class SimpleMarkdownTextProcessor {
             
             // Add processed inner tags
             let deleteRanges = getDeleteRanges(sectionTag: sectionTag, copyRanges: copyRanges)
-            let blockPositionAdjustment = (sectionTag.startPosition ?? 0) - startTextPosition
+            let blockPositionAdjustment = sectionTag.startPosition - startTextPosition
             for innerTag in innerTags {
                 // Calculate position offset adjustments
                 var startOffset = -blockPositionAdjustment
                 var endOffset = -blockPositionAdjustment
                 for range in deleteRanges {
-                    if range.type == .delete && range.startPosition < innerTag.endTextPosition ?? 0 {
+                    if range.type == .delete && range.startPosition < innerTag.endTextPosition {
                         let rangeLength = range.endPosition - range.startPosition
-                        let tagLength = (innerTag.endTextPosition ?? 0) - (innerTag.startTextPosition ?? 0)
-                        let startAdjustment = max(0, min(rangeLength, (innerTag.startTextPosition ?? 0) - range.startPosition))
+                        let tagLength = innerTag.endTextPosition - innerTag.startTextPosition
+                        let startAdjustment = max(0, min(rangeLength, innerTag.startTextPosition - range.startPosition))
                         startOffset -= startAdjustment
-                        endOffset -= startAdjustment + min(tagLength, min(rangeLength, max(0, min((innerTag.endTextPosition ?? 0) - range.startPosition, range.endPosition - (innerTag.startTextPosition ?? 0)))))
-                    } else if (range.type == .insert || range.type == .insertListToken) && range.startPosition < innerTag.endTextPosition ?? 0 {
+                        endOffset -= startAdjustment + min(tagLength, min(rangeLength, max(0, min(innerTag.endTextPosition - range.startPosition, range.endPosition - innerTag.startTextPosition))))
+                    } else if (range.type == .insert || range.type == .insertListToken) && range.startPosition < innerTag.endTextPosition {
                         let length = range.insertText?.count ?? 0
-                        let includeInTag = range.type == .insertListToken && (innerTag.type == .orderedListItem || innerTag.type == .unorderedListItem || innerTag.type == .line) && range.startPosition == innerTag.startTextPosition ?? 0
-                        if range.endPosition <= innerTag.startTextPosition ?? 0 && !includeInTag {
+                        let includeInTag = range.type == .insertListToken && (innerTag.type == .orderedListItem || innerTag.type == .unorderedListItem || innerTag.type == .line) && range.startPosition == innerTag.startTextPosition
+                        if range.endPosition <= innerTag.startTextPosition && !includeInTag {
                             startOffset += length
                         }
                         endOffset += length
@@ -114,14 +114,14 @@ public class SimpleMarkdownTextProcessor {
                 }
                 
                 // Add processed tag
-                let startPosition = (innerTag.startTextPosition ?? 0) + startOffset
-                let endPosition = (innerTag.endTextPosition ?? 0) + endOffset
+                let startPosition = innerTag.startTextPosition + startOffset
+                let endPosition = innerTag.endTextPosition + endOffset
                 let processedTag = ProcessedMarkdownTag(type: innerTag.type, weight: innerTag.weight, startIndex: text.index(startTextIndex, offsetBy: startPosition - processedSectionTag.startPosition), endIndex: text.index(startTextIndex, offsetBy: endPosition - processedSectionTag.startPosition), startPosition: startPosition, endPosition: endPosition)
                 if innerTag.type == .link {
                     if let startExtraIndex = innerTag.startExtraIndex, let endExtraIndex = innerTag.endExtraIndex {
                         processedTag.link = String(originalText[startExtraIndex..<endExtraIndex])
-                    } else if let startTextIndex = innerTag.startTextIndex, let endTextIndex = innerTag.endTextIndex {
-                        processedTag.link = String(originalText[startTextIndex..<endTextIndex])
+                    } else {
+                        processedTag.link = String(originalText[innerTag.startTextIndex..<innerTag.endTextIndex])
                     }
                 }
                 tags.append(processedTag)
@@ -175,104 +175,97 @@ public class SimpleMarkdownTextProcessor {
     // --
 
     private func getCopyRanges(sectionTag: MarkdownTag, innerTags: [MarkdownTag]) -> [SimpleMarkdownProcessRange] {
-        if let sectionRange = SimpleMarkdownProcessRange(startPosition: sectionTag.startTextPosition, endPosition: sectionTag.endTextPosition, type: .copy) {
-            // Mark possible escape characters from the entire block for removal
-            var modifyRanges = [sectionRange]
-            for escapeSymbol in sectionTag.escapeSymbols {
+        // Mark possible escape characters from the entire block for removal
+        let sectionRange = SimpleMarkdownProcessRange(startPosition: sectionTag.startTextPosition, endPosition: sectionTag.endTextPosition, type: .copy)
+        var modifyRanges = [sectionRange]
+        for escapeSymbol in sectionTag.escapeSymbols {
+            for modifyRange in modifyRanges {
+                if let addRange = modifyRange.markRemoval(removeStartPosition: escapeSymbol.startPosition, removeEndPosition: escapeSymbol.endPosition) {
+                    modifyRanges.append(addRange)
+                    break
+                }
+            }
+        }
+        
+        // Process inner tags
+        var listWeightCounter = [Int]()
+        for innerTag in innerTags {
+            // Mark leading text for removal
+            if innerTag.startTextPosition > innerTag.startPosition {
                 for modifyRange in modifyRanges {
-                    if let addRange = modifyRange.markRemoval(removeStartPosition: escapeSymbol.startPosition, removeEndPosition: escapeSymbol.endPosition) {
+                    if let addRange = modifyRange.markRemoval(removeStartPosition: innerTag.startPosition, removeEndPosition: innerTag.startTextPosition) {
                         modifyRanges.append(addRange)
                         break
                     }
                 }
             }
             
-            // Process inner tags
-            var listWeightCounter = [Int]()
-            for innerTag in innerTags {
-                // Mark leading text for removal
-                if innerTag.startTextPosition ?? 0 > innerTag.startPosition ?? 0 {
-                    for modifyRange in modifyRanges {
-                        if let addRange = modifyRange.markRemoval(removeStartPosition: innerTag.startPosition, removeEndPosition: innerTag.startTextPosition) {
-                            modifyRanges.append(addRange)
-                            break
-                        }
+            // Mark trailing text for removal
+            if innerTag.endTextPosition < innerTag.endPosition {
+                for modifyRange in modifyRanges {
+                    if let addRange = modifyRange.markRemoval(removeStartPosition: innerTag.endTextPosition, removeEndPosition: innerTag.endPosition) {
+                        modifyRanges.append(addRange)
+                        break
                     }
-                }
-                
-                // Mark trailing text for removal
-                if innerTag.endTextPosition ?? 0 < innerTag.endPosition ?? 0 {
-                    for modifyRange in modifyRanges {
-                        if let addRange = modifyRange.markRemoval(removeStartPosition: innerTag.endTextPosition, removeEndPosition: innerTag.endPosition) {
-                            modifyRanges.append(addRange)
-                            break
-                        }
-                    }
-                }
-                
-                // Insert text for newlines and lists
-                if innerTag.type == .line {
-                    if sectionTag.type == .list {
-                        var foundListTag = false
-                        for checkTag in innerTags {
-                            if (checkTag.type == .orderedListItem || checkTag.type == .unorderedListItem) && checkTag.startPosition ?? 0 == innerTag.startTextPosition ?? 0 {
-                                foundListTag = true
-                                break
-                            }
-                        }
-                        if !foundListTag, let attributedStringGenerator = attributedStringGenerator, let listExtraLineRange = SimpleMarkdownProcessRange(startPosition: innerTag.startTextPosition, endPosition: innerTag.startTextPosition, type: .insertListToken, insertText: attributedStringGenerator.getListToken(fromType: .line, weight: 0, index: 0)) {
-                            modifyRanges.append(listExtraLineRange)
-                        }
-                    }
-                    if innerTag.endPosition ?? 0 < sectionTag.endPosition ?? 0, let newlineRange = SimpleMarkdownProcessRange(startPosition: innerTag.endTextPosition, endPosition: innerTag.endTextPosition, type: .insert, insertText: "\n") {
-                        modifyRanges.append(newlineRange)
-                    }
-                } else if innerTag.type == .orderedListItem || innerTag.type == .unorderedListItem, let attributedStringGenerator = attributedStringGenerator {
-                    let weightIndex = max(0, innerTag.weight - 1)
-                    if weightIndex >= listWeightCounter.count {
-                        for _ in listWeightCounter.count...weightIndex {
-                            listWeightCounter.append(0)
-                        }
-                    } else if weightIndex + 1 < listWeightCounter.count {
-                        listWeightCounter = listWeightCounter.dropLast(listWeightCounter.count - weightIndex - 1)
-                    } else if (listWeightCounter[weightIndex] > 0) != (innerTag.type == .orderedListItem) {
-                        listWeightCounter[weightIndex] = 0
-                    }
-                    if let listPointRange = SimpleMarkdownProcessRange(startPosition: innerTag.startTextPosition, endPosition: innerTag.startTextPosition, type: .insertListToken, insertText: attributedStringGenerator.getListToken(fromType: innerTag.type, weight: innerTag.weight, index: abs(listWeightCounter[weightIndex]) + 1)) {
-                        modifyRanges.append(listPointRange)
-                    }
-                    listWeightCounter[weightIndex] += innerTag.type == .orderedListItem ? 1 : -1
-                }
-            }
-            return modifyRanges.sorted { $0.startPosition < $1.startPosition || ($0.startPosition == $1.startPosition && $0.type.isInsert() && !$1.type.isInsert() ) }
-        }
-        return []
-    }
-    
-    private func getDeleteRanges(sectionTag: MarkdownTag, copyRanges: [SimpleMarkdownProcessRange]) -> [SimpleMarkdownProcessRange] {
-        var result = [SimpleMarkdownProcessRange]()
-        if var previousRange = SimpleMarkdownProcessRange(startPosition: sectionTag.startPosition, endPosition: sectionTag.startPosition, type: .copy) {
-            // Add delete range between each copy range
-            for range in copyRanges {
-                if range.type == .copy {
-                    if range.startPosition > previousRange.endPosition {
-                        if let deleteRange = SimpleMarkdownProcessRange(startPosition: previousRange.endPosition, endPosition: range.startPosition, type: .delete) {
-                            result.append(deleteRange)
-                        }
-                    }
-                    previousRange = range
-                } else {
-                    result.append(range)
                 }
             }
             
-            // Check if there is something left to delete at the end
-            if previousRange.endPosition < sectionTag.endPosition ?? 0 {
-                if let deleteRange = SimpleMarkdownProcessRange(startPosition: previousRange.endPosition, endPosition: sectionTag.endPosition, type: .delete) {
-                    result.append(deleteRange)
+            // Insert text for newlines and lists
+            if innerTag.type == .line {
+                if sectionTag.type == .list {
+                    var foundListTag = false
+                    for checkTag in innerTags {
+                        if (checkTag.type == .orderedListItem || checkTag.type == .unorderedListItem) && checkTag.startPosition == innerTag.startTextPosition {
+                            foundListTag = true
+                            break
+                        }
+                    }
+                    if !foundListTag, let attributedStringGenerator = attributedStringGenerator {
+                        modifyRanges.append(SimpleMarkdownProcessRange(startPosition: innerTag.startTextPosition, endPosition: innerTag.startTextPosition, type: .insertListToken, insertText: attributedStringGenerator.getListToken(fromType: .line, weight: 0, index: 0)))
+                    }
                 }
+                if innerTag.endPosition < sectionTag.endPosition {
+                    modifyRanges.append(SimpleMarkdownProcessRange(startPosition: innerTag.endTextPosition, endPosition: innerTag.endTextPosition, type: .insert, insertText: "\n"))
+                }
+            } else if innerTag.type == .orderedListItem || innerTag.type == .unorderedListItem, let attributedStringGenerator = attributedStringGenerator {
+                let weightIndex = max(0, innerTag.weight - 1)
+                if weightIndex >= listWeightCounter.count {
+                    for _ in listWeightCounter.count...weightIndex {
+                        listWeightCounter.append(0)
+                    }
+                } else if weightIndex + 1 < listWeightCounter.count {
+                    listWeightCounter = listWeightCounter.dropLast(listWeightCounter.count - weightIndex - 1)
+                } else if (listWeightCounter[weightIndex] > 0) != (innerTag.type == .orderedListItem) {
+                    listWeightCounter[weightIndex] = 0
+                }
+                modifyRanges.append(SimpleMarkdownProcessRange(startPosition: innerTag.startTextPosition, endPosition: innerTag.startTextPosition, type: .insertListToken, insertText: attributedStringGenerator.getListToken(fromType: innerTag.type, weight: innerTag.weight, index: abs(listWeightCounter[weightIndex]) + 1)))
+                listWeightCounter[weightIndex] += innerTag.type == .orderedListItem ? 1 : -1
             }
         }
+        return modifyRanges.sorted { $0.startPosition < $1.startPosition || ($0.startPosition == $1.startPosition && $0.type.isInsert() && !$1.type.isInsert()) }
+    }
+    
+    private func getDeleteRanges(sectionTag: MarkdownTag, copyRanges: [SimpleMarkdownProcessRange]) -> [SimpleMarkdownProcessRange] {
+        // Add delete range between each copy range
+        var result = [SimpleMarkdownProcessRange]()
+        var previousRange = SimpleMarkdownProcessRange(startPosition: sectionTag.startPosition, endPosition: sectionTag.startPosition, type: .copy)
+        for range in copyRanges {
+            if range.type == .copy {
+                if range.startPosition > previousRange.endPosition {
+                    result.append(SimpleMarkdownProcessRange(startPosition: previousRange.endPosition, endPosition: range.startPosition, type: .delete))
+                }
+                previousRange = range
+            } else {
+                result.append(range)
+            }
+        }
+            
+        // Check if there is something left to delete at the end
+        if previousRange.endPosition < sectionTag.endPosition {
+            result.append(SimpleMarkdownProcessRange(startPosition: previousRange.endPosition, endPosition: sectionTag.endPosition, type: .delete))
+        }
+        
+        // Return result
         return result
     }
     
@@ -300,19 +293,15 @@ private class SimpleMarkdownProcessRange {
     let type: SimpleMarkdownProcessRangeType
     let insertText: String?
     
-    init?(startPosition: Int?, endPosition: Int?, type: SimpleMarkdownProcessRangeType, insertText: String? = nil) {
-        if let startPosition = startPosition, let endPosition = endPosition {
-            self.startPosition = startPosition
-            self.endPosition = endPosition
-            self.type = type
-            self.insertText = insertText
-        } else {
-            return nil
-        }
+    init(startPosition: Int, endPosition: Int, type: SimpleMarkdownProcessRangeType, insertText: String? = nil) {
+        self.startPosition = startPosition
+        self.endPosition = endPosition
+        self.type = type
+        self.insertText = insertText
     }
     
-    func markRemoval(removeStartPosition: Int?, removeEndPosition: Int?) -> SimpleMarkdownProcessRange? {
-        if let removeStartPosition = removeStartPosition, let removeEndPosition = removeEndPosition, type == .copy, isValid() {
+    func markRemoval(removeStartPosition: Int, removeEndPosition: Int) -> SimpleMarkdownProcessRange? {
+        if type == .copy && isValid() {
             if removeStartPosition > startPosition && removeEndPosition < endPosition {
                 let split = SimpleMarkdownProcessRange(startPosition: removeEndPosition, endPosition: endPosition, type: .copy)
                 endPosition = removeStartPosition

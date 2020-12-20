@@ -28,23 +28,46 @@ public enum MarkdownTagType: Int {
 // Tag object
 public class MarkdownTag {
 
-    public var type = MarkdownTagType.paragraph
-    public var startIndex: String.Index? = nil
-    public var endIndex: String.Index? = nil
-    public var startTextIndex: String.Index? = nil
-    public var endTextIndex: String.Index? = nil
-    public var startExtraIndex: String.Index? = nil
-    public var endExtraIndex: String.Index? = nil
-    public var startPosition: Int? = nil
-    public var endPosition: Int? = nil
-    public var startTextPosition: Int? = nil
-    public var endTextPosition: Int? = nil
-    public var startExtraPosition: Int? = nil
-    public var endExtraPosition: Int? = nil
-    public var weight = 0
-    public var escapeSymbols = [MarkdownSymbol]()
+    public let type: MarkdownTagType
+    public var startIndex: String.Index
+    public var endIndex: String.Index
+    public var startTextIndex: String.Index
+    public var endTextIndex: String.Index
+    public var startExtraIndex: String.Index?
+    public var endExtraIndex: String.Index?
+    public var startPosition: Int
+    public var endPosition: Int
+    public var startTextPosition: Int
+    public var endTextPosition: Int
+    public var startExtraPosition: Int?
+    public var endExtraPosition: Int?
+    public var weight: Int
+    public var escapeSymbols: [MarkdownSymbol]
     
-    public init() {
+    public convenience init(type: MarkdownTagType, weight: Int, startIndex: String.Index, endIndex: String.Index, startPosition: Int, endPosition: Int, escapeSymbols: [MarkdownSymbol] = []) {
+        self.init(type: type, weight: weight, startIndex: startIndex, endIndex: endIndex, startPosition: startPosition, endPosition: endPosition, startTextIndex: startIndex, endTextIndex: endIndex, startTextPosition: startPosition, endTextPosition: endPosition, startExtraIndex: nil, endExtraIndex: nil, startExtraPosition: nil, endExtraPosition: nil, escapeSymbols: escapeSymbols)
+    }
+
+    public convenience init(type: MarkdownTagType, weight: Int, startIndex: String.Index, endIndex: String.Index, startPosition: Int, endPosition: Int, startTextIndex: String.Index, endTextIndex: String.Index, startTextPosition: Int, endTextPosition: Int, escapeSymbols: [MarkdownSymbol] = []) {
+        self.init(type: type, weight: weight, startIndex: startIndex, endIndex: endIndex, startPosition: startPosition, endPosition: endPosition, startTextIndex: startTextIndex, endTextIndex: endTextIndex, startTextPosition: startTextPosition, endTextPosition: endTextPosition, startExtraIndex: nil, endExtraIndex: nil, startExtraPosition: nil, endExtraPosition: nil, escapeSymbols: escapeSymbols)
+    }
+
+    public init(type: MarkdownTagType, weight: Int, startIndex: String.Index, endIndex: String.Index, startPosition: Int, endPosition: Int, startTextIndex: String.Index, endTextIndex: String.Index, startTextPosition: Int, endTextPosition: Int, startExtraIndex: String.Index?, endExtraIndex: String.Index?, startExtraPosition: Int?, endExtraPosition: Int?, escapeSymbols: [MarkdownSymbol] = []) {
+        self.type = type
+        self.weight = weight
+        self.startIndex = startIndex
+        self.endIndex = endIndex
+        self.startPosition = startPosition
+        self.endPosition = endPosition
+        self.startTextIndex = startTextIndex
+        self.endTextIndex = endTextIndex
+        self.startTextPosition = startTextPosition
+        self.endTextPosition = endTextPosition
+        self.startExtraIndex = startExtraIndex
+        self.endExtraIndex = endExtraIndex
+        self.startExtraPosition = startExtraPosition
+        self.endExtraPosition = endExtraPosition
+        self.escapeSymbols = escapeSymbols
     }
 
 }
@@ -57,7 +80,7 @@ public class ProcessedMarkdownTag {
     public let endIndex: String.Index
     public let startPosition: Int
     public let endPosition: Int
-    public var weight = 0
+    public let weight: Int
     public var link: String?
 
     public init(type: MarkdownTagType, weight: Int, startIndex: String.Index, endIndex: String.Index, startPosition: Int, endPosition: Int, startExtraIndex: String.Index? = nil, endExtraIndex: String.Index? = nil, link: String? = nil) {

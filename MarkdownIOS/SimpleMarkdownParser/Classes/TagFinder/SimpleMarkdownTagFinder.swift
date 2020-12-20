@@ -35,12 +35,13 @@ public class SimpleMarkdownTagFinder {
         // Add lines that could come before it
         if startSymbolIndex > 0 {
             let scanSymbols = symbols[0..<startSymbolIndex]
-            let dummyParagraphTag = MarkdownTag()
-            dummyParagraphTag.type = .paragraph
-            dummyParagraphTag.startPosition = symbols[0].startPosition
-            dummyParagraphTag.endPosition = symbols[startSymbolIndex].startPosition - symbols[startSymbolIndex].linePosition
-            dummyParagraphTag.startIndex = symbols[0].startIndex
-            dummyParagraphTag.endIndex = text.index(symbols[startSymbolIndex].startIndex, offsetBy: -symbols[startSymbolIndex].linePosition)
+            let dummyParagraphTag = MarkdownTag(
+                type: .paragraph, weight: 0,
+                startIndex: symbols[0].startIndex,
+                endIndex: text.index(symbols[startSymbolIndex].startIndex, offsetBy: -symbols[startSymbolIndex].linePosition),
+                startPosition: symbols[0].startPosition,
+                endPosition: symbols[startSymbolIndex].startPosition - symbols[startSymbolIndex].linePosition
+            )
             result.append(contentsOf: findLineTags(text: text, symbols: scanSymbols, forSection: dummyParagraphTag))
         }
         
@@ -54,7 +55,7 @@ public class SimpleMarkdownTagFinder {
             // Determine symbols found within the section tag
             var endSymbolIndex = startSymbolIndex
             for index in startSymbolIndex..<symbols.count {
-                if symbols[index].startPosition >= sectionTag.startPosition ?? 0 && symbols[index].endPosition <= sectionTag.endPosition ?? 0 {
+                if symbols[index].startPosition >= sectionTag.startPosition && symbols[index].endPosition <= sectionTag.endPosition {
                     endSymbolIndex = index + 1
                 }
             }
@@ -64,7 +65,7 @@ public class SimpleMarkdownTagFinder {
             let lineTags = findLineTags(text: text, symbols: scanSymbols, forSection: sectionTag)
             result.append(contentsOf: lineTags)
             for index in lineTags.indices {
-                if lineTags[index].startTextPosition ?? 0 >= lineTags[index].endTextPosition ?? 0 {
+                if lineTags[index].startTextPosition >= lineTags[index].endTextPosition {
                     if index > 0 {
                         sectionTag.endPosition = lineTags[index - 1].endPosition
                         sectionTag.endIndex = lineTags[index - 1].endIndex
@@ -86,11 +87,11 @@ public class SimpleMarkdownTagFinder {
         // Add escape symbols to tags
         let escapeSymbols = symbols.filter { $0.type == .escape }
         for tag in result {
-            tag.escapeSymbols = escapeSymbols.filter { $0.startPosition >= tag.startPosition ?? 0 && $0.startPosition < tag.endPosition ?? 0 }
+            tag.escapeSymbols = escapeSymbols.filter { $0.startPosition >= tag.startPosition && $0.startPosition < tag.endPosition }
         }
         
         // Sort and return result
-        result.sort { ($0.startPosition ?? 0) < ($1.startPosition ?? 0) || ($0.type.rawValue < $1.type.rawValue && ($0.startPosition ?? 0) <= ($1.startPosition ?? 0)) }
+        result.sort { $0.startPosition < $1.startPosition || ($0.type.rawValue < $1.type.rawValue && $0.startPosition <= $1.startPosition) }
         return result
     }
     
@@ -100,46 +101,54 @@ public class SimpleMarkdownTagFinder {
     // --
     
     private func makeSectionTag(text: String, symbols: [MarkdownSymbol], fromIndex: Int, toIndex: Int = -1, firstItem: Bool = false) -> MarkdownTag {
-        // Set up tag with type
-        let tag = MarkdownTag()
-        tag.type = getSectionType(symbols: symbols, nearSymbol: symbols[fromIndex])
-        
         // Set position range
-        tag.startPosition = firstItem ? 0 : symbols[fromIndex].startPosition - symbols[fromIndex].linePosition
-        tag.endPosition = toIndex >= 0 ? symbols[toIndex].startPosition - symbols[toIndex].linePosition : text.count
-        tag.startTextPosition = symbols[fromIndex].startPosition
+        let startPosition = firstItem ? 0 : symbols[fromIndex].startPosition - symbols[fromIndex].linePosition
+        let endPosition = toIndex >= 0 ? symbols[toIndex].startPosition - symbols[toIndex].linePosition : text.count
+        let startTextPosition = symbols[fromIndex].startPosition
+        var endTextPosition = symbols[fromIndex].endPosition
         if toIndex > fromIndex || toIndex < 0 {
             let endIndex = toIndex < 0 ? symbols.count : toIndex
             for index in fromIndex..<endIndex {
                 if symbols[index].type == .textBlock {
-                    tag.endTextPosition = symbols[index].endPosition
+                    endTextPosition = symbols[index].endPosition
                 }
             }
-        } else {
-            tag.endTextPosition = symbols[fromIndex].endPosition
         }
         
         // Set index range
-        tag.startIndex = firstItem ? text.startIndex : text.index(symbols[fromIndex].startIndex, offsetBy: -symbols[fromIndex].linePosition)
-        tag.endIndex = toIndex >= 0 ? text.index(symbols[toIndex].startIndex, offsetBy: -symbols[toIndex].linePosition) : text.endIndex
-        tag.startTextIndex = symbols[fromIndex].startIndex
+        let startIndex = firstItem ? text.startIndex : text.index(symbols[fromIndex].startIndex, offsetBy: -symbols[fromIndex].linePosition)
+        let endIndex = toIndex >= 0 ? text.index(symbols[toIndex].startIndex, offsetBy: -symbols[toIndex].linePosition) : text.endIndex
+        let startTextIndex = symbols[fromIndex].startIndex
+        var endTextIndex = symbols[fromIndex].endIndex
         if toIndex > fromIndex || toIndex < 0 {
             let endIndex = toIndex < 0 ? symbols.count : toIndex
             for index in fromIndex..<endIndex {
                 if symbols[index].type == .textBlock {
-                    tag.endTextIndex = symbols[index].endIndex
+                    endTextIndex = symbols[index].endIndex
                 }
             }
-        } else {
-            tag.endTextIndex = symbols[fromIndex].endIndex
         }
+        
+        // Create tag
+        let tag = MarkdownTag(
+            type: getSectionType(symbols: symbols, nearSymbol: symbols[fromIndex]),
+            weight: 0,
+            startIndex: startIndex,
+            endIndex: endIndex,
+            startPosition: startPosition,
+            endPosition: endPosition,
+            startTextIndex: startTextIndex,
+            endTextIndex: endTextIndex,
+            startTextPosition: startTextPosition,
+            endTextPosition: endTextPosition
+        )
 
         // For headers, exclude header characters from text and determine weight, then trim for good measure
         if tag.type == .header {
             var firstHeader = true
             for symbol in symbols {
-                if symbol.startPosition >= tag.startPosition ?? 0 {
-                    if symbol.endPosition <= tag.endPosition ?? 0 {
+                if symbol.startPosition >= tag.startPosition {
+                    if symbol.endPosition <= tag.endPosition {
                         if symbol.type == .header {
                             if firstHeader {
                                 tag.startTextPosition = symbol.endPosition
@@ -214,23 +223,20 @@ public class SimpleMarkdownTagFinder {
     // --
 
     private func findLineTags(text: String, symbols: ArraySlice<MarkdownSymbol>, forSection: MarkdownTag) -> [MarkdownTag] {
-        // Split section in lines
+        // Search for newline symbols
         var result = [MarkdownTag]()
-        if let startPosition = forSection.startPosition, let endPosition = forSection.endPosition, let startIndex = forSection.startIndex, let endIndex = forSection.endIndex {
-            // Search for newline symbols
-            let sectionSymbol = MarkdownSymbol(type: .textBlock, line: 0, startPosition: startPosition, startIndex: startIndex, endPosition: endPosition, endIndex: endIndex, linePosition: 0)
-            var startSymbol = sectionSymbol
-            for symbol in symbols {
-                if symbol.type == .newline {
-                    result.append(makeLineTag(text: text, startSymbol: startSymbol, endSymbol: symbol))
-                    startSymbol = symbol
-                }
+        let sectionSymbol = MarkdownSymbol(type: .textBlock, line: 0, startPosition: forSection.startPosition, startIndex: forSection.startIndex, endPosition: forSection.endPosition, endIndex: forSection.endIndex, linePosition: 0)
+        var startSymbol = sectionSymbol
+        for symbol in symbols {
+            if symbol.type == .newline {
+                result.append(makeLineTag(text: text, startSymbol: startSymbol, endSymbol: symbol))
+                startSymbol = symbol
             }
+        }
             
-            // Handle remains
-            if startSymbol.endPosition < sectionSymbol.endPosition || startSymbol === sectionSymbol {
-                result.append(makeLineTag(text: text, startSymbol: startSymbol, endSymbol: sectionSymbol))
-            }
+        // Handle remains
+        if startSymbol.endPosition < sectionSymbol.endPosition || startSymbol === sectionSymbol {
+            result.append(makeLineTag(text: text, startSymbol: startSymbol, endSymbol: sectionSymbol))
         }
         
         // Return result
@@ -238,17 +244,17 @@ public class SimpleMarkdownTagFinder {
     }
     
     private func makeLineTag(text: String, startSymbol: MarkdownSymbol, endSymbol: MarkdownSymbol) -> MarkdownTag {
-        let tag = MarkdownTag()
-        tag.type = .line
-        tag.weight = 0
-        tag.startPosition = startSymbol.type == .newline ? startSymbol.endPosition : startSymbol.startPosition
-        tag.endPosition = endSymbol.endPosition
-        tag.startIndex = startSymbol.type == .newline ? startSymbol.endIndex : startSymbol.startIndex
-        tag.endIndex = endSymbol.endIndex
-        tag.startTextPosition = startSymbol.type == .newline ? startSymbol.endPosition : startSymbol.startPosition
-        tag.endTextPosition = endSymbol.type == .newline ? endSymbol.startPosition : endSymbol.endPosition
-        tag.startTextIndex = startSymbol.type == .newline ? startSymbol.endIndex : startSymbol.startIndex
-        tag.endTextIndex = endSymbol.type == .newline ? endSymbol.startIndex : endSymbol.endIndex
+        let tag = MarkdownTag(
+            type: .line, weight: 0,
+            startIndex: startSymbol.type == .newline ? startSymbol.endIndex : startSymbol.startIndex,
+            endIndex: endSymbol.endIndex,
+            startPosition: startSymbol.type == .newline ? startSymbol.endPosition : startSymbol.startPosition,
+            endPosition: endSymbol.endPosition,
+            startTextIndex: startSymbol.type == .newline ? startSymbol.endIndex : startSymbol.startIndex,
+            endTextIndex: endSymbol.type == .newline ? endSymbol.startIndex : endSymbol.endIndex,
+            startTextPosition: startSymbol.type == .newline ? startSymbol.endPosition : startSymbol.startPosition,
+            endTextPosition: endSymbol.type == .newline ? endSymbol.startPosition : endSymbol.endPosition
+        )
         trimTagSpaces(text: text, tag: tag)
         return tag
     }
@@ -288,18 +294,18 @@ public class SimpleMarkdownTagFinder {
     }
     
     private func makeTextStyleTag(text: String, startSymbol: MarkdownSymbol, endSymbol: MarkdownSymbol) -> MarkdownTag {
-        let tag = MarkdownTag()
-        tag.type = startSymbol.type == .thirdTextStyle ? .alternativeTextStyle : .textStyle
-        tag.weight = min(startSymbol.endPosition - startSymbol.startPosition, endSymbol.endPosition - endSymbol.startPosition)
-        tag.startPosition = startSymbol.startPosition
-        tag.endPosition = endSymbol.endPosition
-        tag.startIndex = startSymbol.startIndex
-        tag.endIndex = endSymbol.endIndex
-        tag.startTextPosition = startSymbol.startPosition + tag.weight
-        tag.endTextPosition = endSymbol.endPosition - tag.weight
-        tag.startTextIndex = text.index(startSymbol.startIndex, offsetBy: tag.weight)
-        tag.endTextIndex = text.index(endSymbol.endIndex, offsetBy: -tag.weight)
-        return tag
+        let weight = min(startSymbol.endPosition - startSymbol.startPosition, endSymbol.endPosition - endSymbol.startPosition)
+        return MarkdownTag(
+            type: startSymbol.type == .thirdTextStyle ? .alternativeTextStyle : .textStyle, weight: weight,
+            startIndex: startSymbol.startIndex,
+            endIndex: endSymbol.endIndex,
+            startPosition: startSymbol.startPosition,
+            endPosition: endSymbol.endPosition,
+            startTextIndex: text.index(startSymbol.startIndex, offsetBy: weight),
+            endTextIndex: text.index(endSymbol.endIndex, offsetBy: -weight),
+            startTextPosition: startSymbol.startPosition + weight,
+            endTextPosition: endSymbol.endPosition - weight
+        )
     }
     
     
@@ -328,17 +334,17 @@ public class SimpleMarkdownTagFinder {
 
     private func makeLinkTag(text: String, startSymbol: MarkdownSymbol, endSymbol: MarkdownSymbol, symbols: ArraySlice<MarkdownSymbol>) -> MarkdownTag {
         // Set up basic tag
-        let tag = MarkdownTag()
-        tag.type = .link
-        tag.weight = 0
-        tag.startPosition = startSymbol.startPosition
-        tag.endPosition = endSymbol.endPosition
-        tag.startIndex = startSymbol.startIndex
-        tag.endIndex = endSymbol.endIndex
-        tag.startTextPosition = startSymbol.startPosition + 1
-        tag.endTextPosition = endSymbol.endPosition - 1
-        tag.startTextIndex = text.index(after: startSymbol.startIndex)
-        tag.endTextIndex = text.index(before: endSymbol.endIndex)
+        let tag = MarkdownTag(
+            type: .link, weight: 0,
+            startIndex: startSymbol.startIndex,
+            endIndex: endSymbol.endIndex,
+            startPosition: startSymbol.startPosition,
+            endPosition: endSymbol.endPosition,
+            startTextIndex: text.index(after: startSymbol.startIndex),
+            endTextIndex: text.index(before: endSymbol.endIndex),
+            startTextPosition: startSymbol.startPosition + 1,
+            endTextPosition: endSymbol.endPosition - 1
+        )
 
         // Add extra information if found
         var inUrlSymbol: MarkdownSymbol?
@@ -391,24 +397,25 @@ public class SimpleMarkdownTagFinder {
         }
         
         // Add last list item (if needed) and return result
-        if let checkListSymbol = inListSymbol, let endPosition = forSection.endPosition, let endIndex = forSection.endIndex {
-            result.append(makeListItemTag(text: text, startSymbol: checkListSymbol, endPosition: endPosition, endIndex: endIndex))
+        if let checkListSymbol = inListSymbol {
+            result.append(makeListItemTag(text: text, startSymbol: checkListSymbol, endPosition: forSection.endPosition, endIndex: forSection.endIndex))
         }
         return result
     }
 
     private func makeListItemTag(text: String, startSymbol: MarkdownSymbol, endPosition: Int, endIndex: String.Index) -> MarkdownTag {
-        let tag = MarkdownTag()
-        tag.type = startSymbol.type == .orderedListItem ? .orderedListItem : .unorderedListItem
-        tag.weight = 1 + startSymbol.linePosition / 2
-        tag.startPosition = startSymbol.startPosition
-        tag.endPosition = endPosition
-        tag.startIndex = startSymbol.startIndex
-        tag.endIndex = endIndex
-        tag.startTextPosition = startSymbol.endPosition
-        tag.endTextPosition = endPosition
-        tag.startTextIndex = startSymbol.endIndex
-        tag.endTextIndex = endIndex
+        let tag = MarkdownTag(
+            type: startSymbol.type == .orderedListItem ? .orderedListItem : .unorderedListItem,
+            weight: 1 + startSymbol.linePosition / 2,
+            startIndex: startSymbol.startIndex,
+            endIndex: endIndex,
+            startPosition: startSymbol.startPosition,
+            endPosition: endPosition,
+            startTextIndex: startSymbol.endIndex,
+            endTextIndex: endIndex,
+            startTextPosition: startSymbol.endPosition,
+            endTextPosition: endPosition
+        )
         trimTagSpaces(text: text, tag: tag)
         return tag
     }
@@ -420,28 +427,28 @@ public class SimpleMarkdownTagFinder {
     
     private func trimTagSpaces(text: String, tag: MarkdownTag) {
         // Update start
-        if var startTextIndex = tag.startTextIndex, var startTextPosition = tag.startTextPosition {
-            while startTextPosition < tag.endTextPosition ?? 0 && text[startTextIndex].isWhitespace {
-                startTextIndex = text.index(after: startTextIndex)
-                startTextPosition += 1
-            }
-            tag.startTextPosition = startTextPosition
-            tag.startTextIndex = startTextIndex
+        var startTextIndex = tag.startTextIndex
+        var startTextPosition = tag.startTextPosition
+        while startTextPosition < tag.endTextPosition && text[startTextIndex].isWhitespace {
+            startTextIndex = text.index(after: startTextIndex)
+            startTextPosition += 1
         }
+        tag.startTextPosition = startTextPosition
+        tag.startTextIndex = startTextIndex
         
         // Update end
-        if var endTextIndex = tag.endTextIndex, var endTextPosition = tag.endTextPosition {
-            while endTextPosition > tag.startTextPosition ?? 0 {
-                let checkIndex = text.index(before: endTextIndex)
-                if !text[checkIndex].isWhitespace {
-                    break
-                }
-                endTextIndex = checkIndex
-                endTextPosition -= 1
+        var endTextIndex = tag.endTextIndex
+        var endTextPosition = tag.endTextPosition
+        while endTextPosition > tag.startTextPosition {
+            let checkIndex = text.index(before: endTextIndex)
+            if !text[checkIndex].isWhitespace {
+                break
             }
-            tag.endTextPosition = endTextPosition
-            tag.endTextIndex = endTextIndex
+            endTextIndex = checkIndex
+            endTextPosition -= 1
         }
+        tag.endTextPosition = endTextPosition
+        tag.endTextIndex = endTextIndex
     }
 
     private func trimExtraSpaces(text: String, tag: MarkdownTag) {

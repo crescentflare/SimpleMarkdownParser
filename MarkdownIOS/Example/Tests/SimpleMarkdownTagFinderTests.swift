@@ -247,11 +247,8 @@ class WrappedMarkdownTag: NSObject {
         var escapedCharacters = [Character]()
         var text = ""
         var extra = ""
-        var textOffset = 0
-        if let startTextIndex = tag.startTextIndex, let endTextIndex = tag.endTextIndex {
-            textOffset = tag.startTextPosition ?? 0
-            text = String(markdownText[startTextIndex..<endTextIndex])
-        }
+        let textOffset = tag.startTextPosition
+        text = String(markdownText[tag.startTextIndex..<tag.endTextIndex])
         if let startExtraIndex = tag.startExtraIndex, let endExtraIndex = tag.endExtraIndex {
             extra = String(markdownText[startExtraIndex..<endExtraIndex])
         }
