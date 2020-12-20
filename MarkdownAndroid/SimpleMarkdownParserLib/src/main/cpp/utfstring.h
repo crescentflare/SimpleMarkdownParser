@@ -24,7 +24,7 @@ public:
     UTFStringIndex endIndex();
 
 public:
-    const int operator[](const UTFStringIndex index) const;
+    int operator[](const UTFStringIndex &index) const;
 };
 
 

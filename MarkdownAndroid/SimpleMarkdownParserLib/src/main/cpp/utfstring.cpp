@@ -30,7 +30,7 @@ UTFStringIndex UTFString::endIndex()
  * UTFString implementation: public (operators)
  */
 
-const int UTFString::operator[](const UTFStringIndex index) const
+int UTFString::operator[](const UTFStringIndex &index) const
 {
     unsigned char chrSize = UTFStringIndex::charSize(utfCharArray[index.bytePos]);
     if (chrSize == 1)
@@ -102,7 +102,7 @@ UTFStringIndex &UTFStringIndex::decrease(int count)
             {
                 break;
             }
-            unsigned char chrSize = 0;
+            unsigned char chrSize;
             if (bytePos > 3 && charSize(utfCharArray[bytePos - 4]) == 4)
             {
                 chrSize = 4;
