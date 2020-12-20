@@ -188,7 +188,7 @@ class SimpleMarkdownTagFinderTests: XCTestCase {
     }
     
     func testEmptyString() {
-        assertTags(markdownTextLines: [], expectedTags: []);
+        assertTags(markdownTextLines: [], expectedTags: [])
     }
 
     

@@ -199,7 +199,7 @@ class SimpleMarkdownSymbolFinderTests: XCTestCase {
     }
     
     func testEmptyString() {
-        assertSymbols(markdownTextLines: [], expectedSymbols: []);
+        assertSymbols(markdownTextLines: [], expectedSymbols: [])
     }
 
     

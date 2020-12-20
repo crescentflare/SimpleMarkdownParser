@@ -86,10 +86,12 @@ class ViewController: UIViewController {
     
     func testHtml(markdownText: String) {
         let htmlString = SimpleMarkdownConverter.toHtmlString(fromMarkdownText: markdownText)
-        let options = [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html,
-                       NSAttributedString.DocumentReadingOptionKey(rawValue: "CharacterEncoding"): NSNumber(value: String.Encoding.utf8.rawValue)] as [NSAttributedString.DocumentReadingOptionKey : Any]
-        let attributedString = try? NSAttributedString(data: htmlString.data(using: String.Encoding.utf8)!, options: options, documentAttributes: nil)
-        label.attributedText = attributedString
+        if let htmlData = htmlString.data(using: String.Encoding.utf8) {
+            let options = [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html,
+                           NSAttributedString.DocumentReadingOptionKey(rawValue: "CharacterEncoding"): NSNumber(value: String.Encoding.utf8.rawValue)] as [NSAttributedString.DocumentReadingOptionKey : Any]
+            let attributedString = try? NSAttributedString(data: htmlData, options: options, documentAttributes: nil)
+            label.attributedText = attributedString
+        }
     }
     
     func testCustomAttributedStringConversion(markdownText: String) {
@@ -119,12 +121,8 @@ private class CustomAttributedStringConversion : MarkdownAttributedStringGenerat
     
     fileprivate func applyAttribute(defaultFont: UIFont, attributedString: NSMutableAttributedString, type: MarkdownTagType, weight: Int, start: Int, length: Int, extra: String) {
         switch type {
-        case .paragraph:
-            attributedString.addAttribute(NSAttributedString.Key.font, value: defaultFont.withSize(defaultFont.pointSize * CGFloat(weight) * 0.5), range: NSMakeRange(start, length))
-            break
         case .header:
             attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.init(descriptor: defaultFont.fontDescriptor, size: defaultFont.pointSize * (2 - CGFloat(weight) * 0.15)), range: NSMakeRange(start, length))
-            break
         case .orderedList, .unorderedList:
             let bulletParagraph = NSMutableParagraphStyle()
             let tokenTabStop = NSTextTab(textAlignment: .right, location: 12 + CGFloat(weight - 1) * 10, options: [:])
@@ -133,7 +131,6 @@ private class CustomAttributedStringConversion : MarkdownAttributedStringGenerat
             bulletParagraph.firstLineHeadIndent = 0
             bulletParagraph.headIndent = textTabStop.location
             attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: bulletParagraph, range: NSMakeRange(start, length))
-            break
         case .textStyle:
             var deriveFont = defaultFont
             attributedString.enumerateAttributes(in: NSMakeRange(start, length), options: .longestEffectiveRangeNotRequired, using: { (attributes: [NSAttributedString.Key: Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
@@ -152,19 +149,22 @@ private class CustomAttributedStringConversion : MarkdownAttributedStringGenerat
             if let descriptor = deriveFont.fontDescriptor.withSymbolicTraits(traits) {
                 attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.init(descriptor: descriptor, size: deriveFont.pointSize), range: NSMakeRange(start, length))
             }
-            break
         case .alternativeTextStyle:
             attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: true, range: NSMakeRange(start, length))
-            break
         case .link:
             if let url = URL(string: extra) {
                 attributedString.addAttribute(NSAttributedString.Key(rawValue: NSClickableTextAttributeName), value: url, range: NSMakeRange(start, length))
                 attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.purple, range: NSMakeRange(start, length))
+                attributedString.addAttribute(NSAttributedString.Key(rawValue: NSHighlightColorAttributeName), value: UIColor.purple.withAlphaComponent(0.5), range: NSMakeRange(start, length))
             }
-            break
         default:
             break //No implementation for unknown tags
         }
+    }
+    
+    open func applySectionSpacerAttribute(defaultFont: UIFont, attributedString: NSMutableAttributedString, previousSectionType: MarkdownTagType, previousSectionWeight: Int, nextSectionType: MarkdownTagType, nextSectionWeight: Int, start: Int, length: Int) {
+        let spacing: CGFloat = nextSectionType == .header && previousSectionType != .header ? 20 : 12
+        attributedString.addAttribute(NSAttributedString.Key.font, value: defaultFont.withSize(spacing), range: NSMakeRange(start, length))
     }
     
     fileprivate func getListToken(fromType: MarkdownTagType, weight: Int, index: Int) -> String {
