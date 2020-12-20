@@ -21,12 +21,12 @@ public class SimpleMarkdownTagFinder {
     // --
 
     public func findTags(text: String, symbols: [MarkdownSymbol]) -> [MarkdownTag] {
-        // Find first paragraph tag
+        // Find first section tag
         var result = [MarkdownTag]()
-        var paragraphIndex = findNextParagraphBlockIndex(symbols: symbols)
+        var sectionIndex = findNextSectionBlockIndex(symbols: symbols)
         var startSymbolIndex = 0
         for index in 0..<symbols.count {
-            if symbols[index].startPosition >= symbols[paragraphIndex].startPosition {
+            if symbols[index].startPosition >= symbols[sectionIndex].startPosition {
                 startSymbolIndex = index
                 break
             }
@@ -41,46 +41,46 @@ public class SimpleMarkdownTagFinder {
             dummyParagraphTag.endPosition = symbols[startSymbolIndex].startPosition - symbols[startSymbolIndex].linePosition
             dummyParagraphTag.startIndex = symbols[0].startIndex
             dummyParagraphTag.endIndex = text.index(symbols[startSymbolIndex].startIndex, offsetBy: -symbols[startSymbolIndex].linePosition)
-            result.append(contentsOf: findLineTags(text: text, symbols: scanSymbols, forParagraph: dummyParagraphTag))
+            result.append(contentsOf: findLineTags(text: text, symbols: scanSymbols, forSection: dummyParagraphTag))
         }
         
         // Start finding inner tags
-        while paragraphIndex >= 0 {
-            // Set up paragraph tag
-            let nextParagraphIndex = findNextParagraphBlockIndex(symbols: symbols, afterParagraphIndex: paragraphIndex)
-            let paragraphTag = makeParagraphTag(text: text, symbols: symbols, fromIndex: paragraphIndex, toIndex: nextParagraphIndex)
-            result.append(paragraphTag)
+        while sectionIndex >= 0 {
+            // Set up section tag
+            let nextSectionIndex = findNextSectionBlockIndex(symbols: symbols, afterSectionIndex: sectionIndex)
+            let sectionTag = makeSectionTag(text: text, symbols: symbols, fromIndex: sectionIndex, toIndex: nextSectionIndex)
+            result.append(sectionTag)
             
-            // Determine symbols found within the paragraph tag
+            // Determine symbols found within the section tag
             var endSymbolIndex = startSymbolIndex
             for index in startSymbolIndex..<symbols.count {
-                if symbols[index].startPosition >= paragraphTag.startPosition ?? 0 && symbols[index].endPosition <= paragraphTag.endPosition ?? 0 {
+                if symbols[index].startPosition >= sectionTag.startPosition ?? 0 && symbols[index].endPosition <= sectionTag.endPosition ?? 0 {
                     endSymbolIndex = index + 1
                 }
             }
             
-            // Find line tags and shorten the paragraph if empty lines are at the end
+            // Find line tags and shorten the section if empty lines are at the end
             let scanSymbols = symbols[startSymbolIndex..<endSymbolIndex]
-            let lineTags = findLineTags(text: text, symbols: scanSymbols, forParagraph: paragraphTag)
+            let lineTags = findLineTags(text: text, symbols: scanSymbols, forSection: sectionTag)
             result.append(contentsOf: lineTags)
             for index in lineTags.indices {
                 if lineTags[index].startTextPosition ?? 0 >= lineTags[index].endTextPosition ?? 0 {
                     if index > 0 {
-                        paragraphTag.endPosition = lineTags[index - 1].endPosition
-                        paragraphTag.endIndex = lineTags[index - 1].endIndex
+                        sectionTag.endPosition = lineTags[index - 1].endPosition
+                        sectionTag.endIndex = lineTags[index - 1].endIndex
                     }
                     break
                 }
             }
 
-            // Add other tags within the paragraph
-            result.append(contentsOf: findTextStyleTags(text: text, symbols: scanSymbols, forParagraph: paragraphTag))
-            result.append(contentsOf: findLinkTags(text: text, symbols: scanSymbols, forParagraph: paragraphTag))
-            result.append(contentsOf: findListTags(text: text, symbols: scanSymbols, forParagraph: paragraphTag))
+            // Add other tags within the section
+            result.append(contentsOf: findTextStyleTags(text: text, symbols: scanSymbols, forSection: sectionTag))
+            result.append(contentsOf: findLinkTags(text: text, symbols: scanSymbols, forSection: sectionTag))
+            result.append(contentsOf: findListTags(text: text, symbols: scanSymbols, forSection: sectionTag))
             
             // Prepare for the next iteration
             startSymbolIndex = endSymbolIndex
-            paragraphIndex = nextParagraphIndex
+            sectionIndex = nextSectionIndex
         }
         
         // Add escape symbols to tags
@@ -96,13 +96,13 @@ public class SimpleMarkdownTagFinder {
     
     
     // --
-    // MARK: Check paragraphs
+    // MARK: Check sections
     // --
     
-    private func makeParagraphTag(text: String, symbols: [MarkdownSymbol], fromIndex: Int, toIndex: Int = -1, firstItem: Bool = false) -> MarkdownTag {
+    private func makeSectionTag(text: String, symbols: [MarkdownSymbol], fromIndex: Int, toIndex: Int = -1, firstItem: Bool = false) -> MarkdownTag {
         // Set up tag with type
         let tag = MarkdownTag()
-        tag.type = getParagraphType(symbols: symbols, nearSymbol: symbols[fromIndex])
+        tag.type = getSectionType(symbols: symbols, nearSymbol: symbols[fromIndex])
         
         // Set position range
         tag.startPosition = firstItem ? 0 : symbols[fromIndex].startPosition - symbols[fromIndex].linePosition
@@ -164,26 +164,32 @@ public class SimpleMarkdownTagFinder {
         return tag
     }
     
-    private func findNextParagraphBlockIndex(symbols: [MarkdownSymbol], afterParagraphIndex: Int = -1) -> Int {
-        let afterParagraphType = afterParagraphIndex >= 0 ? getParagraphType(symbols: symbols, nearSymbol: symbols[afterParagraphIndex]) : .paragraph
+    private func findNextSectionBlockIndex(symbols: [MarkdownSymbol], afterSectionIndex: Int = -1) -> Int {
+        let afterSectionType = afterSectionIndex >= 0 ? getSectionType(symbols: symbols, nearSymbol: symbols[afterSectionIndex]) : .paragraph
         var consecutiveNewlines = 0
-        for index in (afterParagraphIndex + 1)..<symbols.count {
+        var previousListLinePosition = afterSectionIndex >= 0 ? symbols[afterSectionIndex].linePosition : 0
+        for index in (afterSectionIndex + 1)..<symbols.count {
             if symbols[index].type == .newline {
                 consecutiveNewlines += 1
             } else if symbols[index].type == .textBlock {
-                let paragraphType = getParagraphType(symbols: symbols, nearSymbol: symbols[index])
-                let canAbortEarly = paragraphType == .header || afterParagraphType == .header || (afterParagraphType != .list && paragraphType != afterParagraphType)
-                if consecutiveNewlines > 1 || afterParagraphIndex < 0 || (consecutiveNewlines > 0 && canAbortEarly) {
+                let sectionType = getSectionType(symbols: symbols, nearSymbol: symbols[index])
+                var canAbortEarly = sectionType == .header || afterSectionType == .header || sectionType != afterSectionType
+                if afterSectionType == .list && sectionType == .paragraph && symbols[index].linePosition >= previousListLinePosition {
+                    canAbortEarly = false
+                }
+                if consecutiveNewlines > 1 || afterSectionIndex < 0 || (consecutiveNewlines > 0 && canAbortEarly) {
                     return index
                 } else {
                     consecutiveNewlines = 0
                 }
+            } else if symbols[index].type == .orderedListItem || symbols[index].type == .unorderedListItem {
+                previousListLinePosition = symbols[index].linePosition + symbols[index].endPosition - symbols[index].startPosition + 1
             }
         }
         return -1
     }
     
-    private func getParagraphType(symbols: [MarkdownSymbol], nearSymbol: MarkdownSymbol) -> MarkdownTagType {
+    private func getSectionType(symbols: [MarkdownSymbol], nearSymbol: MarkdownSymbol) -> MarkdownTagType {
         let checkLine = nearSymbol.line
         let checkLinePosition = nearSymbol.linePosition
         for symbol in symbols {
@@ -207,13 +213,13 @@ public class SimpleMarkdownTagFinder {
     // MARK: Check lines
     // --
 
-    private func findLineTags(text: String, symbols: ArraySlice<MarkdownSymbol>, forParagraph: MarkdownTag) -> [MarkdownTag] {
-        // Split paragraph in lines
+    private func findLineTags(text: String, symbols: ArraySlice<MarkdownSymbol>, forSection: MarkdownTag) -> [MarkdownTag] {
+        // Split section in lines
         var result = [MarkdownTag]()
-        if let startPosition = forParagraph.startPosition, let endPosition = forParagraph.endPosition, let startIndex = forParagraph.startIndex, let endIndex = forParagraph.endIndex {
+        if let startPosition = forSection.startPosition, let endPosition = forSection.endPosition, let startIndex = forSection.startIndex, let endIndex = forSection.endIndex {
             // Search for newline symbols
-            let paragraphSymbol = MarkdownSymbol(type: .textBlock, line: 0, startPosition: startPosition, startIndex: startIndex, endPosition: endPosition, endIndex: endIndex, linePosition: 0)
-            var startSymbol = paragraphSymbol
+            let sectionSymbol = MarkdownSymbol(type: .textBlock, line: 0, startPosition: startPosition, startIndex: startIndex, endPosition: endPosition, endIndex: endIndex, linePosition: 0)
+            var startSymbol = sectionSymbol
             for symbol in symbols {
                 if symbol.type == .newline {
                     result.append(makeLineTag(text: text, startSymbol: startSymbol, endSymbol: symbol))
@@ -222,8 +228,8 @@ public class SimpleMarkdownTagFinder {
             }
             
             // Handle remains
-            if startSymbol.endPosition < paragraphSymbol.endPosition || startSymbol === paragraphSymbol {
-                result.append(makeLineTag(text: text, startSymbol: startSymbol, endSymbol: paragraphSymbol))
+            if startSymbol.endPosition < sectionSymbol.endPosition || startSymbol === sectionSymbol {
+                result.append(makeLineTag(text: text, startSymbol: startSymbol, endSymbol: sectionSymbol))
             }
         }
         
@@ -252,7 +258,7 @@ public class SimpleMarkdownTagFinder {
     // MARK: Check text styles
     // --
 
-    private func findTextStyleTags(text: String, symbols: ArraySlice<MarkdownSymbol>, forParagraph: MarkdownTag) -> [MarkdownTag] {
+    private func findTextStyleTags(text: String, symbols: ArraySlice<MarkdownSymbol>, forSection: MarkdownTag) -> [MarkdownTag] {
         // Find matching text style symbols in two batches (the second one is used to catch edge cases)
         var result = [MarkdownTag]()
         var checkSymbols = symbols.filter { $0.type.isTextStyle() }
@@ -301,7 +307,7 @@ public class SimpleMarkdownTagFinder {
     // MARK: Check links
     // --
 
-    private func findLinkTags(text: String, symbols: ArraySlice<MarkdownSymbol>, forParagraph: MarkdownTag) -> [MarkdownTag] {
+    private func findLinkTags(text: String, symbols: ArraySlice<MarkdownSymbol>, forSection: MarkdownTag) -> [MarkdownTag] {
         // Find enclosing link symbols and compose tags (with optional URL override)
         var result = [MarkdownTag]()
         var inLinkSymbol: MarkdownSymbol?
@@ -371,7 +377,7 @@ public class SimpleMarkdownTagFinder {
     // MARK: Check lists
     // --
 
-    private func findListTags(text: String, symbols: ArraySlice<MarkdownSymbol>, forParagraph: MarkdownTag) -> [MarkdownTag] {
+    private func findListTags(text: String, symbols: ArraySlice<MarkdownSymbol>, forSection: MarkdownTag) -> [MarkdownTag] {
         // Find ordered and unordered list items and compose tags
         var result = [MarkdownTag]()
         var inListSymbol: MarkdownSymbol?
@@ -385,7 +391,7 @@ public class SimpleMarkdownTagFinder {
         }
         
         // Add last list item (if needed) and return result
-        if let checkListSymbol = inListSymbol, let endPosition = forParagraph.endPosition, let endIndex = forParagraph.endIndex {
+        if let checkListSymbol = inListSymbol, let endPosition = forSection.endPosition, let endIndex = forSection.endIndex {
             result.append(makeListItemTag(text: text, startSymbol: checkListSymbol, endPosition: endPosition, endIndex: endIndex))
         }
         return result

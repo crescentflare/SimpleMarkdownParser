@@ -132,7 +132,6 @@ class SimpleMarkdownTagFinderTests: XCTestCase {
             "* Third bullet item",
             "  1. Nested first item",
             "  2. Nested second item",
-            "",
             "And some text afterwards with a [link](https://www.github.com)."
         ]
         let expectedTags = [
@@ -169,7 +168,6 @@ class SimpleMarkdownTagFinderTests: XCTestCase {
             WrappedMarkdownTag(type: .orderedList, weight: 2, text: "Nested first item"),
             WrappedMarkdownTag(type: .line, text: "2. Nested second item"),
             WrappedMarkdownTag(type: .orderedList, weight: 2, text: "Nested second item"),
-            WrappedMarkdownTag(type: .line),
             WrappedMarkdownTag(type: .paragraph, text: "And some text afterwards with a [link](https://www.github.com)."),
             WrappedMarkdownTag(type: .line, text: "And some text afterwards with a [link](https://www.github.com)."),
             WrappedMarkdownTag(type: .link, text: "link", extra: "https://www.github.com")
