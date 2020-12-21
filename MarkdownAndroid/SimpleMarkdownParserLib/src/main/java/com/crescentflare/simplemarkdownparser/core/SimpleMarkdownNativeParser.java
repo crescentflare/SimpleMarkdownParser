@@ -1,5 +1,7 @@
 package com.crescentflare.simplemarkdownparser.core;
 
+import com.crescentflare.simplemarkdownparser.tagfinder.MarkdownTag;
+
 /**
  * Simple markdown parser core library: native parser implementation
  * Parses the markdown data in fast native code (useful for big documents)

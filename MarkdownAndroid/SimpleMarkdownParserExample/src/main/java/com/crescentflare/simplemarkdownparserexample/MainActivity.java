@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.crescentflare.simplemarkdownparser.SimpleMarkdownConverter;
 import com.crescentflare.simplemarkdownparser.helper.AlignedListSpan;
 import com.crescentflare.simplemarkdownparser.helper.MarkdownSpanGenerator;
-import com.crescentflare.simplemarkdownparser.core.MarkdownTag;
+import com.crescentflare.simplemarkdownparser.tagfinder.MarkdownTag;
 
 
 /**

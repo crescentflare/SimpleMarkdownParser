@@ -1,5 +1,7 @@
 package com.crescentflare.simplemarkdownparser.core;
 
+import com.crescentflare.simplemarkdownparser.tagfinder.MarkdownTag;
+
 /**
  * Simple markdown parser core library: interface class
  * The interface to do the core (low-level) markdown parsing

@@ -9,7 +9,7 @@ import com.crescentflare.simplemarkdownparser.helper.MarkdownSpanGenerator;
 import com.crescentflare.simplemarkdownparser.core.SimpleMarkdownJavaParser;
 import com.crescentflare.simplemarkdownparser.core.SimpleMarkdownNativeParser;
 import com.crescentflare.simplemarkdownparser.core.SimpleMarkdownParser;
-import com.crescentflare.simplemarkdownparser.core.MarkdownTag;
+import com.crescentflare.simplemarkdownparser.tagfinder.MarkdownTag;
 
 import java.util.ArrayList;
 import java.util.List;

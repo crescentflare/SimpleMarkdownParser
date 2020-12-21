@@ -2,7 +2,7 @@ package com.crescentflare.simplemarkdownparser.helper;
 
 import android.text.SpannableStringBuilder;
 
-import com.crescentflare.simplemarkdownparser.core.MarkdownTag;
+import com.crescentflare.simplemarkdownparser.tagfinder.MarkdownTag;
 
 /**
  * Simple markdown parser library: helper class

@@ -1,5 +1,7 @@
 package com.crescentflare.simplemarkdownparser.core;
 
+import com.crescentflare.simplemarkdownparser.tagfinder.MarkdownTag;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

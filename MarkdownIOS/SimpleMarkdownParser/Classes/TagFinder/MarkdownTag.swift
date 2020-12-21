@@ -2,7 +2,7 @@
 //  MarkdownTag.swift
 //  SimpleMarkdownParser Pod
 //
-//  Library tag parsing: a markdown parapgraph, heading or styling tag found within the markdown text
+//  Library tag parsing: a markdown paragraph, heading or styling tag found within the markdown text
 //
 
 // The enum to define the type of supported markdown tags

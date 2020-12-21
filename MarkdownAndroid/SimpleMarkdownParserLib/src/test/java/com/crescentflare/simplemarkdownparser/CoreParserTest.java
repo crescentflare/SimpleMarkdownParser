@@ -2,7 +2,7 @@ package com.crescentflare.simplemarkdownparser;
 
 import com.crescentflare.simplemarkdownparser.core.SimpleMarkdownJavaParser;
 import com.crescentflare.simplemarkdownparser.core.SimpleMarkdownParser;
-import com.crescentflare.simplemarkdownparser.core.MarkdownTag;
+import com.crescentflare.simplemarkdownparser.tagfinder.MarkdownTag;
 
 import junit.framework.Assert;
 

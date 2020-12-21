@@ -9,7 +9,7 @@ import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.URLSpan;
 
-import com.crescentflare.simplemarkdownparser.core.MarkdownTag;
+import com.crescentflare.simplemarkdownparser.tagfinder.MarkdownTag;
 
 /**
  * Simple markdown parser library: helper class
