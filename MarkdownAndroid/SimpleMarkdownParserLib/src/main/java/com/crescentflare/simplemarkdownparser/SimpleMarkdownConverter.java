@@ -4,8 +4,8 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
-import com.crescentflare.simplemarkdownparser.helper.DefaultMarkdownSpanGenerator;
-import com.crescentflare.simplemarkdownparser.helper.MarkdownSpanGenerator;
+import com.crescentflare.simplemarkdownparser.conversion.DefaultMarkdownSpanGenerator;
+import com.crescentflare.simplemarkdownparser.conversion.MarkdownSpanGenerator;
 import com.crescentflare.simplemarkdownparser.core.SimpleMarkdownJavaParser;
 import com.crescentflare.simplemarkdownparser.core.SimpleMarkdownNativeParser;
 import com.crescentflare.simplemarkdownparser.core.SimpleMarkdownParser;

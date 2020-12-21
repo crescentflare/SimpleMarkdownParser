@@ -268,8 +268,8 @@ public class SimpleMarkdownTagFinder {
             for (int index = 0; index < checkSymbols.size() - 1; index++) {
                 if (phase == 0 && checkSymbols.get(index + 1).type == checkSymbols.get(index).type) {
                     result.add(makeTextStyleTag(checkSymbols.get(index), checkSymbols.get(index + 1)));
-                    checkSymbols.remove(checkSymbols.get(index + 1));
-                    checkSymbols.remove(checkSymbols.get(index));
+                    checkSymbols.remove(index + 1);
+                    checkSymbols.remove(index);
                     break;
                 } else if (phase == 1) {
                     int nextIndex = -1;
@@ -282,7 +282,7 @@ public class SimpleMarkdownTagFinder {
                     if (nextIndex > 0) {
                         result.add(makeTextStyleTag(checkSymbols.get(index), checkSymbols.get(nextIndex)));
                         for (int i = nextIndex; i >= index; i--) {
-                            checkSymbols.remove(checkSymbols.get(i));
+                            checkSymbols.remove(i);
                         }
                         break;
                     }

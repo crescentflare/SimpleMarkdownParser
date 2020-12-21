@@ -1,4 +1,4 @@
-package com.crescentflare.simplemarkdownparser.helper;
+package com.crescentflare.simplemarkdownparser.conversion;
 
 import android.graphics.Typeface;
 import android.text.Spannable;
@@ -9,19 +9,18 @@ import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.URLSpan;
 
+import com.crescentflare.simplemarkdownparser.conversion.MarkdownSpanGenerator;
+import com.crescentflare.simplemarkdownparser.helper.AlignedListSpan;
 import com.crescentflare.simplemarkdownparser.tagfinder.MarkdownTag;
 
 /**
  * Simple markdown parser library: helper class
  * Default implementation of the span generator for markdown conversion
  */
-public class DefaultMarkdownSpanGenerator implements MarkdownSpanGenerator
-{
+public class DefaultMarkdownSpanGenerator implements MarkdownSpanGenerator {
     @Override
-    public void applySpan(SpannableStringBuilder builder, MarkdownTag.Type type, int weight, int start, int end, String extra)
-    {
-        switch (type)
-        {
+    public void applySpan(SpannableStringBuilder builder, MarkdownTag.Type type, int weight, int start, int end, String extra) {
+        switch (type) {
             case Paragraph:
                 builder.setSpan(new RelativeSizeSpan(weight), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 break;
@@ -46,24 +45,19 @@ public class DefaultMarkdownSpanGenerator implements MarkdownSpanGenerator
     }
 
     @Override
-    public String getListToken(MarkdownTag.Type type, int weight, int index)
-    {
+    public String getListToken(MarkdownTag.Type type, int weight, int index) {
         return type == MarkdownTag.Type.OrderedList ? "" + index + "." : bulletTokenForWeight(weight);
     }
 
-    private static float sizeForHeader(int weight)
-    {
-        if (weight >= 1 && weight < 6)
-        {
+    private static float sizeForHeader(int weight) {
+        if (weight >= 1 && weight < 6) {
             return 1.5f - (float)(weight - 1) * 0.1f;
         }
         return 1.0f;
     }
 
-    private static int textStyleForWeight(int weight)
-    {
-        switch (weight)
-        {
+    private static int textStyleForWeight(int weight) {
+        switch (weight) {
             case 1:
                 return Typeface.ITALIC;
             case 2:
@@ -74,14 +68,10 @@ public class DefaultMarkdownSpanGenerator implements MarkdownSpanGenerator
         return Typeface.NORMAL;
     }
 
-    private static String bulletTokenForWeight(int weight)
-    {
-        if (weight == 2)
-        {
+    private static String bulletTokenForWeight(int weight) {
+        if (weight == 2) {
             return "\u25E6 ";
-        }
-        else if (weight >= 3)
-        {
+        } else if (weight >= 3) {
             return "\u25AA ";
         }
         return "\u2022 ";

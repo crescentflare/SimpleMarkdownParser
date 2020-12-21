@@ -42,7 +42,7 @@ public class SimpleMarkdownSymbolStorage
 
     public void cleanOverlaps() {
         // Collect indices to remove
-        List<MarkdownSymbol> removeSymbols = new ArrayList<>();
+        List<Integer> removeSymbols = new ArrayList<>();
 
         // Unordered list items override text style
         for (int index = 0; index < symbols.size(); index++) {
@@ -59,7 +59,7 @@ public class SimpleMarkdownSymbolStorage
                     if (checkIndex != index) {
                         if (symbols.get(checkIndex).startPosition == symbols.get(index).startPosition) {
                             if (symbols.get(checkIndex).type == MarkdownSymbol.Type.UnorderedListItem){
-                                removeSymbols.add(symbols.get(index));
+                                removeSymbols.add(index);
                                 break;
                             }
                         } else {
@@ -72,7 +72,8 @@ public class SimpleMarkdownSymbolStorage
 
         // Remove symbols
         for (int i = removeSymbols.size() - 1; i >= 0 ; i--) {
-            symbols.remove(removeSymbols.get(i));
+            int removeIndex = removeSymbols.get(i);
+            symbols.remove(removeIndex);
         }
     }
 }

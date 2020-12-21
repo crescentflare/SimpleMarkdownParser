@@ -1,4 +1,4 @@
-package com.crescentflare.simplemarkdownparser.helper;
+package com.crescentflare.simplemarkdownparser.conversion;
 
 import android.text.SpannableStringBuilder;
 
@@ -9,8 +9,7 @@ import com.crescentflare.simplemarkdownparser.tagfinder.MarkdownTag;
  * An interface to generate spans for markdown tags
  * Provide an implementation to customize styling
  */
-public interface MarkdownSpanGenerator
-{
+public interface MarkdownSpanGenerator {
     void applySpan(SpannableStringBuilder builder, MarkdownTag.Type type, int weight, int start, int end, String extra);
     String getListToken(MarkdownTag.Type type, int weight, int index);
 }

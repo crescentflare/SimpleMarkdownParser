@@ -7,8 +7,8 @@ import org.jetbrains.annotations.Nullable;
  * Simple markdown parser library: symbol
  * Used to define symbols in a markdown document, like header and text style markers
  */
-public class MarkdownSymbol implements Comparable<MarkdownSymbol>
-{
+public class MarkdownSymbol implements Comparable<MarkdownSymbol> {
+
     // --
     // Type enum
     // --
