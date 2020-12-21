@@ -9,8 +9,8 @@ import java.util.List;
 /**
  * Symbol finder test: find symbols in markdown text
  */
-public class SimpleMarkdownSymbolFinderTest
-{
+public class SimpleMarkdownSymbolFinderTest {
+
     // --
     // Tests
     // --
