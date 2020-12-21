@@ -8,8 +8,7 @@ import org.jetbrains.annotations.NotNull;
  * It returns ranges for the markdown symbols which are used within the library
  * Use manually if the output needs to be highly customizable
  */
-public interface SimpleMarkdownSymbolFinder
-{
+public interface SimpleMarkdownSymbolFinder {
     @NotNull SimpleMarkdownSymbolStorage getSymbolStorage();
     void scanText(@NotNull String text);
 }

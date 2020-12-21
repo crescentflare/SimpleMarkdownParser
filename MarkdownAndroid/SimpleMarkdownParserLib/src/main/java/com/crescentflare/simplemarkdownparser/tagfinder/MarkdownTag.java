@@ -3,6 +3,7 @@ package com.crescentflare.simplemarkdownparser.tagfinder;
 import com.crescentflare.simplemarkdownparser.symbolfinder.MarkdownSymbol;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * Simple markdown parser library: tag
  * A markdown paragraph, heading or styling tag found within the markdown text
  */
-public class MarkdownTag {
+public class MarkdownTag implements Comparable<MarkdownTag> {
 
     // --
     // Type enum
@@ -32,6 +33,15 @@ public class MarkdownTag {
 
         public boolean isSection() {
             return this == Paragraph || this == Header || this == List;
+        }
+
+        public int enumIndex() {
+            for (int i = 0; i < values().length; i++) {
+                if (values()[i] == this) {
+                    return i;
+                }
+            }
+            return -1;
         }
     }
 
@@ -93,5 +103,21 @@ public class MarkdownTag {
         this.startExtra = startExtra;
         this.endExtra = endExtra;
         this.escapeSymbols = escapeSymbols;
+    }
+
+
+    // --
+    // Comparable implementation
+    // --
+
+    @Override
+    public int compareTo(@Nullable MarkdownTag other) {
+        if (other != null) {
+            if (startPosition == other.startPosition) {
+                return type.enumIndex() - other.type.enumIndex();
+            }
+            return startPosition - other.startPosition;
+        }
+        return 0;
     }
 }

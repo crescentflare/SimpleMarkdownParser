@@ -6,8 +6,8 @@ import org.jetbrains.annotations.NotNull;
  * Simple markdown parser library: symbol finder java class
  * Implements the symbol finder in java
  */
-public class SimpleMarkdownSymbolFinderJava implements SimpleMarkdownSymbolFinder
-{
+public class SimpleMarkdownSymbolFinderJava implements SimpleMarkdownSymbolFinder {
+
     // --
     // Members
     // --
