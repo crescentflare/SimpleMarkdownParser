@@ -116,7 +116,7 @@ public:
         }
 
         // Check for double quotes
-        if (!escaped && character == '\"') {
+        if (!escaped && character == '"') {
             symbols.emplace_back(MARKDOWN_SYMBOL_DOUBLE_QUOTE, currentLine, index, nextIndex, linePosition);
         }
 
