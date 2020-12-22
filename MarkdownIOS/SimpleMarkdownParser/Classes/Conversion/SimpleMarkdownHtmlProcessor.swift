@@ -74,7 +74,7 @@ public class SimpleMarkdownHtmlProcessor {
                     htmlTags.append(MarkdownHtmlTag(index: tag.endIndex, tag: .closeListItem, counter: htmlTags.count))
                 case .line:
                     let htmlTag = MarkdownHtmlTag(index: tag.endIndex, tag: .lineBreak, counter: htmlTags.count)
-                    htmlTag.preventCancelation = sectionTag.type == .list && tag.endPosition == sectionTag.endPosition
+                    htmlTag.preventCancellation = sectionTag.type == .list && tag.endPosition == sectionTag.endPosition
                     htmlTags.append(htmlTag)
                 default:
                     break
@@ -85,7 +85,7 @@ public class SimpleMarkdownHtmlProcessor {
         // Remove line breaks canceled by other html tags
         var removeIndices = [Int]()
         for index in htmlTags.indices {
-            if htmlTags[index].tag == .lineBreak && !htmlTags[index].preventCancelation {
+            if htmlTags[index].tag == .lineBreak && !htmlTags[index].preventCancellation {
                 for checkIndex in htmlTags.indices {
                     if checkIndex != index && htmlTags[index].index == htmlTags[checkIndex].index && htmlTags[checkIndex].tag.cancelsLineBreak() {
                         removeIndices.append(index)
@@ -229,7 +229,7 @@ private class MarkdownHtmlTag {
     let tag: MarkdownHtmlTagType
     let counter: Int
     let value: String?
-    var preventCancelation = false
+    var preventCancellation = false
     
     init(index: String.Index, tag: MarkdownHtmlTagType, counter: Int, value: String? = nil) {
         self.index = index
