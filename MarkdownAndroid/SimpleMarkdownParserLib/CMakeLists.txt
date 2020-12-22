@@ -17,7 +17,6 @@ add_library( # Sets the name of the library.
              SHARED
 
              # Provides a relative path to your source file(s).
-             src/main/cpp/simplemarkdownnativeparser.cpp
              src/main/cpp/simplemarkdownsymbolfindernative.cpp
              src/main/cpp/utfstring.cpp )
 
