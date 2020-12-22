@@ -88,20 +88,25 @@ public class SimpleMarkdownHtmlProcessor {
                         int clippedWeight = Math.max(1, Math.min(tag.weight, 3));
                         htmlTags.add(new MarkdownHtmlTag(tag.startPosition, MarkdownHtmlTagType.allOpenTextStyles.get(clippedWeight - 1), htmlTags.size()));
                         htmlTags.add(new MarkdownHtmlTag(tag.endPosition, MarkdownHtmlTagType.allCloseTextStyles.get(clippedWeight - 1), htmlTags.size()));
+                        break;
                     case AlternativeTextStyle:
                         htmlTags.add(new MarkdownHtmlTag(tag.startPosition, MarkdownHtmlTagType.OpenAlternativeTextStyle, htmlTags.size()));
                         htmlTags.add(new MarkdownHtmlTag(tag.endPosition, MarkdownHtmlTagType.CloseAlternativeTextStyle, htmlTags.size()));
+                        break;
                     case Link:
                         htmlTags.add(new MarkdownHtmlTag(tag.startPosition, MarkdownHtmlTagType.OpenLink, htmlTags.size(), tag.link));
                         htmlTags.add(new MarkdownHtmlTag(tag.endPosition, MarkdownHtmlTagType.CloseLink, htmlTags.size()));
+                        break;
                     case OrderedList:
                     case UnorderedList:
                         htmlTags.add(new MarkdownHtmlTag(tag.startPosition, MarkdownHtmlTagType.OpenListItem, htmlTags.size()));
                         htmlTags.add(new MarkdownHtmlTag(tag.endPosition, MarkdownHtmlTagType.CloseListItem, htmlTags.size()));
+                        break;
                     case Line:
                         MarkdownHtmlTag htmlTag = new MarkdownHtmlTag(tag.endPosition, MarkdownHtmlTagType.LineBreak, htmlTags.size());
                         htmlTag.preventCancellation = sectionTag.type == MarkdownTag.Type.List && tag.endPosition == sectionTag.endPosition;
                         htmlTags.add(htmlTag);
+                        break;
                     default:
                         break;
                 }
@@ -284,9 +289,9 @@ public class SimpleMarkdownHtmlProcessor {
         public int compareTo(@Nullable MarkdownHtmlTag other) {
             if (other != null) {
                 if (position != other.position) {
-                    return position - other.position;
+                    return other.position - position;
                 } else if (tag.priority() != other.tag.priority()) {
-                    return tag.priority() - other.tag.priority();
+                    return other.tag.priority() - tag.priority();
                 } else {
                     return tag.isClosingTag() ? counter - other.counter : other.counter - counter;
                 }

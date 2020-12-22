@@ -197,7 +197,7 @@ public class SimpleMarkdownTagFinder {
             if (symbol.line == checkLine && symbol.linePosition == checkLinePosition) {
                 switch (symbol.type) {
                     case Header:
-                    return MarkdownTag.Type.Header;
+                        return MarkdownTag.Type.Header;
                     case OrderedListItem:
                     case UnorderedListItem:
                         return MarkdownTag.Type.List;

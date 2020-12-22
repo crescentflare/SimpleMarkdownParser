@@ -1,9 +1,11 @@
 package com.crescentflare.simplemarkdownparser.conversion;
 
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
@@ -13,17 +15,22 @@ import com.crescentflare.simplemarkdownparser.conversion.MarkdownSpanGenerator;
 import com.crescentflare.simplemarkdownparser.helper.AlignedListSpan;
 import com.crescentflare.simplemarkdownparser.tagfinder.MarkdownTag;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
- * Simple markdown parser library: helper class
+ * Simple markdown parser library: span generator implementation
  * Default implementation of the span generator for markdown conversion
  */
 public class DefaultMarkdownSpanGenerator implements MarkdownSpanGenerator {
+
+    // --
+    // Implementation
+    // --
+
     @Override
-    public void applySpan(SpannableStringBuilder builder, MarkdownTag.Type type, int weight, int start, int end, String extra) {
+    public void applySpan(@NotNull SpannableStringBuilder builder, @NotNull MarkdownTag.Type type, int weight, int start, int end, @NotNull String extra) {
         switch (type) {
-            case Paragraph:
-                builder.setSpan(new RelativeSizeSpan(weight), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                break;
             case Header:
                 builder.setSpan(new RelativeSizeSpan(sizeForHeader(weight)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 builder.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -44,10 +51,20 @@ public class DefaultMarkdownSpanGenerator implements MarkdownSpanGenerator {
         }
     }
 
+    public void applySectionSpacerAttribute(@NotNull SpannableStringBuilder builder, @NotNull MarkdownTag.Type previousSectionType, int previousSectionWeight, @NotNull MarkdownTag.Type nextSectionType, int nextSectionWeight, int start, int end) {
+        int spacing = nextSectionType == MarkdownTag.Type.Header && previousSectionType != MarkdownTag.Type.Header ? 16 : 8;
+        builder.setSpan(new AbsoluteSizeSpan((int)(Resources.getSystem().getDisplayMetrics().density * spacing)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    }
+
     @Override
-    public String getListToken(MarkdownTag.Type type, int weight, int index) {
+    @NotNull public String getListToken(@NotNull MarkdownTag.Type type, int weight, int index) {
         return type == MarkdownTag.Type.OrderedList ? "" + index + "." : bulletTokenForWeight(weight);
     }
+
+
+    // --
+    // Helpers
+    // --
 
     private static float sizeForHeader(int weight) {
         if (weight >= 1 && weight < 6) {

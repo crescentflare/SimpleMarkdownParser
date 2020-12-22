@@ -115,6 +115,7 @@ public class SimpleMarkdownTextProcessor {
 
             // Add processed inner tags
             List<ProcessorRange> deleteRanges = getDeleteRanges(sectionTag, copyRanges);
+            ArrayList<Integer> listWeightCounter = new ArrayList<>();
             int blockPositionAdjustment = sectionTag.startPosition - startTextPosition;
             for (MarkdownTag innerTag : innerTags) {
                 // Calculate position offset adjustments
@@ -127,17 +128,16 @@ public class SimpleMarkdownTextProcessor {
                         int startAdjustment = Math.max(0, Math.min(rangeLength, innerTag.startText - range.startPosition));
                         startOffset -= startAdjustment;
                         endOffset -= startAdjustment + Math.min(tagLength, Math.min(rangeLength, Math.max(0, Math.min(innerTag.endText - range.startPosition, range.endPosition - innerTag.startText))));
-                    } else if ((range.type == ProcessorRangeType.Insert || range.type == ProcessorRangeType.InsertListToken) && range.startPosition < innerTag.endText) {
+                    } else if (range.type.isInsert() && range.startPosition < innerTag.endText) {
                         int length = range.insertText != null ? range.insertText.length() : 0;
-                        boolean includeInTag = range.type == ProcessorRangeType.InsertListToken && (innerTag.type == MarkdownTag.Type.OrderedList || innerTag.type == MarkdownTag.Type.UnorderedList || innerTag.type == MarkdownTag.Type.Line) && range.startPosition == innerTag.startText;
-                        if (range.endPosition <= innerTag.startText && !includeInTag) {
+                        if (range.endPosition <= innerTag.startText) {
                             startOffset += length;
                         }
                         endOffset += length;
                     }
                 }
 
-                // Add processed tag
+                // Create processed tag
                 int startPosition = innerTag.startText + startOffset;
                 int endPosition = innerTag.endText + endOffset;
                 ProcessedMarkdownTag processedTag = new ProcessedMarkdownTag(innerTag.type, innerTag.weight, startPosition, endPosition);
@@ -148,6 +148,27 @@ public class SimpleMarkdownTextProcessor {
                         processedTag.link = originalText.substring(innerTag.startText, innerTag.endText);
                     }
                 }
+
+                // Count list items
+                if ((processedTag.type == MarkdownTag.Type.OrderedList || processedTag.type == MarkdownTag.Type.UnorderedList) && spanGenerator != null) {
+                    int weightIndex = Math.max(0, processedTag.weight - 1);
+                    if (weightIndex >= listWeightCounter.size()) {
+                        for (int i = listWeightCounter.size(); i <= weightIndex; i++) {
+                            listWeightCounter.add(0);
+                        }
+                    } else if (weightIndex + 1 < listWeightCounter.size()) {
+                        int removeItems = listWeightCounter.size() - weightIndex - 1;
+                        for (int i = 0; i < removeItems; i++) {
+                            listWeightCounter.remove(listWeightCounter.size() - 1);
+                        }
+                    } else if ((listWeightCounter.get(weightIndex) > 0) != (processedTag.type == MarkdownTag.Type.OrderedList)) {
+                        listWeightCounter.set(weightIndex, 0);
+                    }
+                    processedTag.counter = Math.abs(listWeightCounter.get(weightIndex)) + 1;
+                    listWeightCounter.set(weightIndex, listWeightCounter.get(weightIndex) + (processedTag.type == MarkdownTag.Type.OrderedList ? 1 : -1));
+                }
+
+                // And add it
                 tags.add(processedTag);
             }
 
@@ -219,7 +240,6 @@ public class SimpleMarkdownTextProcessor {
         }
 
         // Process inner tags
-        ArrayList<Integer> listWeightCounter = new ArrayList<>();
         for (MarkdownTag innerTag : innerTags) {
             // Mark leading text for removal
             if (innerTag.startText > innerTag.startPosition) {
@@ -243,39 +263,9 @@ public class SimpleMarkdownTextProcessor {
                 }
             }
 
-            // Insert text for newlines and lists
-            if (innerTag.type == MarkdownTag.Type.Line) {
-                if (sectionTag.type == MarkdownTag.Type.List) {
-                    boolean foundListTag = false;
-                    for (MarkdownTag checkTag : innerTags) {
-                        if ((checkTag.type == MarkdownTag.Type.OrderedList || checkTag.type == MarkdownTag.Type.UnorderedList) && checkTag.startPosition == innerTag.startText) {
-                            foundListTag = true;
-                            break;
-                        }
-                    }
-                    if (!foundListTag && spanGenerator != null) {
-                        modifyRanges.add(new ProcessorRange(innerTag.startText, innerTag.startText, ProcessorRangeType.InsertListToken, spanGenerator.getListToken(MarkdownTag.Type.Line, 0, 0)));
-                    }
-                }
-                if (innerTag.endPosition < sectionTag.endPosition) {
-                    modifyRanges.add(new ProcessorRange(innerTag.endText, innerTag.endText, ProcessorRangeType.Insert, "\n"));
-                }
-            } else if ((innerTag.type == MarkdownTag.Type.OrderedList || innerTag.type == MarkdownTag.Type.UnorderedList) && spanGenerator != null) {
-                int weightIndex = Math.max(0, innerTag.weight - 1);
-                if (weightIndex >= listWeightCounter.size()) {
-                    for (int i = listWeightCounter.size(); i < weightIndex; i++) {
-                        listWeightCounter.add(0);
-                    }
-                } else if (weightIndex + 1 < listWeightCounter.size()) {
-                    int removeItems = listWeightCounter.size() - weightIndex - 1;
-                    for (int i = 0; i < removeItems; i++) {
-                        listWeightCounter.remove(listWeightCounter.size() - 1);
-                    }
-                } else if ((listWeightCounter.get(weightIndex) > 0) != (innerTag.type == MarkdownTag.Type.OrderedList)) {
-                    listWeightCounter.set(weightIndex, 0);
-                }
-                modifyRanges.add(new ProcessorRange(innerTag.startText, innerTag.startText, ProcessorRangeType.InsertListToken, spanGenerator.getListToken(innerTag.type, innerTag.weight, Math.abs(listWeightCounter.get(weightIndex)) + 1)));
-                listWeightCounter.set(weightIndex, listWeightCounter.get(weightIndex) + (innerTag.type == MarkdownTag.Type.OrderedList ? 1 : -1));
+            // Insert text for newlines
+            if (innerTag.type == MarkdownTag.Type.Line && innerTag.endPosition < sectionTag.endPosition) {
+                modifyRanges.add(new ProcessorRange(innerTag.endText, innerTag.endText, ProcessorRangeType.Insert, "\n"));
             }
         }
         Collections.sort(modifyRanges);
@@ -314,11 +304,10 @@ public class SimpleMarkdownTextProcessor {
     private enum ProcessorRangeType {
         Copy,
         Delete,
-        Insert,
-        InsertListToken;
+        Insert;
 
         public boolean isInsert() {
-            return this == Insert || this == InsertListToken;
+            return this == Insert;
         }
     }
 

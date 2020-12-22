@@ -18,6 +18,7 @@ public class ProcessedMarkdownTag implements Comparable<ProcessedMarkdownTag> {
     public int endPosition;
     public int weight;
     @Nullable public String link;
+    public int counter;
 
 
     // --
