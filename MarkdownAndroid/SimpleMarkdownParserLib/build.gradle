@@ -55,6 +55,7 @@ android {
 }
 
 dependencies {
+    compileOnly 'org.jetbrains:annotations:16.0.2'
     testImplementation 'junit:junit:4.12'
 }
 
