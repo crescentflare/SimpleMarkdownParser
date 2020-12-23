@@ -96,7 +96,7 @@ public class SimpleMarkdownConverter {
 
             // Apply span from tag
             String extra = "";
-            if (tag.type == MarkdownTag.Type.OrderedList || tag.type == MarkdownTag.Type.UnorderedList) {
+            if (tag.type == MarkdownTag.Type.OrderedListItem || tag.type == MarkdownTag.Type.UnorderedListItem) {
                 extra = spanGenerator.getListToken(tag.type, tag.weight, tag.counter);
             } else if (tag.link != null) {
                 extra = tag.link;

@@ -397,7 +397,7 @@ public class SimpleMarkdownTagFinder {
 
     private MarkdownTag makeListItemTag(String text, MarkdownSymbol startSymbol, int endPosition) {
         MarkdownTag tag = new MarkdownTag(
-            startSymbol.type == MarkdownSymbol.Type.OrderedListItem ? MarkdownTag.Type.OrderedList : MarkdownTag.Type.UnorderedList,
+            startSymbol.type == MarkdownSymbol.Type.OrderedListItem ? MarkdownTag.Type.OrderedListItem : MarkdownTag.Type.UnorderedListItem,
             1 + startSymbol.linePosition / 2,
             startSymbol.startPosition,
             endPosition,

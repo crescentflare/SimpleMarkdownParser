@@ -150,7 +150,7 @@ public class SimpleMarkdownTextProcessor {
                 }
 
                 // Count list items
-                if ((processedTag.type == MarkdownTag.Type.OrderedList || processedTag.type == MarkdownTag.Type.UnorderedList) && spanGenerator != null) {
+                if ((processedTag.type == MarkdownTag.Type.OrderedListItem || processedTag.type == MarkdownTag.Type.UnorderedListItem) && spanGenerator != null) {
                     int weightIndex = Math.max(0, processedTag.weight - 1);
                     if (weightIndex >= listWeightCounter.size()) {
                         for (int i = listWeightCounter.size(); i <= weightIndex; i++) {
@@ -161,11 +161,11 @@ public class SimpleMarkdownTextProcessor {
                         for (int i = 0; i < removeItems; i++) {
                             listWeightCounter.remove(listWeightCounter.size() - 1);
                         }
-                    } else if ((listWeightCounter.get(weightIndex) > 0) != (processedTag.type == MarkdownTag.Type.OrderedList)) {
+                    } else if ((listWeightCounter.get(weightIndex) > 0) != (processedTag.type == MarkdownTag.Type.OrderedListItem)) {
                         listWeightCounter.set(weightIndex, 0);
                     }
                     processedTag.counter = Math.abs(listWeightCounter.get(weightIndex)) + 1;
-                    listWeightCounter.set(weightIndex, listWeightCounter.get(weightIndex) + (processedTag.type == MarkdownTag.Type.OrderedList ? 1 : -1));
+                    listWeightCounter.set(weightIndex, listWeightCounter.get(weightIndex) + (processedTag.type == MarkdownTag.Type.OrderedListItem ? 1 : -1));
                 }
 
                 // And add it

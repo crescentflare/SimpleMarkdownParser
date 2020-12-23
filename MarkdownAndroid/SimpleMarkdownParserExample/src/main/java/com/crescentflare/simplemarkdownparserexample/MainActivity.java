@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
                     case Header:
                         builder.setSpan(new RelativeSizeSpan(2 - weight * 0.15f), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         break;
-                    case OrderedList:
-                    case UnorderedList:
+                    case OrderedListItem:
+                    case UnorderedListItem:
                         builder.setSpan(new AlignedListSpan(extra, 20 + (weight - 1) * 10, 8), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                         break;
                     case TextStyle: {
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public String getListToken(MarkdownTag.Type type, int weight, int index) {
                 StringBuilder token = new StringBuilder();
-                if (type == MarkdownTag.Type.OrderedList) {
+                if (type == MarkdownTag.Type.OrderedListItem) {
                     for (int i = 0; i < index; i++) {
                         token.append("i");
                     }

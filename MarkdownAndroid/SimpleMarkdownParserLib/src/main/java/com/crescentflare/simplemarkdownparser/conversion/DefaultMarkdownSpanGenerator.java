@@ -11,12 +11,10 @@ import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.URLSpan;
 
-import com.crescentflare.simplemarkdownparser.conversion.MarkdownSpanGenerator;
 import com.crescentflare.simplemarkdownparser.helper.AlignedListSpan;
 import com.crescentflare.simplemarkdownparser.tagfinder.MarkdownTag;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Simple markdown parser library: span generator implementation
@@ -35,8 +33,8 @@ public class DefaultMarkdownSpanGenerator implements MarkdownSpanGenerator {
                 builder.setSpan(new RelativeSizeSpan(sizeForHeader(weight)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 builder.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 break;
-            case OrderedList:
-            case UnorderedList:
+            case OrderedListItem:
+            case UnorderedListItem:
                 builder.setSpan(new AlignedListSpan(extra, 30 + (weight - 1) * 15, 5), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 break;
             case TextStyle:
@@ -58,7 +56,7 @@ public class DefaultMarkdownSpanGenerator implements MarkdownSpanGenerator {
 
     @Override
     @NotNull public String getListToken(@NotNull MarkdownTag.Type type, int weight, int index) {
-        return type == MarkdownTag.Type.OrderedList ? "" + index + "." : bulletTokenForWeight(weight);
+        return type == MarkdownTag.Type.OrderedListItem ? "" + index + "." : bulletTokenForWeight(weight);
     }
 
 

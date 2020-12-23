@@ -75,7 +75,7 @@ public class SimpleMarkdownHtmlProcessor {
                 }
             }
             for (ProcessedMarkdownTag tag : innerTags) {
-                if (tag.type == MarkdownTag.Type.OrderedList || tag.type == MarkdownTag.Type.UnorderedList) {
+                if (tag.type == MarkdownTag.Type.OrderedListItem || tag.type == MarkdownTag.Type.UnorderedListItem) {
                     innerListTags.add(tag);
                 }
             }
@@ -97,8 +97,8 @@ public class SimpleMarkdownHtmlProcessor {
                         htmlTags.add(new MarkdownHtmlTag(tag.startPosition, MarkdownHtmlTagType.OpenLink, htmlTags.size(), tag.link));
                         htmlTags.add(new MarkdownHtmlTag(tag.endPosition, MarkdownHtmlTagType.CloseLink, htmlTags.size()));
                         break;
-                    case OrderedList:
-                    case UnorderedList:
+                    case OrderedListItem:
+                    case UnorderedListItem:
                         htmlTags.add(new MarkdownHtmlTag(tag.startPosition, MarkdownHtmlTagType.OpenListItem, htmlTags.size()));
                         htmlTags.add(new MarkdownHtmlTag(tag.endPosition, MarkdownHtmlTagType.CloseListItem, htmlTags.size()));
                         break;
@@ -172,8 +172,8 @@ public class SimpleMarkdownHtmlProcessor {
         }
 
         // Insert list section tags
-        htmlTags.add(new MarkdownHtmlTag(innerTags.get(startIndex).startPosition, checkType == MarkdownTag.Type.OrderedList ? MarkdownHtmlTagType.OpenOrderedList : MarkdownHtmlTagType.OpenUnorderedList, htmlTags.size()));
-        htmlTags.add(new MarkdownHtmlTag(innerTags.get(endIndex - 1).endPosition, checkType == MarkdownTag.Type.OrderedList ? MarkdownHtmlTagType.CloseOrderedList : MarkdownHtmlTagType.CloseUnorderedList, htmlTags.size()));
+        htmlTags.add(new MarkdownHtmlTag(innerTags.get(startIndex).startPosition, checkType == MarkdownTag.Type.OrderedListItem ? MarkdownHtmlTagType.OpenOrderedList : MarkdownHtmlTagType.OpenUnorderedList, htmlTags.size()));
+        htmlTags.add(new MarkdownHtmlTag(innerTags.get(endIndex - 1).endPosition, checkType == MarkdownTag.Type.OrderedListItem ? MarkdownHtmlTagType.CloseOrderedList : MarkdownHtmlTagType.CloseUnorderedList, htmlTags.size()));
 
         // Call recursively for a higher weight, or continuation into a different list type
         addHtmlListTags(innerTags, startIndex, endIndex, weight + 1);

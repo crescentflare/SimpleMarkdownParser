@@ -19,14 +19,13 @@ public class MarkdownTag implements Comparable<MarkdownTag> {
     // --
 
     public enum Type {
-        Normal, // To be deprecated
         Paragraph,
         Header,
         List,
         Line,
         SectionSpacer,
-        OrderedList,
-        UnorderedList,
+        OrderedListItem,
+        UnorderedListItem,
         Link,
         TextStyle,
         AlternativeTextStyle;
@@ -50,28 +49,20 @@ public class MarkdownTag implements Comparable<MarkdownTag> {
     // Members
     // --
 
-    public static final int FLAG_NONE = 0x0; // To be deprecated
-    public static final int FLAG_ESCAPED = 0x40000000; // To be deprecated
-
-    @NotNull public Type type = Type.Normal;
-    public int flags = FLAG_NONE; // To be deprecated
-    public int startPosition = -1;
-    public int endPosition = -1;
-    public int startText = -1;
-    public int endText = -1;
-    public int startExtra = -1;
-    public int endExtra = -1;
-    public int weight = 0;
-    public int nativeInfo[] = null; // To be deprecated
-    public List<MarkdownSymbol> escapeSymbols = new ArrayList<>();
+    @NotNull public Type type;
+    public int startPosition;
+    public int endPosition;
+    public int startText;
+    public int endText;
+    public int startExtra;
+    public int endExtra;
+    public int weight;
+    public List<MarkdownSymbol> escapeSymbols;
 
 
     // --
     // Initialization
     // --
-
-    public MarkdownTag() { // To be deprecated
-    }
 
     public MarkdownTag(@NotNull Type type, int weight, int startPosition, int endPosition) {
         this(type, weight, startPosition, endPosition, startPosition, endPosition, -1, -1, new ArrayList<MarkdownSymbol>());
