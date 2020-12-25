@@ -4,6 +4,7 @@
 **/*.iml
 /build
 **/build
+**/.cxx
 /local.properties
 .DS_Store
 /captures

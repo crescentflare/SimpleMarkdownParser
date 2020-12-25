@@ -1,5 +1,8 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorAccent">#000000</item>
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorAccent">@color/text</item>
+    </style>
+    <style name="AppTheme.Splash">
+        <item name="android:windowBackground">@drawable/splash</item>
     </style>
 </resources>

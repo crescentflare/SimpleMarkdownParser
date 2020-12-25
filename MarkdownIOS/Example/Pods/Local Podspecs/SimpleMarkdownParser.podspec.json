@@ -1,6 +1,6 @@
 {
   "name": "SimpleMarkdownParser",
-  "version": "0.6.6",
+  "version": "0.7.0",
   "swift_versions": "5.0",
   "summary": "A multi-functional and easy way to integrate markdown formatting within mobile apps.",
   "description": "Easy to use, convert markdown to attributed strings and place it on a UILabel. Highly customizable to implement custom styling. Supports a basic set of commonly used markdown.",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/crescentflare/SimpleMarkdownParser.git",
-    "tag": "0.6.6"
+    "tag": "0.7.0"
   },
   "platforms": {
     "ios": "8.0"

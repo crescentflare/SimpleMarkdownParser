@@ -7,11 +7,14 @@
 
 A multi-functional and easy way to integrate markdown formatting within mobile apps. Supports iOS and Android.
 
+**Important**
+In version 0.7.0 the parser has been mostly rewritten using modern parsing techniques to make it more easy to add new features later. There is a migration guide available on the [wiki](https://github.com/crescentflare/SimpleMarkdownParser/wiki) which lists all the improvements and changes on how to make your app compatible with the new version. If you find a bug that was not in the previous version, make sure to create an [issue](https://github.com/crescentflare/SimpleMarkdownParser/issues) (including a sample of the markdown text causing the bug).
+
 
 ### Features
 
 * Easy to use, convert markdown to attributed text for UILabels (iOS) or spannable strings for TextViews (Android)
-* Highly customizable, use the core library to search for markdown tags for customized styling
+* Highly customizable, use markdown parse phases directly to search for markdown symbols and tags for customized styling and text processing
 * Also customizable without using the core library through a simple protocol (iOS) or interface (Android)
 * Parses the following markdown tags: headers (\#), text styles (italics and bold), strike through text, lists and links
 * Supports escaping of markdown tag characters (using \\)
@@ -24,13 +27,13 @@ A multi-functional and easy way to integrate markdown formatting within mobile a
 The library is available through [CocoaPods](http://cocoapods.org). To install it, simply add one of the following lines to your Podfile.
 
 ```ruby
-pod "SimpleMarkdownParser", '~> 0.6.6'
+pod "SimpleMarkdownParser", '~> 0.7.0'
 ```
 
 ##### Carthage
 
 ```ruby
-github "crescentflare/SimpleMarkdownParser" ~> 0.6.6
+github "crescentflare/SimpleMarkdownParser" ~> 0.7.0
 ```
 
 ##### Older versions
@@ -48,7 +51,7 @@ The newest version is for Swift 5.0. For older Swift versions use the following:
 When using gradle, the library can easily be imported into the build.gradle file of your project. Add the following dependency:
 
 ```
-compile 'com.crescentflare.simplemarkdownparser:SimpleMarkdownParserLib:0.6.6'
+compile 'com.crescentflare.simplemarkdownparser:SimpleMarkdownParserLib:0.7.0'
 ```
 
 Make sure that jcenter is added as a repository.
@@ -68,4 +71,4 @@ The provided example shows how to parse markdown, convert it to an attributed te
 
 ### Status
 
-The library is new and doesn't contain all markdown features, but the commonly used features should be supported. Markdown conversion and customization is now complete enough to be used in an easy way. More markdown support and features will be added later.
+The library has just been rewritten to use more modern parsing techniques. It has been tested using unit tests and several samples, but there are still risks for bugs (read the disclaimer at the top). It should be feature complete for the most common markdown cases. More markdown support and features may be added later.
