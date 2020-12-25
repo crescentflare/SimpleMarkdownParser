@@ -495,7 +495,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 48EFD147D0C035EB610D08FE /* Pods-SimpleMarkdownParser_Example.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SimpleMarkdownParser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -510,7 +509,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D4E7D708EE4C095542390BE /* Pods-SimpleMarkdownParser_Example.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SimpleMarkdownParser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -525,7 +523,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BDF15FD1AA48CC66DBE5EF2D /* Pods-SimpleMarkdownParser_Tests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -546,7 +543,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EE79E162ADE4938B5ECE567B /* Pods-SimpleMarkdownParser_Tests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
