@@ -13,6 +13,6 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface MarkdownSpanGenerator {
     void applySpan(@NotNull SpannableStringBuilder builder, @NotNull MarkdownTag.Type type, int weight, int start, int end, @NotNull String extra);
-    void applySectionSpacerAttribute(@NotNull SpannableStringBuilder builder, @NotNull MarkdownTag.Type previousSectionType, int previousSectionWeight, @NotNull MarkdownTag.Type nextSectionType, int nextSectionWeight, int start, int end);
+    void applySectionSpacerSpan(@NotNull SpannableStringBuilder builder, @NotNull MarkdownTag.Type previousSectionType, int previousSectionWeight, @NotNull MarkdownTag.Type nextSectionType, int nextSectionWeight, int start, int end);
     @NotNull String getListToken(@NotNull MarkdownTag.Type type, int weight, int index);
 }
