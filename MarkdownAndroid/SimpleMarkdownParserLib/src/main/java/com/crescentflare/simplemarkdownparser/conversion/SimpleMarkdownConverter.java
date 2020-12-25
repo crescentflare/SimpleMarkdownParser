@@ -90,7 +90,7 @@ public class SimpleMarkdownConverter {
                     }
                 }
                 if (previousSectionTagType != null && nextSectionTagType != null) {
-                    spanGenerator.applySectionSpacerAttribute(spannableString, previousSectionTagType, previousSectionWeight, nextSectionTagType, nextSectionWeight, tag.startPosition, tag.endPosition);
+                    spanGenerator.applySectionSpacerSpan(spannableString, previousSectionTagType, previousSectionWeight, nextSectionTagType, nextSectionWeight, tag.startPosition, tag.endPosition);
                 }
             }
 

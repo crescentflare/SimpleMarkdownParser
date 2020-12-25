@@ -49,7 +49,7 @@ public class DefaultMarkdownSpanGenerator implements MarkdownSpanGenerator {
         }
     }
 
-    public void applySectionSpacerAttribute(@NotNull SpannableStringBuilder builder, @NotNull MarkdownTag.Type previousSectionType, int previousSectionWeight, @NotNull MarkdownTag.Type nextSectionType, int nextSectionWeight, int start, int end) {
+    public void applySectionSpacerSpan(@NotNull SpannableStringBuilder builder, @NotNull MarkdownTag.Type previousSectionType, int previousSectionWeight, @NotNull MarkdownTag.Type nextSectionType, int nextSectionWeight, int start, int end) {
         int spacing = nextSectionType == MarkdownTag.Type.Header && previousSectionType != MarkdownTag.Type.Header ? 16 : 8;
         builder.setSpan(new AbsoluteSizeSpan((int)(Resources.getSystem().getDisplayMetrics().density * spacing)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
