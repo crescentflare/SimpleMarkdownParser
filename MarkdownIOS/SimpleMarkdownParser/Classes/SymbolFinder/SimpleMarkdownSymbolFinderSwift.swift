@@ -143,7 +143,7 @@ public class SimpleMarkdownSymbolFinderSwift: SimpleMarkdownSymbolFinder {
                         if character == "." {
                             needListDotSeparator = false
                         }
-                    } else if character == " " {
+                    } else if !needListDotSeparator && character == " " {
                         symbolStorage.addSymbol(listItemSymbol)
                         currentListItemSymbol = nil
                     } else {
