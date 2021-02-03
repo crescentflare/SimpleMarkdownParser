@@ -27,13 +27,13 @@ In version 0.7.0 the parser has been mostly rewritten using modern parsing techn
 The library is available through [CocoaPods](http://cocoapods.org). To install it, simply add one of the following lines to your Podfile.
 
 ```ruby
-pod "SimpleMarkdownParser", '~> 0.7.0'
+pod "SimpleMarkdownParser", '~> 0.7.1'
 ```
 
 ##### Carthage
 
 ```ruby
-github "crescentflare/SimpleMarkdownParser" ~> 0.7.0
+github "crescentflare/SimpleMarkdownParser" ~> 0.7.1
 ```
 
 ##### Older versions
@@ -51,7 +51,7 @@ The newest version is for Swift 5.0. For older Swift versions use the following:
 When using gradle, the library can easily be imported into the build.gradle file of your project. Add the following dependency:
 
 ```
-compile 'com.crescentflare.simplemarkdownparser:SimpleMarkdownParserLib:0.7.0'
+compile 'com.crescentflare.simplemarkdownparser:SimpleMarkdownParserLib:0.7.1'
 ```
 
 Make sure that jcenter is added as a repository.

@@ -108,7 +108,9 @@ class SimpleMarkdownSymbolFinderTests: XCTestCase {
             "  + Indented item",
             "1. Ordered item",
             "  1. Nested numbered item",
-            "  2. Second one"
+            "  2. Second one",
+            "",
+            "1 No list symbol"
         ]
         let expectedSymbols = [
             WrappedMarkdownSymbol(type: .unorderedListItem, text: "*", line: 0, linePosition: 0),
@@ -127,7 +129,10 @@ class SimpleMarkdownSymbolFinderTests: XCTestCase {
             WrappedMarkdownSymbol(type: .textBlock, text: "1. Nested numbered item", line: 4, linePosition: 2),
             WrappedMarkdownSymbol(type: .newline, text: "\n", line: 4, linePosition: 25),
             WrappedMarkdownSymbol(type: .orderedListItem, text: "2.", line: 5, linePosition: 2),
-            WrappedMarkdownSymbol(type: .textBlock, text: "2. Second one", line: 5, linePosition: 2)
+            WrappedMarkdownSymbol(type: .textBlock, text: "2. Second one", line: 5, linePosition: 2),
+            WrappedMarkdownSymbol(type: .newline, text: "\n", line: 5, linePosition: 15),
+            WrappedMarkdownSymbol(type: .newline, text: "\n", line: 6, linePosition: 0),
+            WrappedMarkdownSymbol(type: .textBlock, text: "1 No list symbol", line: 7, linePosition: 0)
         ]
         assertSymbols(markdownTextLines: markdownTextLines, expectedSymbols: expectedSymbols)
     }
