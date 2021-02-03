@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 26
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0.0"
         applicationId "com.crescentflare.simplemarkdownparserexample"
@@ -38,6 +38,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation project(':SimpleMarkdownParserLib')
 }
