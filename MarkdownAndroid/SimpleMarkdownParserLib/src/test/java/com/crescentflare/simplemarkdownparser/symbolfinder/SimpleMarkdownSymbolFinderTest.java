@@ -118,7 +118,9 @@ public class SimpleMarkdownSymbolFinderTest {
             "  + Indented item",
             "1. Ordered item",
             "  1. Nested numbered item",
-            "  2. Second one"
+            "  2. Second one",
+            "",
+            "1 No list symbol"
         };
         WrappedMarkdownSymbol[] expectedSymbols = new WrappedMarkdownSymbol[] {
             new WrappedMarkdownSymbol(MarkdownSymbol.Type.UnorderedListItem, "*", 0, 0),
@@ -137,7 +139,10 @@ public class SimpleMarkdownSymbolFinderTest {
             new WrappedMarkdownSymbol(MarkdownSymbol.Type.TextBlock, "1. Nested numbered item", 4, 2),
             new WrappedMarkdownSymbol(MarkdownSymbol.Type.Newline, "\n", 4, 25),
             new WrappedMarkdownSymbol(MarkdownSymbol.Type.OrderedListItem, "2.", 5, 2),
-            new WrappedMarkdownSymbol(MarkdownSymbol.Type.TextBlock, "2. Second one", 5, 2)
+            new WrappedMarkdownSymbol(MarkdownSymbol.Type.TextBlock, "2. Second one", 5, 2),
+            new WrappedMarkdownSymbol(MarkdownSymbol.Type.Newline, "\n", 5, 15),
+            new WrappedMarkdownSymbol(MarkdownSymbol.Type.Newline, "\n", 6, 0),
+            new WrappedMarkdownSymbol(MarkdownSymbol.Type.TextBlock, "1 No list symbol", 7, 0)
         };
         assertSymbols(markdownTextLines, expectedSymbols);
     }

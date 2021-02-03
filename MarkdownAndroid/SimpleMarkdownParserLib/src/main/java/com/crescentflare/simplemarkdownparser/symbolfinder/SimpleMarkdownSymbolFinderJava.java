@@ -136,7 +136,7 @@ public class SimpleMarkdownSymbolFinderJava implements SimpleMarkdownSymbolFinde
                         if (character == '.') {
                             needListDotSeparator = false;
                         }
-                    } else if (character == ' ') {
+                    } else if (!needListDotSeparator && character == ' ') {
                         symbolStorage.addSymbol(currentListItemSymbol);
                         currentListItemSymbol = null;
                     } else {

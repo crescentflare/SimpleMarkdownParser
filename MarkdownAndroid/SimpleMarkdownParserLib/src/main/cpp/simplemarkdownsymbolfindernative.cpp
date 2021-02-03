@@ -189,7 +189,7 @@ public:
                         if (character == '.') {
                             needListDotSeparator = false;
                         }
-                    } else if (character == ' ') {
+                    } else if (!needListDotSeparator && character == ' ') {
                         symbols.emplace_back(MarkdownSymbol(currentListItemSymbol));
                         currentListItemSymbol.makeInvalid();
                     } else {
