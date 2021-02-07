@@ -3,11 +3,13 @@
 [![CI Status](http://img.shields.io/travis/crescentflare/SimpleMarkdownParser.svg?style=flat)](https://travis-ci.org/crescentflare/SimpleMarkdownParser)
 [![License](https://img.shields.io/cocoapods/l/SimpleMarkdownParser.svg?style=flat)](http://cocoapods.org/pods/SimpleMarkdownParser)
 [![Version](https://img.shields.io/cocoapods/v/SimpleMarkdownParser.svg?style=flat)](http://cocoapods.org/pods/SimpleMarkdownParser)
-[![Version](https://img.shields.io/bintray/v/crescentflare/maven/SimpleMarkdownParserLib.svg?style=flat)](https://bintray.com/crescentflare/maven/SimpleMarkdownParserLib)
+[![Version](https://img.shields.io/maven-central/v/com.crescentflare.simplemarkdownparser/SimpleMarkdownParserLib.svg?style=flat)](https://repo1.maven.org/maven2/com/crescentflare/simplemarkdownparser/SimpleMarkdownParserLib)
 
 A multi-functional and easy way to integrate markdown formatting within mobile apps. Supports iOS and Android.
 
-**Important**
+⚠️ **Notice for Android developers**: JCenter plans to shut down in may 2021. To mitigate this, the SimpleMarkdownParser library has moved to Maven Central from version 0.7.1 onwards. Make sure to update to the latest version in time.
+
+**Important**  
 In version 0.7.0 the parser has been mostly rewritten using modern parsing techniques to make it more easy to add new features later. There is a migration guide available on the [wiki](https://github.com/crescentflare/SimpleMarkdownParser/wiki) which lists all the improvements and changes on how to make your app compatible with the new version. If you find a bug that was not in the previous version, make sure to create an [issue](https://github.com/crescentflare/SimpleMarkdownParser/issues) (including a sample of the markdown text causing the bug).
 
 
